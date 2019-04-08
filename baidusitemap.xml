@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://basicbit.cn/2018/10/15/2018-10-31-Windows%20Seh%20%E5%88%9D%E8%AF%86/</loc>
+    <lastmod>2019-04-08</lastmod>
+  </url>  <url>
+    <loc>https://basicbit.cn/2017/07/14/2017-07-14-PE%E6%84%9F%E6%9F%93%E5%9E%8B%E6%9C%A8%E9%A9%AC%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2019-04-08</lastmod>
+  </url>  <url>
     <loc>https://basicbit.cn/2018/10/08/2018-10-08-VS2017%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91QT%20with%20openssl/</loc>
     <lastmod>2019-04-08</lastmod>
   </url>  <url>
@@ -8,9 +14,6 @@
     <lastmod>2019-04-08</lastmod>
   </url>  <url>
     <loc>https://basicbit.cn/2017/06/13/2017-07-15-SSDT,PEB,TEB/</loc>
-    <lastmod>2019-04-08</lastmod>
-  </url>  <url>
-    <loc>https://basicbit.cn/2017/07/14/2017-07-14-PE%E6%84%9F%E6%9F%93%E5%9E%8B%E6%9C%A8%E9%A9%AC%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/</loc>
     <lastmod>2019-04-08</lastmod>
   </url>  <url>
     <loc>https://basicbit.cn/2017/01/13/2017-10-14-Windbg%E5%8F%8C%E6%9C%BA%E8%B0%83%E8%AF%95/</loc>
@@ -50,9 +53,6 @@
     <lastmod>2019-04-08</lastmod>
   </url>  <url>
     <loc>https://basicbit.cn/2016/03/10/2016-03-10-Linux%20%E5%BC%80%E6%9C%BA%E8%BF%87%E7%A8%8B/</loc>
-    <lastmod>2019-04-08</lastmod>
-  </url>  <url>
-    <loc>https://basicbit.cn/2018/10/15/2018-10-31-Windows%20Seh%20%E5%88%9D%E8%AF%86/</loc>
     <lastmod>2019-04-08</lastmod>
   </url>
 </urlset>
