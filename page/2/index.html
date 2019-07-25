@@ -267,8 +267,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:25:59+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -319,17 +319,14 @@
 
       
         
-          
-            <p>静态变量有局部静态变量（作用域内的静态变量），全局静态变量，然而他们的实现和全局变量是一样的，而局部静态变量只能在作用域访问是C语言的优化。</p>
-<p>局部静态变量不会随作用域结束而销毁，并且在未进入作用域之前就已经存在，其生命周期也与全局变量相同。局部静态变量和全局变量都保存在执行文件中的数据区中。</p>
-<p>局部静态变量会预先被作为全局变量处理，而它的初始化部分，只是在做赋值操作而已。</p>
-<p>在C++语法中局部静态变量只能被初始化一次，编译器的内部实现如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">void Static(int nNum)</span><br><span class="line">&#123;</span><br><span class="line">    static int g_nNum = nNum;</span><br><span class="line">    xor eax,eax</span><br><span class="line">    mov al,byte ptr[&apos;Static&apos;::&apos;2&apos;::$$1 (004257cc)]</span><br><span class="line">    and eax,1</span><br><span class="line">    test eax,eax</span><br><span class="line">    jne pp</span><br><span class="line">    mov cl,byte ptr[&apos;Static&apos;::&apos;2&apos;::$$1 (004257cc)]</span><br><span class="line">    or cl,1</span><br><span class="line">    mov byte ptr[&apos;Static&apos;::&apos;2&apos;::$$1 (004257cc)], cl</span><br><span class="line">    mov edx,[ebp + 8]</span><br><span class="line">    mov [_sbh_sizeHeaderList+4 (004257c8)],edx</span><br><span class="line">pp:</span><br><span class="line">    printf(&quot;%d&quot;, g_nNum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述代码首先从004257cc处取出1字节内容进行判断，这个byte的内容实际上就是局部静态变量初始状态的一个标志，这个标志占1字节，通过位运算，将标志的一位置1，而1个字节占8位，so这个标志可以同时表示8个局部静态变量的初始状态。</p>
-<p>标志坐在的内存地址在最先定义的局部静态变量地址的附近，如最先定义的整型局部静态变量在地址0x004257C0处，那么标记位地址通常在0x004257C4或0x004257BC处。当同一作用域内超过8个局部静态变量时，下一个标记位将会在第9个定义的局部静态变量地址附近。</p>
-<p>当局部静态变量为数组时，那么只检查数组的第1个字节是否进行过初始化，其他位将不进行检查。</p>
-
-          
+          <h1 id="静态变量底层实现"><a href="#静态变量底层实现" class="headerlink" title="静态变量底层实现"></a>静态变量底层实现</h1><p>静态变量有局部静态变量（作用域内的静态变量），全局静态变量，然而他们的实现和全局变量是一样的，而局部静态变量只能在作用域访问是C语言的优化。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/20/2018-10-20-静态变量底层实现/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -402,8 +399,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:25:47+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -454,210 +451,16 @@
 
       
         
-          
-            <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在Linux3.7之后对驱动添加了签名的限制，更多细节在此不做过多叙述。</p>
+          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在Linux3.7之后对驱动添加了签名的限制，更多细节在此不做过多叙述。</p>
 <p>当我们自己编译的ko文件，进行签名时，是不会得到Ubuntu编译时的私钥的。</p>
 <p>那我们就要使用自己编译的内核，在编译的过程中将驱动签名的验证关闭。</p>
-<h2 id="首先下载内核源码"><a href="#首先下载内核源码" class="headerlink" title="首先下载内核源码"></a>首先下载内核源码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://git.kernel.org/torvalds/t/linux-4.17-rc2.tar.gz</span><br></pre></td></tr></table></figure>
-<p>我在这下载的时linux 4.17-rc2的版本。</p>
-<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison</span><br></pre></td></tr></table></figure>
-<h2 id="解压源码"><a href="#解压源码" class="headerlink" title="解压源码"></a>解压源码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvf linux-4.17-rc2.tar.gz</span><br></pre></td></tr></table></figure>
-<h2 id="内核配置"><a href="#内核配置" class="headerlink" title="内核配置"></a>内核配置</h2><p>在正式编译内核之前，我们首先必须配置需要包含哪些模块。实际上，有一些非常简单的方式来配置。使用一个命令，你能拷贝当前内核的配置文件，然后使用可靠的 <code>menuconfig</code> 命令来做任何必要的更改。使用如下命令来完成：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /boot/config-$(uname -r) .config</span><br></pre></td></tr></table></figure>
-<p>得到这个.config文件之后，我们需要修改一些配置，你也可所以输入make menuconfig进行图形化配置。</p>
-<p><img src="../img/1555305009746.png" alt="1555305009746"></p>
-<p>我们需要修改 or 添加如下属性</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_MODULE_SIG=n</span><br><span class="line">CONFIG_MODULE_SIG_FORCE=n</span><br><span class="line">CONFIG_MODULE_SIG_SHA512=n</span><br></pre></td></tr></table></figure>
-<p>将这3个属性关闭，就可以加载未签名的驱动了。</p>
-<p>接下来就可以编译内核了。</p>
-<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make modules_install</span><br></pre></td></tr></table></figure>
-<p>过程耗时较长。</p>
-<h2 id="安装内核"><a href="#安装内核" class="headerlink" title="安装内核"></a>安装内核</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
-<p><code>make install</code> 命令将比 <code>make modules_install</code> 命令花费更多的时间。</p>
-<h2 id="启用内核作为引导"><a href="#启用内核作为引导" class="headerlink" title="启用内核作为引导"></a>启用内核作为引导</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-initramfs -c -k 4.17.0-rc2</span><br></pre></td></tr></table></figure>
-<h2 id="更新grub"><a href="#更新grub" class="headerlink" title="更新grub"></a>更新grub</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-grub</span><br></pre></td></tr></table></figure>
-<p>到此我们内核编译安装的过程已经结束了。</p>
-<h2 id="内核切换"><a href="#内核切换" class="headerlink" title="内核切换"></a>内核切换</h2><p>下面我们要做的就是，切换当前使用的内核为我们刚刚编译的内核。</p>
-<p>你可以将默认内核切换为刚刚编译的内核。</p>
-<p>我在这选择的是开机时切换。</p>
-<p>在这还需要配置/etc/default/grub文件中的 GRUB_TIMEOUT=10。</p>
-<p>！！！！不要在=号两边加空格</p>
-<p><img src="../img/1555337063789.png" alt="1555337063789"></p>
-<p>到此就可以在开机时切换内核为刚刚编译的内核了。</p>
-<h2 id="驱动代码"><a href="#驱动代码" class="headerlink" title="驱动代码"></a>驱动代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">hi.c</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;linux/init.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> __<span class="function">init <span class="title">hello_init</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">        printk(KERN_INFO <span class="string">"Hello World enter\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module_init(hello_init);</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span>  __<span class="function"><span class="built_in">exit</span> <span class="title">hello_exit</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">        printk(KERN_INFO <span class="string">"Hello World exit\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module_exit(hello_exit);</span><br><span class="line"></span><br><span class="line">MODULE_AUTHOR(<span class="string">"Barry Song &lt;21cnbao@gmail.com&gt;"</span>);</span><br><span class="line">MODULE_LICENSE(<span class="string">"GPL v2"</span>);</span><br><span class="line">MODULE_DESCRIPTION(<span class="string">"A simple Hello World Module"</span>);</span><br><span class="line">MODULE_ALIAS(<span class="string">"a simplest module"</span>);</span><br><span class="line">MODULE_INFO(intree, <span class="string">"Y"</span>);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Makefile</span><br><span class="line"></span><br><span class="line">ifeq ($(KERNELRELEASE),)</span><br><span class="line"></span><br><span class="line">KERNELDIR ?= /lib/modules/$(shell uname -r)/build</span><br><span class="line">PWD := $(shell pwd)</span><br><span class="line"></span><br><span class="line">.PHONY: build clean</span><br><span class="line"></span><br><span class="line">build:</span><br><span class="line">                 $(MAKE) -C $(KERNELDIR) M=$(PWD) modules</span><br><span class="line"></span><br><span class="line">clean:</span><br><span class="line">                 rm -rf *.o *~ core .depend .*.cmd *.ko *.mod.c</span><br><span class="line">         else</span><br><span class="line"></span><br><span class="line">$(info Building with KERNELRELEASE = $&#123;KERNELRELEASE&#125;)</span><br><span class="line">obj-m :=    hi.o</span><br><span class="line"></span><br><span class="line">endif</span><br></pre></td></tr></table></figure>
-<p>将两个文件放在同一个文件夹。</p>
-<p>输入make即可编译。</p>
-<h2 id="加载驱动"><a href="#加载驱动" class="headerlink" title="加载驱动"></a>加载驱动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo insmod hi.ko</span><br></pre></td></tr></table></figure>
-<h2 id="卸载驱动"><a href="#卸载驱动" class="headerlink" title="卸载驱动"></a>卸载驱动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rmmode hi</span><br></pre></td></tr></table></figure>
-<h2 id="查看驱动信息"><a href="#查看驱动信息" class="headerlink" title="查看驱动信息"></a>查看驱动信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modinfo hi.ko</span><br></pre></td></tr></table></figure>
-<h2 id="查看驱动输出"><a href="#查看驱动输出" class="headerlink" title="查看驱动输出"></a>查看驱动输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dmesg | grep hi</span><br></pre></td></tr></table></figure>
-<h2 id="另一种解决方案"><a href="#另一种解决方案" class="headerlink" title="另一种解决方案"></a>另一种解决方案</h2><p>创建一个签名加载内核中，需要用efi的方式安装Ubuntu。</p>
-<p>安装之后在BIOS中关闭<strong>Secure Boot</strong> 。</p>
-<h2 id="创建签名文件"><a href="#创建签名文件" class="headerlink" title="创建签名文件"></a>创建签名文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -x509 -newkey rsa:2048 -keyout MOK.priv -outform DER -out MOK.der -nodes -days 36500 -subj &quot;/CN=Descriptive name/&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="将签名文件加载进驱动"><a href="#将签名文件加载进驱动" class="headerlink" title="将签名文件加载进驱动"></a>将签名文件加载进驱动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/src/linux-headers-$(uname -r)/scripts/sign-file sha256 ./MOK.priv ./MOK.der /path/to/module</span><br></pre></td></tr></table></figure>
-<h2 id="将key加载进Securt-Boot"><a href="#将key加载进Securt-Boot" class="headerlink" title="将key加载进Securt Boot"></a>将key加载进Securt Boot</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mokutil --import MOK.der</span><br></pre></td></tr></table></figure>
-<h2 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure>
-<p>重启之后就可以用上面的命令加载ko模块了。</p>
-<h2 id="Ubuntu-论坛相关"><a href="#Ubuntu-论坛相关" class="headerlink" title="Ubuntu 论坛相关"></a>Ubuntu 论坛相关</h2><p><a href="https://askubuntu.com/questions/762254/why-do-i-get-required-key-not-available-when-install-3rd-party-kernel-modules" target="_blank" rel="noopener">https://askubuntu.com/questions/762254/why-do-i-get-required-key-not-available-when-install-3rd-party-kernel-modules</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2018/10/08/2018-10-08-VS2017静态编译QT with openssl/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Bi Yuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BasicBit">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/08/2018-10-08-VS2017静态编译QT with openssl/" itemprop="url">VS2017静态编译QT with openssl</a></h1>
-        
-
-        <div class="post-meta">
-          
-            <span class="post-updated">
-            &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
-            </time>
-            </span>
-          
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-08T00:00:00+08:00">
-                2018-10-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="VS2017-静态编译QT-with-openssl"><a href="#VS2017-静态编译QT-with-openssl" class="headerlink" title="VS2017 静态编译QT with openssl"></a>VS2017 静态编译QT with openssl</h1><p>在GitHub已经有人写了一个很好用的脚本。</p>
-<p><a href="https://github.com/fpoussin/Qt5-MSVC-Static" target="_blank" rel="noopener">Click me</a></p>
-<p><img src="/img/1538994302212.png" alt="1538994302212"></p>
-<p>在根目录会看到两个lnk  对应不同版本的vs console （x86 or x64）</p>
-<p>在这我编译的32位的版本</p>
-<p>建议把脚本放在盘符根目录  QT会因为路经过长而出现BUG</p>
-<p>下载脚本 双击VS2017_Win32</p>
-<p><img src="/img/1538994774433.png" alt="1538994774433"></p>
-<p>在个console中调用qt.bat 来下载编译</p>
-<p>在console中输入 qt download  脚本会下载并解压qt源码  和  openssl 源码 </p>
-<p>QT的源码在最新版本的VS2017 中编译是有问题的  在这QT官方给了一个新的源码下载链接</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull https://codereview.qt-project.org/qt/qtbase refs/changes/05/235205/7</span><br></pre></td></tr></table></figure>
-<p>替换掉脚本下载的QT源码在sources文件夹中</p>
-<p><img src="/img/1538995628677.png" alt="1538995628677"></p>
-<p>文件夹的名字不要换</p>
-<p>回到脚本中 执行 qt openssl  编译openssl</p>
-<p><img src="/img/1538995705184.png" alt="1538995705184"></p>
-<p>在编译完之后 我们就可以编译qt了 在编译qt之前 还需要修改下编译的脚本</p>
-<p>位于 tools\setup_qt.bat  </p>
-<p><img src="/img/1538995856677.png" alt="1538995856677"></p>
-<p>找到编译代码</p>
-<p>做一个整体替换</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> Configuring Qt...</span><br><span class="line">start  %QTDIR%\configure.bat -prefix %QTINSTALLDIR% -platform %PLATFORM% ^</span><br><span class="line">-opensource -confirm-license -debug-and-release -confirm-license -opengl dynamic  -static -static-runtime -no-shared ^</span><br><span class="line">-qt-libpng -qt-libjpeg -qt-zlib -qt-pcre -no-compile-examples -nomake examples ^</span><br><span class="line">-no-icu -optimize-size %EXTRABUILDOPTIONS% ^</span><br><span class="line">-openssl-linked -I %SSLINSTALLDIR%\include -L %SSLINSTALLDIR%\lib OPENSSL_LIBS=<span class="string">"-llibeay32 -lssleay32"</span> ^&amp;^&amp; pause <span class="built_in">exit</span></span><br><span class="line">IF %errorlevel% NEQ 0 <span class="built_in">exit</span> /b %errorlevel%</span><br></pre></td></tr></table></figure>
-<p>回到console中  输入qt setup </p>
-<p>紧接着          输入 qt build</p>
-<p>就开始静态编译安装QT了</p>
-<p>编译完成后默认存放目录在  c:\Qt\5.10.1 这个文件夹中</p>
-<p>因为我们之前替换过代码  实际我们编译的版本是5.11.1 的版本</p>
-<p>Good Job.</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/16/2018-10-16-编译Linux内核4.17/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -730,8 +533,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:25:45+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -782,112 +585,146 @@
 
       
         
+          <h1 id="VS2017编译-Bitcoin-master-with-Qt"><a href="#VS2017编译-Bitcoin-master-with-Qt" class="headerlink" title="VS2017编译 Bitcoin master with Qt"></a>VS2017编译 Bitcoin master with Qt</h1><h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/bitcoin/bitcoin</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/08/2018-10-09-VS2017编译bitcoin master/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2018/10/08/2018-10-08-VS2017静态编译QT with openssl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bi Yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BasicBit">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/08/2018-10-08-VS2017静态编译QT with openssl/" itemprop="url">VS2017静态编译QT with openssl</a></h1>
+        
+
+        <div class="post-meta">
           
-            <h1 id="VS2017编译-Bitcoin-master-with-Qt"><a href="#VS2017编译-Bitcoin-master-with-Qt" class="headerlink" title="VS2017编译 Bitcoin master with Qt"></a>VS2017编译 Bitcoin master with Qt</h1><h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/bitcoin/bitcoin</span><br></pre></td></tr></table></figure>
-<p><img src="/img/1539065582759.png" alt="1539065582759"></p>
-<p>下载Vcpkg   用来配置bitcoin需要用到的第三方库</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span>  https://github.com/Microsoft/vcpkg</span><br></pre></td></tr></table></figure>
-<p><img src="/img/1539065625326.png" alt="1539065625326"></p>
-<h2 id="初始化Vcpkg"><a href="#初始化Vcpkg" class="headerlink" title="初始化Vcpkg"></a>初始化Vcpkg</h2><p>打开cmd   </p>
-<p>​    cd vcpkg-master </p>
-<p>执行 bootstrap-vcpkg.bat 进行编译 vcpkg.exe</p>
-<p>编译结束就可以在vcpkg根目录看到vcpkg.exe了</p>
-<p><img src="/img/1539065902565.png" alt="1539065902565"></p>
-<p>然后，运行如下命令使计算机的所有用户都可以使用vcpkg</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcpkg integrate install</span><br></pre></td></tr></table></figure>
-<p>初始化搞定</p>
-<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><p>在命令行中执行</p>
-<p>vcpkg install boost:x86-windows-static</p>
-<p>install 安装命令</p>
-<p>boost 库的名字</p>
-<p>‘ : ’后面是安装库的版本  在我我们安装库的版本全部为32位静态库 如果你想安装动态库，直接干掉-static 就行了，如果编译64位，把x86换成x64。</p>
-<p>接下来执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vcpkg install libevent:x86windows-static</span><br><span class="line">vcpkg install openssl:x86-windows-static</span><br><span class="line">vcpkg install zeromq:x86-windows-static</span><br><span class="line">vcpkg install berkeleydb:x86-windows-static</span><br><span class="line">vcpkg install secp256k1:x86-windows-static</span><br><span class="line">vcpkg install leveldb:x86-windows-static</span><br></pre></td></tr></table></figure>
-<p>这个过程会很耗费时间    建议挂一个vpn   </p>
-<p>安装完成之后 </p>
-<p>我们打开到Bitcoin源码目录下面的build_msvc文件夹  看到msvc-autogen.py文件</p>
-<p>执行这个文件  python msvc-autogen.py</p>
-<p><img src="/img/1539069538346.png" alt="1539069538346"></p>
-<p>现在我们就可以打开 build_msvc目录下的bitcoin.sln了  </p>
-<p>现在就可以编译比特币了  </p>
-<p>编译完之后并没有bitcoin-qt </p>
-<h2 id="编译bitcoin-qt"><a href="#编译bitcoin-qt" class="headerlink" title="编译bitcoin-qt"></a>编译bitcoin-qt</h2><h3 id="首先我们要先编译Protobuf-库"><a href="#首先我们要先编译Protobuf-库" class="headerlink" title="首先我们要先编译Protobuf 库"></a>首先我们要先编译Protobuf 库</h3><p><a href="https://github.com/yuanbi/VS2017-Bitcoin" target="_blank" rel="noopener">下载链接</a></p>
-<p>我下载的是2.6.1的版本</p>
-<p><img src="/img/1539072815818.png" alt="1539072815818"></p>
-<p>打开C:\deps\protobuf-2.6.1\vsprojects下的protobuf.sln，生成解决方案</p>
-<p>Protobuf库是用来把paymentrequest.proto文件生成对应的.h、.cc文件的</p>
-<p>打开命令行 进入C:\bitcoin-master\src\qt 目录</p>
-<p>在这里执行protoc.exe  </p>
-<p>命令格式</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc --proto_path=e:/bitcoin/qt --cpp_out=e:/bitcoin/qt e:/bitcoin/qt/paymentrequest.proto</span><br></pre></td></tr></table></figure>
-<h3 id="接下来我们要自己编译static-qt"><a href="#接下来我们要自己编译static-qt" class="headerlink" title="接下来我们要自己编译static qt"></a>接下来我们要自己编译static qt</h3><p>在我之前的博客有教程，在这就不说了。<a href="https://www.hackyuan.top/2018/10/08/VS2017%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91QT-with-openssl/" target="_blank" rel="noopener">电梯</a></p>
-<p>编译完static qt之后  需要在VS2017中安装一个Qt插件</p>
-<p>打开VS2017 选中  工具—-&gt;拓展和更新</p>
-<p><img src="/img/1539070073798.png" alt="1539070073798"></p>
-<p>点击 联机  –  搜索Qt  – 下载</p>
-<p><img src="/img/1539070118357.png" alt="1539070118357"></p>
-<p>下载完成后    会出现“扩展和更新窗口”的底部会出现“更新已列入计划…”的提示信息</p>
-<p>关闭VS2017 </p>
-<p>会弹出安装界面  点击修改即可</p>
-<p><img src="/img/1539070250808.png" alt="1539070250808"></p>
-<p>安装结束之后打开VS2017</p>
-<p>在菜单栏就可以看见 Qt VS Tools 了</p>
-<p><img src="/img/1539070318094.png" alt="1539070318094"></p>
-<p>接下来添加我们之前编译的Static Qt 到 Qt VS Tools</p>
-<p><img src="/img/1539070415782.png" alt="1539070415782"></p>
-<p>点击Qt Options</p>
-<p><img src="/img/1539070436942.png" alt="1539070436942"></p>
-<p>点击Add</p>
-<p><img src="/img/1539070489872.png" alt="1539070489872"></p>
-<p>选中我们编译的Static Qt的目录</p>
-<p>点击确定  </p>
-<p>搞定</p>
-<p>接下来我们需要创建一个Qt项目</p>
-<p><img src="/img/1539070779780.png" alt="1539070779780"></p>
-<p>选中Qt Gui Application</p>
-<p><img src="/img/1539070799504.png" alt="1539070799504"></p>
-<p>添加Bitcoin-qt 源码进来</p>
-<p><img src="/img/1539070877737.png" alt="1539070877737"></p>
-<p>我们需要添加</p>
-<p>bitcoin-master\src\qt下面所有文件 </p>
-<p>bitcoin-master\src\interfaces下面所有文件 </p>
-<p>bitcoin-master\src\bitcoin-config.h  这个文件包含了一些预定义的宏  可以在我的GitHub上面下载 <a href="https://github.com/yuanbi/VS2017-Bitcoin" target="_blank" rel="noopener">直达电梯</a></p>
-<p>添加结束之后  打开项目属性 – C/C/++ – 常规 – 附加包含目录</p>
-<p><img src="/img/1539071829785.png" alt="1539071829785"></p>
-<p>在这里需要添加 我们之前 在vcpkg 编译库的include目录</p>
-<p>添加之前编译bitcoin-master中的编译生成目录 </p>
-<p>我这里是       C:\bitcoin-master\build_msvc\Release</p>
-<p>添加Bitcoin-master\src  比特币源码目录</p>
-<p>添加Qt plugins 目录</p>
-<p>添加protobuf-2.6.1\src  protocbuf源码目录</p>
-<p><img src="/img/1539073087038.png" alt="1539073087038"></p>
-<p>接下来选中代码生成 – 运行库  修改为 多线程-MT</p>
-<p><img src="/img/1539073463472.png" alt="1539073463472"></p>
-<p>选中 预处理器 – 预处理器定义</p>
-<p>添加下面的宏进去 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">WIN32</span><br><span class="line">_WIN32_WINDOWS</span><br><span class="line">HAVE_WORKING_BOOST_SLEEP</span><br><span class="line">LEVELDB_PLATFORM_WINDOWS</span><br><span class="line">OS_WIN</span><br><span class="line">ENABLE_WALLET</span><br><span class="line">_CRT_SECURE_NO_WARNINGS</span><br><span class="line">_SCL_SECURE_NO_WARNINGS</span><br><span class="line">HAVE_CONFIG_H</span><br><span class="line">_X86_</span><br></pre></td></tr></table></figure>
-<p><img src="/img/1539073560643.png" alt="1539073560643"></p>
-<p>接着 选中 配置属性 – 链器 – 常规 –附加库目录</p>
-<p>添加Qt plugins 目录</p>
-<p>添加之前编译bitcoin-master中编译的lib目录</p>
-<p>我这里是 C:\bitcoin-master\build_msvc\Release</p>
-<p>添加qtserialport lib目录 这个如果没有  自行下载编译 </p>
-<p>添加Protocbuf下lib 目录</p>
-<p>我这里的目录是</p>
-<p>C:\qtserialport\build-qtserialport-Qt_5_11_1_msvc2017_x86_static_temporary-Release\lib</p>
-<p>在这里需要添加 我们之前 在vcpkg 编译库的lib目录</p>
-<p><img src="/img/1539073929179.png" alt="1539073929179"></p>
-<p>接着选中连接器 – 输入 –  附加依赖项</p>
-<p>添加如下lib</p>
-<p>Qt5ThemeSupport.lib<br>qflatpak.lib<br>Qt5FbSupport.lib<br>Qt5EventDispatcherSupport.lib<br>shell32.lib<br>dwmapi.lib<br>oleaut32.lib<br>Qt5Widgets.lib<br>Qt5Gui.lib<br>Qt5Core.lib<br>Mincore.lib<br>crypt32.lib<br>Qt5OpenGLExtensions.lib<br>Qt5FontDatabaseSupport.lib<br>Qt5WindowsUIAutomationSupport.lib<br>Qt5OpenGL.lib<br>qtlibpng.lib<br>qtuiotouchplugin.lib<br>windowsprintersupport.lib<br>Qt5Xml.lib<br>qgenericbearer.lib<br>qgif.lib<br>qico.lib<br>qjpeg.lib<br>qsqlodbc.lib<br>qsqlite.lib<br>qwindowsvistastyle.lib<br>qdirect2d.lib<br>libEGL.lib<br>libGLESv2.lib<br>qtfreetype.lib<br>qtmain.lib<br>qtpcre2.lib<br>qtharfbuzz.lib<br>qminimal.lib<br>qoffscreen.lib<br>qwindows.lib<br>imm32.lib<br>winmm.lib<br>opengl32.lib<br>ws2_32.lib<br>wsock32.lib<br>Iphlpapi.lib<br>libbitcoin_crypto.lib<br>libbitcoin_cli.lib<br>libbitcoin_server.lib<br>libbitcoin_wallet.lib<br>libbitcoin_zmq.lib<br>libbitcoin_common.lib<br>libbitcoin_util.lib<br>libunivalue.lib<br>libbitcoin_consensus.lib<br>boost_filesystem-vc140-mt.lib<br>libprotoc.lib<br>libprotobuf.lib<br>boost_atomic-vc140-mt.lib<br>boost_chrono-vc140-mt.lib<br>boost_container-vc140-mt.lib<br>boost_context-vc140-mt.lib<br>boost_contract-vc140-mt.lib<br>boost_coroutine-vc140-mt.lib<br>boost_date_time-vc140-mt.lib<br>boost_exception-vc140-mt.lib<br>boost_fiber-vc140-mt.lib<br>boost_graph-vc140-mt.lib<br>boost_iostreams-vc140-mt.lib<br>boost_locale-vc140-mt.lib<br>boost_log-vc140-mt.lib<br>boost_log_setup-vc140-mt.lib<br>boost_math_c99-vc140-mt.lib<br>boost_math_c99f-vc140-mt.lib<br>boost_math_c99l-vc140-mt.lib<br>boost_math_tr1-vc140-mt.lib<br>boost_math_tr1f-vc140-mt.lib<br>boost_math_tr1l-vc140-mt.lib<br>boost_program_options-vc140-mt.lib<br>boost_python36-vc140-mt.lib<br>boost_random-vc140-mt.lib<br>boost_regex-vc140-mt.lib<br>boost_serialization-vc140-mt.lib<br>boost_signals-vc140-mt.lib<br>boost_stacktrace_noop-vc140-mt.lib<br>boost_stacktrace_windbg-vc140-mt.lib<br>boost_stacktrace_windbg_cached-vc140-mt.lib<br>boost_system-vc140-mt.lib<br>boost_thread-vc140-mt.lib<br>boost_timer-vc140-mt.lib<br>boost_type_erasure-vc140-mt.lib<br>boost_unit_test_framework-vc140-mt.lib<br>boost_wave-vc140-mt.lib<br>boost_wserialization-vc140-mt.lib<br>zlib.lib<br>ssleay32.lib<br>secp256k1.lib<br>python36.lib<br>lzma.lib<br>libzmq-mt-s-4_3_1.lib<br>libeay32.lib<br>libdb48.lib<br>leveldb.lib<br>event_extra.lib<br>event_core.lib<br>event.lib<br>bz2.lib<br>Shlwapi.lib<br>Qt5Network.lib<br>glu32.lib<br>Qt5SerialPort.lib<br>Qt5Sql.lib<br>Qt5Concurrent.lib<br>Qt5DBus.lib<br>Qt5PrintSupport.lib</p>
-<p><img src="/img/1539073995808.png" alt="1539073995808"></p>
-<p>点击确定 </p>
-<p>接下来就可以编译了</p>
-<p><img src="/img/1539074425293.png" alt="1539074425293"></p>
-<p><img src="/img/1539074472422.png" alt="1539074472422"></p>
-<p>Good Job.</p>
+            <span class="post-updated">
+            &nbsp; | &nbsp; post.updated
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:25:32+08:00" content="2019-07-25">
+              2019-07-25
+            </time>
+            </span>
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-08T00:00:00+08:00">
+                2018-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
 
           
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="VS2017-静态编译QT-with-openssl"><a href="#VS2017-静态编译QT-with-openssl" class="headerlink" title="VS2017 静态编译QT with openssl"></a>VS2017 静态编译QT with openssl</h1><p>在GitHub已经有人写了一个很好用的脚本。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/08/2018-10-08-VS2017静态编译QT with openssl/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -960,8 +797,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:25:13+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -1012,43 +849,14 @@
 
       
         
-          
-            <h1 id="PE感染型木马分析"><a href="#PE感染型木马分析" class="headerlink" title="PE感染型木马分析"></a>PE感染型木马分析</h1><p>在正式看代码之前先对exe结构（PE）做一个简单了解</p>
-<h2 id="PE中的Section"><a href="#PE中的Section" class="headerlink" title="PE中的Section"></a>PE中的Section</h2><p>当我们写完代码，编译为二进制文件之后。在代码中初始化变量的值会被全部提取出来，并整合在一起，在二进制文件中，找到一块连续的空间放进去并称之为节（section）。在生成之前的图片，文件等其他资源，同样被整合在一起，放在一个节中。代码里面的const不可修改的变量的初始值，不会和可修改的放在一起，会被提取出来单独放在一个节中。代码也是一样单独放在一个节中。除了这些还有其他的节，在这就不全部讲解了。</p>
-<p><strong>我们还需要了解一个机制</strong></p>
-<h2 id="随机基址"><a href="#随机基址" class="headerlink" title="随机基址"></a>随机基址</h2><p>什么是随机基址，当我们双击运行一个exe文件，它会被PE装载器，放到内存里面。那么在内存中每一bit都是有数字来告诉你它在哪，称之为地址，那么加载的这个exe是从哪开始加载的，那么这个位置就被称之为基址，随机地址顾名思义，当你多次执行exe的时候，每一次加载的位置都不一样。</p>
-<p>那 么  就会引发一个问题</p>
-<h5 id="全局变量的问题"><a href="#全局变量的问题" class="headerlink" title="全局变量的问题"></a>全局变量的问题</h5><p>全局变量在内存中也是通过编号进行访问，也就是我们说的地址，但是它的寻址方式不是相对的，也就是说你在编译二进制文件的时候，全局变量的地址就已经写进文件中了，当我们编译的时候选用了随机基址，假设我们默认的加载位置是0x401000，有一个全局变量的地址为0x402004的位置，那么因为我们开启了随机基址，我们加载exe的位置很有可能不是0x401000，这个时候0x402004的位置也就不是我们的全局变量了，那找不到全局变量的位置。</p>
-<h5 id="解决这个问题"><a href="#解决这个问题" class="headerlink" title="解决这个问题"></a>解决这个问题</h5><p>当你写好代码，点击编译为二进制文件的时候（开启随机基址），会添加一个新的节，<strong>重定位</strong>节，这里面包含了所有需要绝对寻址的方式的地址，那么当你双击运行的时候，PE装载器就会找到重定位节在里面读取出所有的这个节里面保存的地址，然后找到这个exe默认加载的基址A（写在二进制文件中），在拿到本次加载的位置B，计算这两个地址的差值C，最后把重定位节里面找到的所有地址和差值C进行相加或者相减，在放回去。<strong>搞定！</strong></p>
-<h1 id="PE中的Header"><a href="#PE中的Header" class="headerlink" title="PE中的Header"></a>PE中的Header</h1><p>我们之前说到了节，PE装载器会把这些节加载到内存，还有你的第一行代码从哪个地址开始执行，PE装在器通过读取PE 中的Header 获取节位置、属性、大小、权限等信息，并且限制每一个节的行为，比如const不可修改的原因就是因为所在节的属性选中了不可修改、数据节里不能执行代码也是这个原因。</p>
-<p>那pe感染型病毒是怎么执行的呢，它修改了这个二进制文件，首先添加了一个节在PE header，然后拓展文件大小，把代码写进去，把节的属性写进去，在修改执行第一行的代码的位置，修改为自己拓展位置的代码地址，然后搞定。</p>
-<p>这里面涉及文件对齐、内存对齐、等其他PE基础知识请看我的其他文章。</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>首先代码中必须解决重定位的问题  so easy</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">call @F</span><br><span class="line">@@: </span><br><span class="line">    	pop ebx</span><br><span class="line">    	sub ebx,offset @B</span><br></pre></td></tr></table></figure>
-<p>这里涉及到的栈知识，请看我的其他文章。</p>
-<p>上面的几行代码执行过后就会获得，我们之前所说的PE装载器获取的默认加载基址 与本次加载基址的差值，我们获取到这个差值，代码中的重定位问题就解决了。</p>
-<p>接下来获取kernel32.dll的地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">GetKernelBase proc  </span><br><span class="line">    local @dwRet:dword</span><br><span class="line">    pushad</span><br><span class="line">    assume fs:nothing</span><br><span class="line">    mov eax,fs:[30h]</span><br><span class="line">    mov eax,[eax+0ch]</span><br><span class="line">    mov eax,[eax+1ch]</span><br><span class="line">    mov eax,[eax]</span><br><span class="line">    mov eax,[eax]</span><br><span class="line">    mov eax,[eax + 8]</span><br><span class="line">    mov @dwRet,eax</span><br><span class="line">    popad</span><br><span class="line">    mov eax,@dwRet</span><br><span class="line">    </span><br><span class="line">    ret</span><br><span class="line">GetKernelBase endp</span><br></pre></td></tr></table></figure>
-<p>这里涉及到的TEB、PEB的知识请看我的其他文章。</p>
-<p>通过进程环境（TEB），获取kernel32.dll的地址  相当于调用了LoadLibrary(“kernel32.dll”)；</p>
-<p>这个地址实际上就是kernel32.dll加载的基址。</p>
-<p>那么这里面就包含了很多系统函数，通过遍历导出表，或者字节查找的方式找到GetProcAddress()的函数地址。</p>
-<p>贴代码</p>
-<p>这段代码是通过名字进行遍历</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">GetApi  proc _lpKernel,_lpNamex</span><br><span class="line">local @dwApiSize</span><br><span class="line">    xor al,al</span><br><span class="line">    mov ecx,-1</span><br><span class="line">    mov edi,lpName</span><br><span class="line">    cld</span><br><span class="line">    repne scasb</span><br><span class="line">    mov ecx,edi</span><br><span class="line">    sub ecx,lpName</span><br><span class="line">    mov @dwApiSize,ecx</span><br><span class="line">    mov esi,_lpKernel</span><br><span class="line">    add esi,[esi + 3ch]</span><br><span class="line">assume esi:ptr IMAGE_NT_HEADERS</span><br><span class="line">mov esi,[esi].OptionalHeader.DataDirectory[0].VirtualAddress</span><br><span class="line">add esi,_lpKernel</span><br><span class="line">assume esi:ptr IMAGE_EXPORT_DIRECTORY</span><br><span class="line">mov ecx,[esi].NumberOfNames</span><br><span class="line">mov ebx,[esi].AddressOfNames</span><br><span class="line">add ebx,_lpKernel</span><br><span class="line">.while ecx</span><br><span class="line">    push ecx</span><br><span class="line">    push esi</span><br><span class="line">    mov edi,[ebx]</span><br><span class="line">    add edi,_lpKernel</span><br><span class="line">    mov esi,_lpName</span><br><span class="line">    mov ecx,@dwApiSize</span><br><span class="line">    repz cmpsb</span><br><span class="line">    .if !ecx</span><br><span class="line">        pop esi</span><br><span class="line">        pop ecx</span><br><span class="line">        jmp @F</span><br><span class="line">    .endif</span><br><span class="line">    add ebx,4</span><br><span class="line">    pop esi</span><br><span class="line">    pop ecx</span><br><span class="line">    dec ecx</span><br><span class="line">.endw</span><br><span class="line">@@:</span><br><span class="line">    mov ebx,[esi].NumberOfNames</span><br><span class="line">    sub ebx,ecx    </span><br><span class="line">    shl ebx,1</span><br><span class="line">    mov edi,[esi].AddressOfNameOrdinals</span><br><span class="line">    add edi,ebx</span><br><span class="line">    add edi,lpKernel</span><br><span class="line">    mov ax,word ptr[edi]</span><br><span class="line">    movzx eax,ax</span><br><span class="line">    shl eax,2</span><br><span class="line">    mov edi,[esi].AddressOfFunctions</span><br><span class="line">    add edi,eax</span><br><span class="line">    add edi,lpKernel</span><br><span class="line">    mov edi,[edi]</span><br><span class="line">    add edi,_lpKernel</span><br><span class="line">    mov eax,edi</span><br><span class="line">    ret</span><br><span class="line">GetApi end</span><br></pre></td></tr></table></figure>
-<p>当我们得到GetProcAddress地址之后，就可以通过这个地址之后，就可以使用这个函数来获取LoadLibrary函数的地址，我们需要两个参数，第一个参数是你要获取的这个函数所在dll的基址，也就是kernel32.dll的基址，我们之前已经获取过了，第二个参数就是要获取函数的名字。</p>
-<p>上代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mov ecx,offset szLoadLibrary;&quot;LoadLibraryA/W&quot;字符串地址</span><br><span class="line">add ecx,ebx;重定位问题</span><br><span class="line"></span><br><span class="line">push ecx</span><br><span class="line">push edi</span><br><span class="line">call ebp;getprocaddress(handle,LoadLibrary)</span><br><span class="line"></span><br><span class="line">mov ecx,offset ddLoadLibrary;存储LoadLiabraryA/W地址位置</span><br><span class="line">add ecx,ebx;重定位问题</span><br><span class="line"></span><br><span class="line">mov [ecx],eax;保存地址</span><br></pre></td></tr></table></figure>
-<p>现在我们获取到GetProcAddress 和 LoadLibraryA/W的地址，现在就可以为所欲为了。</p>
-<p>当你写完代码之后编译为二进制文件。</p>
-<p>把代码的字节提取出来，在PE 代码节中。</p>
-<p>提取出来之后写进你要感染的exe中。</p>
-<p>修改目标exe的第一行代码执行的位置。</p>
-<p>修改你添加代码的最后5个字节。</p>
-<p>修改为跳转到目标exe原第一行代码执行的位置。</p>
-<p><strong>搞定！</strong></p>
-
-          
+          <h1 id="PE感染型木马分析"><a href="#PE感染型木马分析" class="headerlink" title="PE感染型木马分析"></a>PE感染型木马分析</h1><p>在正式看代码之前先对exe结构（PE）做一个简单了解</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/14/2017-07-14-PE感染型木马汇编代码分析/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1121,8 +929,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:25:19+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -1173,64 +981,14 @@
 
       
         
-          
-            <h2 id="SSDT"><a href="#SSDT" class="headerlink" title="SSDT"></a>SSDT</h2><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>SSDT全称是”System Services Descriptor Table”（系统服务描述符表），在内核中的实际名称是”KeSeriveDescriptorTable“。这个表已通过内核ntoskrnl.exe导出（在x64里不导出）。</p>
-<p>SSDT用于处理应用层通过kernel32.dll下发的各个API操作请求。ntdll.dll中的API是一个简单的包装函数，当kernel32.dll中的API通过ntdll.dll时，会先完成对参数的检查，在调用一个中断（int 2Eh 或者 Sys Enter指令），从而实现从R3层进入R0层，并将要调用的服务号（也就是SSDT数组中的索引号index值）存放到寄存器EAX中，最后根据存放在EAX中的索引值在SSDT数组中调用指定的服务（Nt*系列函数）如下图所示。</p>
-<p><img src="/img/1550663088705.png" alt="1550663088705"></p>
-<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>SSDT表的结构定义如下</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(1)</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ServiceDescriptorEntry</span>&#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> *ServiceTableBase;	<span class="comment">//Table Base Address</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> *ServiceCounterTableBase;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> NumberOfServices;<span class="comment">// Count of Service function in table</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *ParamTableBas;</span><br><span class="line">&#125;</span><br><span class="line">ServiceDescriptorTableEntry_t,</span><br><span class="line">*PServiceDescriptorTableEntry_t;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack()</span></span><br></pre></td></tr></table></figure>
-<p>其中最重要的2个成员为ServiceTableBase（SSDT表的基地址）和 NumberOfServices（表示系统中SSDT服务函数的个数）。SSDT表其实就是一个连续存放这个函数指针的数组。</p>
-<h4 id="原理与Hook"><a href="#原理与Hook" class="headerlink" title="原理与Hook"></a>原理与Hook</h4><p>SSDT表的导入方法如下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__declspec(dllimport) ServiceDescriptorTableEntry_t KeServiceDescriptorTable;</span><br></pre></td></tr></table></figure>
-<p>由此可以知道SSDT表的基地址（数组的首地址）和SSDT函数的索引号（index），从而求出对应的服务函数的地址。在x86平台上，它们之间满足如下规则。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FuncAddr = KeServiceDescriptortable + 4 * index</span><br></pre></td></tr></table></figure>
-<p>与x86平台上直接在SSDT中存放SSDT函数地址不同，在x64平台上，SSDT中存放的时索引号所对应SSDT函数地址和SSDT表基地址的偏移 * 16 的值，计算公式如下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FuncAddr = ([KeServiceDescriptortable + index * 4] &gt;&gt; 4 + KeServiceDescriptorTable)</span><br></pre></td></tr></table></figure>
-<p>通过这个公式，只要知道SSDT表的首地址和对应函数的索引号，就可以将对应位置的服务函数替换成自己的函数，从而完成SSDT Hook过程了。</p>
-<p>Shadow SSDT的原理比SSDT类似，它对应的表名为KeServiceDescriptorTableShadow，是内核未导出的另一张表，包含Ntoskrnel.exe和win32k.sys服务函数，主要处理来自User32.dll和GDI32.dll的系统调用。与SSDT不同，Shadow SSDT是未导出的，因此不能在自己的模块中导入和直接引用。</p>
-<p>挂钩该表中的NtGdiBitBlt、NtGdiStretchBlt 可以实现截屏保护。挂钩NtUserSetWindowsHookEx函数可以防止或保护键盘钩子，挂钩与按键相关的函数NtUserSendInput可以防止模拟按键，挂钩NtUserFindWindowEx函数可以防止或保护键盘钩子，挂钩与按键相关的函数NtUserSendInput可以防止模拟按键，挂钩NtUserFindWindowEx函数可以防止搜索窗口，挂钩与窗口相关的函数NtUserPostMessage、NtUserQueryWindow可以防止窗口被关闭。</p>
-<p>Shadow SSDT的管沟原理和SSDT的挂钩原理一样，只不过由于未导出，需要使用不同的方法来获取该表的地址及服务函数的索引号。例如，硬编码与KeServiceDescriptorTable在不同系统中的位置偏移，搜索KeAddSystemServiceTable、KTHREAD.ServiceTable，以及有效内存搜索等。</p>
-<p>KeServiceDescriptorTableShadow实际上也是一个SSDT结构数组，也就是说，KeServiceDescriptorTableShadow是一组系统描述表。在Windows XP中，KeServiceDescriptorTableShadow表位于KeServiceDescriptorTable表上方便宜0x40处。</p>
-<p>KeServiceDescriptorTableShadow包含四个子结构，示例如下。第一个子结构是”ntoskrnl.exe（native api）”，与KeServiceDescriptorTable的指向相同。真正需要获得的是第二个子结构，即”win32k.sys(gdi/user support)”。第三个和第四个子结构一般不使用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _SERVICE_DESCRIPTOR_TABLE</span><br><span class="line">&#123;</span><br><span class="line">    SYSTEM_SERVICE_TABLE ntoskrnl;			//ntoskrnl.exe(native api)</span><br><span class="line">    SYSTEM_SERVICE_TABLE win32k;			//win32k.sys(gdi/user support)</span><br><span class="line">    SYSTEM_SERVICE_TABLE Table3;			//Not used</span><br><span class="line">    SYSTEM_SERVICE_TABLE Table4;			//Not used</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="TEB"><a href="#TEB" class="headerlink" title="TEB"></a>TEB</h2><p>TEB和PEB一样，不在系统内核空间中，而是之外应用层中的结构。TEB结构比较重要。</p>
-<h4 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h4><p>TEB 全称 Thread environment block,线程环境块，结构中包含了系统频繁使用的一些与线程相关的数据。进程中的每个线程（系统线程除外）都有一个自己的TEB。一个进程的所有TEB都存放在0x7FFDE00开始的线性内存中，，每4KB未一个完整的TEB。</p>
-<h4 id="1-TEB结构体"><a href="#1-TEB结构体" class="headerlink" title="1. TEB结构体"></a>1. TEB结构体</h4><p>与EPROCESS类似（其他博文已有描述），在不同的Windows中，TEB结构略有差异。例如，在R3级的应用程序中，fs:[0]的地址指向TEB结构，这个结构的开头是一个NT_TIB结构，具体如下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">0:000&gt; dt _nt_tib</span><br><span class="line">ntdll!_NT_TIB</span><br><span class="line">   +0x000 ExceptionList    : Ptr32 _EXCEPTION_REGISTRATION_RECORD</span><br><span class="line">   +0x004 StackBase        : Ptr32 Void</span><br><span class="line">   +0x008 StackLimit       : Ptr32 Void</span><br><span class="line">   +0x00c SubSystemTib     : Ptr32 Void</span><br><span class="line">   +0x010 FiberData        : Ptr32 Void</span><br><span class="line">   +0x010 Version          : Uint4B</span><br><span class="line">   +0x014 ArbitraryUserPointer : Ptr32 Void</span><br><span class="line">   +0x018 Self             : Ptr32 _NT_TIB</span><br></pre></td></tr></table></figure>
-<p>(摘自 Windbg)</p>
-<p>NT_TIB结构的0x18偏移处是一个Self指针，指向这个结构自身，也就是TEB结构的开头。TEB结构的0x30偏移处是指向PEB的指针。</p>
-<p>利用Windbg的本地调试可以查看系统中的TEB结构。启动WinDbg，选择  File –&gt;  Kernel Debug –&gt; Local 选项，然后在弹出的对话框中单击 Local 标签，就可以打开WinDbg的本机调试功能。在 Windows Vista 及以后的版本中会弹出信息，提示系统不支持本地内核调试，这时可以使用管理员模式打开cmd ，输入命令 bcdedit -debug on，重新启动计算机，在以管理员身份打开WinDbg。</p>
-<p>输入 !teb 即可查看TEB结构数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">0:000&gt; !teb</span><br><span class="line">TEB at 00620000</span><br><span class="line">    ExceptionList:        0093f6f4</span><br><span class="line">    StackBase:            00940000</span><br><span class="line">    StackLimit:           0093c000</span><br><span class="line">    SubSystemTib:         00000000</span><br><span class="line">    FiberData:            00001e00</span><br><span class="line">    ArbitraryUserPointer: 00000000</span><br><span class="line">    Self:                 00620000</span><br><span class="line">    EnvironmentPointer:   00000000</span><br><span class="line">    ClientId:             00003220 . 00002294</span><br><span class="line">    RpcHandle:            00000000</span><br><span class="line">    Tls Storage:          0062002c</span><br><span class="line">    PEB Address:          0061d000</span><br><span class="line">    LastErrorValue:       0</span><br><span class="line">    LastStatusValue:      0</span><br><span class="line">    Count Owned Locks:    0</span><br><span class="line">    HardErrorMode:        0</span><br></pre></td></tr></table></figure>
-<p>继续查看，代码如下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">0:000&gt; dt _teb 00620000</span><br><span class="line">ntdll!_TEB</span><br><span class="line">   +0x000 NtTib            : _NT_TIB</span><br><span class="line">   +0x01c EnvironmentPointer : (null) </span><br><span class="line">   +0x020 ClientId         : _CLIENT_ID</span><br><span class="line">   +0x028 ActiveRpcHandle  : (null) </span><br><span class="line">   +0x02c ThreadLocalStoragePointer : 0x0062002c Void</span><br><span class="line">   +0x030 ProcessEnvironmentBlock : 0x0061d000 _PEB</span><br><span class="line">   +0x034 LastErrorValue   : 0</span><br><span class="line">   +0x038 CountOfOwnedCriticalSections : 0</span><br><span class="line">   +0x03c CsrClientThread  : (null) </span><br><span class="line">   +0x040 Win32ThreadInfo  : (null) </span><br><span class="line">   +0x044 User32Reserved   : [26] 0</span><br><span class="line">   +0x0ac UserReserved     : [5] 0</span><br><span class="line">   +0x0c0 WOW32Reserved    : 0x77196000 Void</span><br><span class="line">   +0x0c4 CurrentLocale    : 0x804</span><br><span class="line">   +0x0c8 FpSoftwareStatusRegister : 0</span><br><span class="line">   +0x0cc ReservedForDebuggerInstrumentation : [16] (null) </span><br><span class="line">   +0x10c SystemReserved1  : [26] (null) </span><br><span class="line">   +0x174 PlaceholderCompatibilityMode : 0 &apos;&apos;</span><br><span class="line">   +0x175 PlaceholderHydrationAlwaysExplicit : 0 &apos;&apos;</span><br><span class="line">   +0x176 PlaceholderReserved : [10]  &quot;&quot;</span><br><span class="line">   +0x180 ProxiedProcessId : 0</span><br><span class="line">   +0x184 _ActivationStack : _ACTIVATION_CONTEXT_STACK</span><br><span class="line">   +0x19c WorkingOnBehalfTicket : [8]  &quot;&quot;</span><br><span class="line">   +0x1a4 ExceptionCode    : 0n0</span><br><span class="line">   +0x1a8 ActivationContextStackPointer : 0x00620184 _ACTIVATION_CONTEXT_STACK</span><br><span class="line">   +0x1ac InstrumentationCallbackSp : 0</span><br><span class="line">   //更多代码略</span><br></pre></td></tr></table></figure>
-<p>在TEB中，0x30偏移处时PEB结构，地址为0x00620000。可以使用dt命令进一步查看PEB结构成员中的值。</p>
-<h4 id="2-访问TEB"><a href="#2-访问TEB" class="headerlink" title="2. 访问TEB"></a>2. 访问TEB</h4><p>可以通过NtCurrentTeb函数调用和FS段寄存器访问这两种方法访问TEB结构。</p>
-<h5 id="（1）NtCurrentTeb函数调用"><a href="#（1）NtCurrentTeb函数调用" class="headerlink" title="（1）NtCurrentTeb函数调用"></a>（1）NtCurrentTeb函数调用</h5><p>从ntdll.dll中道出了一个函数NtCurrentTeb函数，该函数可以返回当前线程的TEB结构体的地址。通过喜爱按的代码，就i可以从ntdll.dll中找到对应的NtCurrentTeb函数地址并调用它，返回TEB结构的地址。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">TEB</span>&#123;</span></span><br><span class="line">    NT_TIB Tib;</span><br><span class="line">    PVOID EnvironmentPointer;</span><br><span class="line">    CLIENT_ID Cid;</span><br><span class="line">    PVOID ActiveRpcInfo;</span><br><span class="line">    PPEB Peb;</span><br><span class="line">&#125;TEB , *PTEB;</span><br><span class="line"><span class="keyword">typedef</span> PTEB （NTAPI *NtCurrentTeb)();</span><br><span class="line">NtCurrentTeb fnNtCurrentTeb = (NtCurrentTeb)GetProocAddress(GetModuleHandle(<span class="string">L"ntdll.dll"</span>)), <span class="string">"NtCurrentTeb"</span>);</span><br><span class="line">PTEB pTeb = fnNtCurrentTeb();</span><br></pre></td></tr></table></figure>
-<h5 id="（2）FS段寄存器访问"><a href="#（2）FS段寄存器访问" class="headerlink" title="（2）FS段寄存器访问"></a>（2）FS段寄存器访问</h5><p>FS是段寄存器，当代码运行在R3时，基地址即为当前线程的线程环境块（TEB），所以该段也称为 TEB段 。运行如下代码可获得TEB的指针。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov eax, dword ptr fs:[18h]</span><br></pre></td></tr></table></figure>
-<h2 id="PEB"><a href="#PEB" class="headerlink" title="PEB"></a>PEB</h2><h3 id="概述-2"><a href="#概述-2" class="headerlink" title="概述"></a>概述</h3><p>PEB 全称  ProcessEnvironment Block，进程环境块，存在于用户地址空间中，记录了进程的相关信息。每个进程有自己的PEB信息。</p>
-<h3 id="PEB访问"><a href="#PEB访问" class="headerlink" title="PEB访问"></a>PEB访问</h3><p>TEB中的ProcessEnvironmentBlock 就是PEB结构的地址，其结构的0x30偏移处是一个指向PEB的指针。PEB的0x2偏移处是一个UChar成员，名叫“BeginDebugged”，进程被调试时值为1，否则为0.因此访问PEB有两种方法。</p>
-<ul>
-<li><p>直接获取</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov eax , dword ptr fs:[30]  ;fs[30]里面存放的即为PEB地址</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过TEB获取</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov eax,dword ptr fs:[18h]   ;此时eax里为TEB的指针</span><br><span class="line">mov eax,dword ptr [eax + 30h]   ;此时eax里为PEB的指针</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>此外，在内核结构对象EPROCESS结构中，同样记录了PEB结构的地址。因此，可以通过查看EPROCESS找到进程的PEB信息。</p>
-<h3 id="PEB结构体"><a href="#PEB结构体" class="headerlink" title="PEB结构体"></a>PEB结构体</h3><p>与TEB一样，PEB也是随着Windows系统版本的变化而略有差异的结构。可以查阅MSDN或winternl.h，获取TEB结构定义。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">PEB</span> &#123;</span></span><br><span class="line">  BYTE                          Reserved1[<span class="number">2</span>];</span><br><span class="line">  BYTE                          BeingDebugged;</span><br><span class="line">  BYTE                          Reserved2[<span class="number">1</span>];</span><br><span class="line">  PVOID                         Reserved3[<span class="number">2</span>];</span><br><span class="line">  PPEB_LDR_DATA                 Ldr;</span><br><span class="line">  PRTL_USER_PROCESS_PARAMETERS  ProcessParameters;</span><br><span class="line">  PVOID                         Reserved4[<span class="number">3</span>];</span><br><span class="line">  PVOID                         AtlThunkSListPtr;</span><br><span class="line">  PVOID                         Reserved5;</span><br><span class="line">  ULONG                         Reserved6;</span><br><span class="line">  PVOID                         Reserved7;</span><br><span class="line">  ULONG                         Reserved8;</span><br><span class="line">  ULONG                         AtlThunkSListPtr32;</span><br><span class="line">  PVOID                         Reserved9[<span class="number">45</span>];</span><br><span class="line">  BYTE                          Reserved10[<span class="number">96</span>];</span><br><span class="line">  PPS_POST_PROCESS_INIT_ROUTINE PostProcessInitRoutine;</span><br><span class="line">  BYTE                          Reserved11[<span class="number">128</span>];</span><br><span class="line">  PVOID                         Reserved12[<span class="number">1</span>];</span><br><span class="line">  ULONG                         SessionId;</span><br><span class="line">&#125; PEB, *PPEB;</span><br></pre></td></tr></table></figure>
-<p>MSDN中定义的PEB是不完整的，微软隐藏了很多细节，其他结构也是一样，下面是windbg获得的结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">0:000&gt; dt _PEB 0X0061d000</span><br><span class="line">ntdll!_PEB</span><br><span class="line">   +0x000 InheritedAddressSpace : 0 &apos;&apos;</span><br><span class="line">   +0x001 ReadImageFileExecOptions : 0 &apos;&apos;</span><br><span class="line">   +0x002 BeingDebugged    : 0x1 &apos;&apos;</span><br><span class="line">   +0x003 BitField         : 0x4 &apos;&apos;</span><br><span class="line">   +0x003 ImageUsesLargePages : 0y0</span><br><span class="line">   +0x003 IsProtectedProcess : 0y0</span><br><span class="line">   +0x003 IsImageDynamicallyRelocated : 0y1</span><br><span class="line">   +0x003 SkipPatchingUser32Forwarders : 0y0</span><br><span class="line">   +0x003 IsPackagedProcess : 0y0</span><br><span class="line">   +0x003 IsAppContainer   : 0y0</span><br><span class="line">   +0x003 IsProtectedProcessLight : 0y0</span><br><span class="line">   +0x003 IsLongPathAwareProcess : 0y0</span><br><span class="line">   +0x004 Mutant           : 0xffffffff Void</span><br><span class="line">   +0x008 ImageBaseAddress : 0x01140000 Void</span><br><span class="line">   +0x00c Ldr              : 0x772c0c40 _PEB_LDR_DATA</span><br><span class="line">   +0x010 ProcessParameters : 0x009a2320 _RTL_USER_PROCESS_PARAMETERS</span><br><span class="line">   +0x014 SubSystemData    : (null) </span><br><span class="line">   +0x018 ProcessHeap      : 0x009a0000 Void</span><br><span class="line">   +0x01c FastPebLock      : 0x772c09e0 _RTL_CRITICAL_SECTION</span><br><span class="line">   +0x020 AtlThunkSListPtr : (null) </span><br><span class="line">   +0x024 IFEOKey          : (null) </span><br><span class="line">   +0x028 CrossProcessFlags : 2</span><br><span class="line">   //更多代码略</span><br></pre></td></tr></table></figure>
-<p>其中，BeingDebugged成员适用于指定该进程是否处于被调试状态CheckRemoteDebuggerPrecset()函数用于判断进程是否处于调式状态。ProcessParameters是一个RTL_USER_PROCESS_PARAMMETERS，即用于记录进程的参数信息（例如命令行参数等）。</p>
-<p>下图表示EPROCESS、ETHREAD、PEB、TEB的关系，可以看出，EPROCESS和ETHREAD结构处于内核空间中，它们分别拥有一个指针，指向处于应用层空间的PEB结构和TEB结构，而在TEB中也有一个指针指向PEB结构。</p>
-<p><img src="/img/1550668838988.png" alt="1550668838988"></p>
-<p>​                            EPROCESS、ETHREAD、TEB、PEB之间的关系</p>
-
-          
+          <h2 id="SSDT"><a href="#SSDT" class="headerlink" title="SSDT"></a>SSDT</h2><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>SSDT全称是”System Services Descriptor Table”（系统服务描述符表），在内核中的实际名称是”KeSeriveDescriptorTable“。这个表已通过内核ntoskrnl.exe导出（在x64里不导出）。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/13/2017-07-15-SSDT,PEB,TEB/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1303,8 +1061,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:25:10+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -1355,30 +1113,15 @@
 
       
         
-          
-            <h2 id="内核对象概述"><a href="#内核对象概述" class="headerlink" title="内核对象概述"></a>内核对象概述</h2><p><img src="/img/1550655557295.png" alt="1550655557295"></p>
+          <h2 id="内核对象概述"><a href="#内核对象概述" class="headerlink" title="内核对象概述"></a>内核对象概述</h2><p><img src="/img/1550655557295.png" alt="1550655557295"></p>
 <p>在Windows内核中有一种很重要的数据结构管理机制，就是内核对象。引用层的进程、线程、文件、驱动模块、时间、信号量等对象或者打开的句柄在内核中都有之对应的内核结构对象。</p>
-<p>如上图，一个Windows内核对象可以分为对象头和对象体两个部分。在对象头中至少有1个OBJECT_HEADER和对象的额外信息。对象体紧接着对象头中的OBJECT_HEADER。一个对象指针总是 指向对象体而不是对象头。如果要访问对象头，需要将对象体指针减去一个特定的偏移值，以获取OBJECT_HEADER结构，通过OBJECT_HEADER结构定位从而访问其他对象结构辅助信息。对象体内部一般会有一个type和一个size成员，用来表示对象的类型和大小。</p>
-<p>Windows内核对象可以分为如下3中类型。</p>
-<h2 id="1-Dispatcher对象"><a href="#1-Dispatcher对象" class="headerlink" title="1. Dispatcher对象"></a>1. Dispatcher对象</h2><p>这种对象在对象体开始位置放置了一个共享的公共数据结构DISPATCHER_HEADER，其结构代码如下。包含DISPATCHER_HEADER结构的内核对象的名字都以字母 K 开头，表明这是一个内核对象，例如KPROCESS、KTHREAD、KEVENT、KSEMAPHORE、KTIMER、KQUEUE、KMUTANT、KMUTEX，但以字母 K 开头的内核对象不一定是Dispatcher对象。包含DISPATCHER_HEADER结构的内核对象都是可以等待的，也就是说。这些恶和对象可以作为参数传给内核的KeWaitForSingleObject()和KeWaitForMultipleObjects()函数，以及应用层的WaitForSingleObject()和WaitForMultipleObjects()函数。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span>  <span class="class"><span class="keyword">struct</span>  _<span class="title">DISPATCHER_HEADER</span>&#123;</span></span><br><span class="line">    UCHAR  Type ;  <span class="comment">//DISP_TYPE_*</span></span><br><span class="line">    UCHAR  Abso lu te ;</span><br><span class="line">    UCHAR  Size ;  <span class="comment">//number of DWORDs</span></span><br><span class="line">    UCHAR  Inserted ;</span><br><span class="line">    LONG</span><br><span class="line">    LIST_ENTRY  WaitListHead ;</span><br><span class="line">&#125;</span><br><span class="line">DISPATCHER_HEADER,</span><br><span class="line">*PDISPATCHER_HEADER,</span><br><span class="line">**PDISPATCHER_HEADER；</span><br></pre></td></tr></table></figure>
-<h3 id="2-I-O对象"><a href="#2-I-O对象" class="headerlink" title="2. I/O对象"></a>2. I/O对象</h3><p>I/O对象在对象体开始位置并未放置DISPATCHER_HEADER结构，但通常会放置一个与type和size有关的整型成员，以表示该内核对象的类型（例如文件内核对象的类型为26）和大小。常见的IO对象包括DEVICE_OBJECT、DRIVER_OBJECT、FILE_OBJECT、IRP、VPB、KPROFILE等。</p>
-<h3 id="3-其他对象"><a href="#3-其他对象" class="headerlink" title="3. 其他对象"></a>3. 其他对象</h3><p>除了Dispatcher对象和IO对象，剩下的都属于其他内核对象。其中有两个最常用的内核对象，分别是进程对象（EPROCESS）与线程对象（ETHREAD）。</p>
-<h4 id="EPROCESS"><a href="#EPROCESS" class="headerlink" title="EPROCESS"></a>EPROCESS</h4><p>EPROCESS用于在内核中管理进程的各种信息，每个进程都对应于一个EPROCESS结构，用于记录进程执行期间的各种数据。尽管EPROCESS结构非常大，但他是一个不透明的结构（Opaque Structure），具体成员并未导出，随操作系统的变化而变化。因此，想查看EPROCESS结构中的成员，只能查阅网上资料或使用Windbg调试器加载内核符号后进行。</p>
-<p>所有进程的EPROCESS内核结构都被放入一个双向链表，R3在枚举系统进程的时候，通过遍历这个链表获得了进程的列表。因此，有的Rootkit会试图将自己进程的EPROCESS结构从这个链表中摘掉，从而达到隐藏自己的目的。</p>
-<p>EPROCESS结构中的一些关键数据：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">KPROCESS pcb；				//进程的内核对象</span><br><span class="line">PVOID UniqueProcessId；		//进程的PID</span><br><span class="line">PVOID DebugPort；			//调试端口，设置为0，禁止进程被调试</span><br><span class="line">EX_FAST_REF Token；			//进程的权限token</span><br><span class="line">UCHAR ImageFileName[16]；	//进程的名字，最长16字节</span><br><span class="line">PPEB Peb；					//进程的环境快</span><br><span class="line">PEJOB Job；					//进程的job</span><br><span class="line">PVOID Win32Process；		</span><br><span class="line">LIST_ENTRY ActiveProccessLinks；	//指向正在运行的系统进程列表</span><br><span class="line">PHANDLE_TABLE ObjectTable；	//进程的handle表</span><br></pre></td></tr></table></figure>
-<p>调用线面的内核函数可以获得进程的EPROCESS结构。PsLookupProcessByProcessId函数的结构如下。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">NTSTATUS <span class="title">PsLookupProcessByProcessId</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params"><span class="comment">//根据进程PID拿到进程的EPROCESS结构</span></span></span></span><br><span class="line"><span class="function"><span class="params">	IN HANDLE ProcessId，</span></span></span><br><span class="line"><span class="function"><span class="params">	OUT PEPROCESS *Process</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">PEPROCESS <span class="title">PsGetCurrentProcess</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params"><span class="comment">//直接获取当前进程的EPROCESS结构</span></span></span></span><br><span class="line"><span class="function"><span class="params">VOID</span></span></span><br><span class="line">)；</span><br></pre></td></tr></table></figure>
-<h4 id="ETHREAD"><a href="#ETHREAD" class="headerlink" title="ETHREAD"></a>ETHREAD</h4><p>ETHREAD结构式线程的内核管理对象，每个线程都有一个对应的ETHREAD结构。ETHREAD结构也是一个不透明的结构，具体成员你并未导出，而且会随着操作系统的版本的变化而变化。在ETHREAD结构中，第一个成员就是线程对象KTHREAD成员，所有的ETHREAD结构也被放在一个双向链表里进行管理。</p>
-<p>ETHREAD结构中的一些成员信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">KTHREAD Tcb；			//线程内核对象</span><br><span class="line">CLIENT_ID Cid；			//进程PID</span><br></pre></td></tr></table></figure>
-<p>EPROCESS、KPROCESS、ETHREAD、KTHREAD结构之间的关系图如下。可以看出，EPROCESS和ETHREAD结构都是通过双向链表组织管理的。一个EPROCESS结构中包含了一个KPROCESS结构，而在一个KPROCESS结构又有一个指向ETHREAD结构的指针。在ETHREAD结构中，又包含了KTHREAD结构成员。</p>
-<p><img src="/img/1550658031014.png" alt="1550658031014"></p>
-<p>​                        EPROCESS、KPROCESS、ETHREAD、KTHREAD结构关系图</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/13/2017-06-13-Windows内核对象/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1451,8 +1194,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:25:06+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -1503,45 +1246,14 @@
 
       
         
-          
-            <h2 id="Windows启动包含下面几个阶段"><a href="#Windows启动包含下面几个阶段" class="headerlink" title="Windows启动包含下面几个阶段"></a>Windows启动包含下面几个阶段</h2><h3 id="1-启动自检阶段"><a href="#1-启动自检阶段" class="headerlink" title="1.  启动自检阶段"></a>1.  启动自检阶段</h3><p>​    在打开电源时，计算机开始自检过程，从BIOS中载入必要的指令，然后进行一系列的自检操作，进行硬件的初始化检查（内存，硬盘，键盘等），同时在屏幕上显示信息。</p>
-<h3 id="2-初始化启动阶段"><a href="#2-初始化启动阶段" class="headerlink" title="2.  初始化启动阶段"></a>2.  初始化启动阶段</h3><p>​    自检完成后，根据CMOS的设置，BIOS加载启动盘，将主引导记录（MBR）中的引导代码载入内存。接着，启动过程由MBR来执行。启动代码搜索MBR中的分区表，找出活动分区，将第一个扇区中的引导代码载入内存。引导代码检测当前使用的文件系统，查找ntldr文件，找到之后将启动它。BIOS将控制权交给ntldr，由ntldr完成操作系统的启动工作（Windows7 与此不同，使用的时bootmgr）。</p>
-<h3 id="3-Boot加载阶段"><a href="#3-Boot加载阶段" class="headerlink" title="3.  Boot加载阶段"></a>3.  Boot加载阶段</h3><p>​    在这个阶段，先从启动分区加载ntldr，然后对ntldr进行如下配置。</p>
-<p>​    1.设置内存模式，如果是x86处理器，并且是32位操作系统，则设置为“32-bit flat memory mode”；如果64位操作系统，并且是64位处理器，则设置为64位内存模式。</p>
-<p>​    2.启动一个简单的文件系统，以定位boot.ini 、ntoskrnl、Hal等启动文件。</p>
-<p>​    3.读取boot.ini文件。</p>
-<h3 id="4-检测和配置硬件阶段"><a href="#4-检测和配置硬件阶段" class="headerlink" title="4.  检测和配置硬件阶段"></a>4.  检测和配置硬件阶段</h3><p>​    在这个阶段会检查和配置一些硬件设备，例如系统固件、总线和适配器、显示适配器、键盘、通信端口、磁盘、软盘、输入设备（鼠标等）、并口、ISA总线上运行的设备等。</p>
-<h3 id="5-内核加载阶段"><a href="#5-内核加载阶段" class="headerlink" title="5.内核加载阶段"></a>5.内核加载阶段</h3><p>​    ntldr将首先加载Windows内核Ntoskrnl.exe和硬件抽象层（HAL）。HAL会对硬件底层的特性进行隔离，为操作系统提供统一的调用接口。接下来，ntldr从注册表的HKEY_LOCAL_MACHINE\System\CurrentControlSet键下读取这台机器安装的驱动程序，然后依次加载驱动程序。初始化底层设备驱动，在注册表的HKEY_LACAL_ACHINE\System\CurrentControlSet\Services键下查找Start键的值为0和1的设备驱动。</p>
-<p>​    Start键的值可以为0、1、2、3、4，数值越小，启动越早。SERVICE_BOOT_START(0)表示内核刚刚初始化，此时加载的都是与系统核心有关的重要驱动程序，例如磁盘驱动；SERVICE_SYSTEM_START(1)稍晚一些；SERVICE_AUTO_START(2)是从登录界面出现的时候开始，如果登录速度较快，很可能驱动还没有加载就已经登录了；SERVICE_DMAND_START(3)，表示在需要的时候手动加载；SERVICE_DISABLED(4)表示禁止加载。</p>
-<h3 id="6-Windows的会话管理启动"><a href="#6-Windows的会话管理启动" class="headerlink" title="6. Windows的会话管理启动"></a>6. Windows的会话管理启动</h3><p>​    驱动程序加载完成，内核会在启动会话管理器。这是一个名为smmss.exe的程序，是Windows系统中第一个创建的用户模式进程，其作用如下。</p>
-<ul>
-<li>创建系统环境变量</li>
-<li>加载win32k.sys，它是Windows子系统的内核模式部分。</li>
-<li>启动csrss.exe，它是Windows子系统的用户模式部分。</li>
-<li>启动winnlogon.exe。</li>
-<li>创建虚拟内存页面文件。</li>
-<li>执行上次系统重启前未完成的重命名工作（PendingFileRename）。</li>
-</ul>
-<h3 id="7-登陆阶段"><a href="#7-登陆阶段" class="headerlink" title="7. 登陆阶段"></a>7. 登陆阶段</h3><p>​    Windows子系统启动的winlogon.exe系统服务提供对Windows用户的登录和注销的支持，可以完成如下工作。</p>
-<ul>
-<li>启动服务子系统（services.exe），也称服务控制管理器（SCM）。</li>
-<li>启动本地安全授权（LSA）过程（lsass.exe）。</li>
-<li>显示登录界面。</li>
-</ul>
-<p>​     登录组件将用户的账号和密码安全的传送给LSA进行认证处理。如果用户提供的信息是正确的，能够通过认证，就允许用户对系统进行访问。</p>
-<h3 id="8-Windows-7和-Windows-XP启动过程的区别"><a href="#8-Windows-7和-Windows-XP启动过程的区别" class="headerlink" title="8. Windows 7和 Windows XP启动过程的区别"></a>8. Windows 7和 Windows XP启动过程的区别</h3><ul>
-<li>BIOS启动自检后，将MBR载入内存并执行，引导代码找到启动管理器Bootmgr。</li>
-<li>Bootmgr 寻找活动分区boot文件夹中的启动配置数据BCD文件，读取并组成相应语言的启动菜单，然后在屏幕上显示多操作系统选择界面。</li>
-<li>选择Windows7系统后，Bootmgr就会读取系统文件windows\system32\winload.exe，并将控制权交给winload.exe。</li>
-<li>Winload.exe加载Windows 7的内核、硬件、服务等，然后加载桌面等信息，从而启动 整个Windows 7系统。</li>
-</ul>
-<h3 id="9-新一代引导方式UEFI与GPT"><a href="#9-新一代引导方式UEFI与GPT" class="headerlink" title="9. 新一代引导方式UEFI与GPT"></a>9. 新一代引导方式UEFI与GPT</h3><p>​      以上说的是传统的系统引导核启动，这种方法主要借助BIOS和MBR完成系统的引导和启动。但是，这种方法有局限性，例如磁盘逻辑块地址（Logical Block Address，LBA）是32位的，最多表示2^32个扇区，而每个扇区的大小一般为512字节，所以最多支持2^32<em>512=2 </em> 2^40字节，即2TB.而且，MBR最多支持4个主分区或3个主分区和一个拓展分区，拓展分区下可以有多个逻辑分区。在BIOS中，启动操作系统之前必须从硬盘上的指定扇区中读取系统启动代码（包含在MBR中），然后从活动分区中引导并启动操作系统。对扇区的操作远比不上对分区中的文件的操作那样直观和简单。</p>
-<p>​      为了打破传统的BIOS与MBR引导系统的局限，新的系统引导方式（即UEFI结合GPT）已经出现并逐渐成为今后系统引导的主要解决方案。</p>
-<p>​     UEFI（Unified Extensible Firware Interface，统一的可拓展固件接口）的出现主要用于替换BIOS。在UEFI中，用于LBA的地址是64位的，突破了在BIOS与MBR技术方案中分区容量2TB的限制。</p>
-<p>​     UEFI本身已经相当与一个微型操作系统了，UEFI具备文件系统的支持能力，能够直接读取FAT分区中的文件。开发人员可以开发出直接在UEFI下运行的应用程序，这类程序文件通常以 “efi” 结尾。我们可以将Windows操作系统变得简单。而在UEFI下，这些统统都不需要–不需要主引导记录，不需要活动分区，不需要任何工具。只要将安装文件复制到一个FAT32（主）分区或U盘中，通过这个分区或U盘即可安装和启动Windows。</p>
-<p>​     与传统的MBR分区表相比，新型的GPT（GUID Partition Table，全局唯一标识分区表）对分区数量没有限制，但Windows在实现GPT的时候，将分区的个数限制在128个GPT分区以内，GPT可管理磁盘大小达到了18EB，因此，只有基于UEFI平台的主板才支持GPT分区引导启动。</p>
-<h3 id="END"><a href="#END" class="headerlink" title="END"></a>END</h3>
-          
+          <h2 id="Windows启动包含下面几个阶段"><a href="#Windows启动包含下面几个阶段" class="headerlink" title="Windows启动包含下面几个阶段"></a>Windows启动包含下面几个阶段</h2><h3 id="1-启动自检阶段"><a href="#1-启动自检阶段" class="headerlink" title="1.  启动自检阶段"></a>1.  启动自检阶段</h3><p>​    在打开电源时，计算机开始自检过程，从BIOS中载入必要的指令，然后进行一系列的自检操作，进行硬件的初始化检查（内存，硬盘，键盘等），同时在屏幕上显示信息。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/13/2017-04-13-Windows启动过程/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1614,8 +1326,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:25:02+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -1666,32 +1378,17 @@
 
       
         
-          
-            <h1 id="git-revert-和-git-reset-的区别"><a href="#git-revert-和-git-reset-的区别" class="headerlink" title="git revert 和 git reset 的区别"></a><strong>git revert</strong> 和 <strong>git reset</strong> 的区别</h1><p> 先看图：</p>
+          <h1 id="git-revert-和-git-reset-的区别"><a href="#git-revert-和-git-reset-的区别" class="headerlink" title="git revert 和 git reset 的区别"></a><strong>git revert</strong> 和 <strong>git reset</strong> 的区别</h1><p> 先看图：</p>
 <p><img src="https://ww3.sinaimg.cn/large/006tNbRwgy1fcr9tu6vdjj30t30ez0y8.jpg" alt></p>
 <p><strong>sourceTree</strong> 中 <strong>revert</strong> 译为<strong><code>提交回滚</code></strong>，作用为忽略你指定的版本，然后提交一个新的版本。新的版本中已近删除了你所指定的版本。</p>
 <p><strong>reset</strong> 为 <strong>重置到这次提交</strong>，将内容重置到指定的版本。<code>git reset</code> 命令后面是需要加2种参数的：<code>–-hard</code> 和 <code>–-soft</code>。这条命令默认情况下是 <code>-–soft</code>。</p>
-<p>执行上述命令时，这该条commit号之 后（时间作为参考点）的所有commit的修改都会退回到git缓冲区中。使用<code>git status</code> 命令可以在缓冲区中看到这些修改。而如果加上<code>-–hard</code>参数，则缓冲区中不会存储这些修改，git会直接丢弃这部分内容。可以使用 <code>git push origin HEAD --force</code> 强制将分区内容推送到远程服务器。</p>
-<h4 id="代码回退"><a href="#代码回退" class="headerlink" title="代码回退"></a>代码回退</h4><p>默认参数 <code>-soft</code>,所有commit的修改都会退回到git缓冲区<br>参数<code>--hard</code>，所有commit的修改直接丢弃</p>
-<pre><code>$ git reset --hard HEAD^         回退到上个版本
-$ git reset --hard commit_id    退到/进到 指定commit_id
-</code></pre><p>推送到远程    </p>
-<pre><code>$ git push origin HEAD --force
-</code></pre><p>​    </p>
-<h4 id="可以吃的后悔药-gt-版本穿梭"><a href="#可以吃的后悔药-gt-版本穿梭" class="headerlink" title="可以吃的后悔药-&gt;版本穿梭"></a>可以吃的后悔药-&gt;版本穿梭</h4><p>当你回滚之后，又后悔了，想恢复到新的版本怎么办？</p>
-<p>用<code>git reflog</code>打印你记录你的每一次操作记录</p>
-<pre><code>$ git reflog
-
-输出：
-c7edbfe HEAD@{0}: reset: moving to c7edbfefab1bdbef6cb60d2a7bb97aa80f022687
-470e9c2 HEAD@{1}: reset: moving to 470e9c2
-b45959e HEAD@{2}: revert: Revert &quot;add img&quot;
-470e9c2 HEAD@{3}: reset: moving to 470e9c2
-2c26183 HEAD@{4}: reset: moving to 2c26183
-0f67bb7 HEAD@{5}: revert: Revert &quot;add img&quot;
-</code></pre><p>找到你操作的id如：<code>b45959e</code>，就可以回退到这个版本<br>​<br>​    $ git reset –hard b45959e</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/16/2017-02-16-Git-代码回滚/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1764,8 +1461,8 @@ b45959e HEAD@{2}: revert: Revert &quot;add img&quot;
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:24:57+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -1816,8 +1513,7 @@ b45959e HEAD@{2}: revert: Revert &quot;add img&quot;
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>随便整理的一些自用的Git指令</p>
 </blockquote>
 <h1 id="GitHub创建仓库提示代码"><a href="#GitHub创建仓库提示代码" class="headerlink" title="GitHub创建仓库提示代码"></a>GitHub创建仓库提示代码</h1><pre><code>echo &quot;# 项目名&quot; &gt;&gt; README.md
@@ -1827,227 +1523,13 @@ git commit -m &quot;first commit&quot;
 git remote add origin git@github.com:qiubaiying/项目名.git
 git push -u origin master
 </code></pre><p>若仓库存在直接push</p>
-<pre><code>git remote add origin git@github.com:qiubaiying/test.git
-git push -u origin master
-</code></pre><h1 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h1><h4 id="创建仓库（初始化）"><a href="#创建仓库（初始化）" class="headerlink" title="创建仓库（初始化）"></a>创建仓库（初始化）</h4><pre><code>在当前指定目录下创建
-git init
-
-新建一个仓库目录
-git init [project-name]
-
-克隆一个远程项目
-git clone [url]
-</code></pre><h4 id="添加文件到缓存区"><a href="#添加文件到缓存区" class="headerlink" title="添加文件到缓存区"></a>添加文件到缓存区</h4><pre><code>添加所有变化的文件
- git add .
-
-添加名称指定文件
-git add text.txt
-</code></pre><h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><pre><code>设置提交代码时的用户信息
-git config [--global] user.name &quot;[name]&quot;
-git config [--global] user.email &quot;[email address]&quot;
-</code></pre><p>​    </p>
-<h4 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h4><pre><code>提交暂存区到仓库区
-git commit -m &quot;msg&quot;
-
-# 提交暂存区的指定文件到仓库区
-$ git commit [file1] [file2] ... -m [message]
-
-# 提交工作区自上次commit之后的变化，直接到仓库区
-$ git commit -a
-
-# 提交时显示所有diff信息
-$ git commit -v
-
-# 使用一次新的commit，替代上一次提交
-# 如果代码没有任何新变化，则用来改写上一次commit的提交信息
-$ git commit --amend -m [message]
-
-# 重做上一次commit，并包括指定文件的新变化
-$ git commit --amend [file1] [file2] ...
-</code></pre><h4 id="远程同步"><a href="#远程同步" class="headerlink" title="远程同步"></a>远程同步</h4><pre><code># 下载远程仓库的所有变动
-$ git fetch [remote]
-
-# 显示所有远程仓库
-$ git remote -v
-
-# 显示某个远程仓库的信息
-$ git remote show [remote]
-
-# 增加一个新的远程仓库，并命名
-$ git remote add [shortname] [url]
-
-# 取回远程仓库的变化，并与本地分支合并
-$ git pull [remote] [branch]
-
-# 上传本地指定分支到远程仓库
-$ git push [remote] [branch]
-
-# 强行推送当前分支到远程仓库，即使有冲突
-$ git push [remote] --force
-
-# 推送所有分支到远程仓库
-$ git push [remote] --all
-</code></pre><p>​    </p>
-<h4 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h4><pre><code># 列出所有本地分支
-$ git branch
-
-# 列出所有远程分支
-$ git branch -r
-
-# 列出所有本地分支和远程分支
-$ git branch -a
-
-# 新建一个分支，但依然停留在当前分支
-$ git branch [branch-name]
-
-# 新建一个分支，并切换到该分支
-$ git checkout -b [branch]
-
-# 新建一个分支，指向指定commit
-$ git branch [branch] [commit]
-
-# 新建一个分支，与指定的远程分支建立追踪关系
-$ git branch --track [branch] [remote-branch]
-
-# 切换到指定分支，并更新工作区
-$ git checkout [branch-name]
-
-# 切换到上一个分支
-$ git checkout -
-
-# 建立追踪关系，在现有分支与指定的远程分支之间
-$ git branch --set-upstream [branch] [remote-branch]
-
-# 合并指定分支到当前分支
-$ git merge [branch]
-
-# 选择一个commit，合并进当前分支
-$ git cherry-pick [commit]
-
-# 删除分支
-$ git branch -d [branch-name]
-
-# 删除远程分支
-$ git push origin --delete [branch-name]
-$ git branch -dr [remote/branch]
-</code></pre><h4 id="标签Tags"><a href="#标签Tags" class="headerlink" title="标签Tags"></a>标签Tags</h4><pre><code>添加标签 在当前commit
-git tag -a v1.0 -m &apos;xxx&apos; 
-
-添加标签 在指定commit
-git tag v1.0 [commit]
-
-查看
-git tag
-
-删除
-git tag -d V1.0
-
-删除远程tag
-git push origin :refs/tags/[tagName]
-
-推送
-git push origin --tags
-
-拉取
-git fetch origin tag V1.0
-
-新建一个分支，指向某个tag
-git checkout -b [branch] [tag]
-</code></pre><h4 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h4><pre><code># 显示有变更的文件
-$ git status
-
-# 显示当前分支的版本历史
-$ git log
-
-# 显示commit历史，以及每次commit发生变更的文件
-$ git log --stat
-
-# 搜索提交历史，根据关键词
-$ git log -S [keyword]
-
-# 显示某个commit之后的所有变动，每个commit占据一行
-$ git log [tag] HEAD --pretty=format:%s
-
-# 显示某个commit之后的所有变动，其&quot;提交说明&quot;必须符合搜索条件
-$ git log [tag] HEAD --grep feature
-
-# 显示某个文件的版本历史，包括文件改名
-$ git log --follow [file]
-$ git whatchanged [file]
-
-# 显示指定文件相关的每一次diff
-$ git log -p [file]
-
-# 显示过去5次提交
-$ git log -5 --pretty --oneline
-
-# 显示所有提交过的用户，按提交次数排序
-$ git shortlog -sn
-
-# 显示指定文件是什么人在什么时间修改过
-$ git blame [file]
-
-# 显示暂存区和工作区的差异
-$ git diff
-
-# 显示暂存区和上一个commit的差异
-$ git diff --cached [file]
-
-# 显示工作区与当前分支最新commit之间的差异
-$ git diff HEAD
-
-# 显示两次提交之间的差异
-$ git diff [first-branch]...[second-branch]
-
-# 显示今天你写了多少行代码
-$ git diff --shortstat &quot;@{0 day ago}&quot;
-
-# 显示某次提交的元数据和内容变化
-$ git show [commit]
-
-# 显示某次提交发生变化的文件
-$ git show --name-only [commit]
-
-# 显示某次提交时，某个文件的内容
-$ git show [commit]:[filename]
-
-# 显示当前分支的最近几次提交
-$ git reflog
-</code></pre><h4 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h4><pre><code># 恢复暂存区的指定文件到工作区
-$ git checkout [file]
-
-# 恢复某个commit的指定文件到暂存区和工作区
-$ git checkout [commit] [file]
-
-# 恢复暂存区的所有文件到工作区
-$ git checkout .
-
-# 重置暂存区的指定文件，与上一次commit保持一致，但工作区不变
-$ git reset [file]
-
-# 重置暂存区与工作区，与上一次commit保持一致
-$ git reset --hard
-
-# 重置当前分支的指针为指定commit，同时重置暂存区，但工作区不变
-$ git reset [commit]
-
-# 重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致
-$ git reset --hard [commit]
-
-# 重置当前HEAD为指定commit，但保持暂存区和工作区不变
-$ git reset --keep [commit]
-
-# 新建一个commit，用来撤销指定commit
-# 后者的所有变化都将被前者抵消，并且应用到当前分支
-$ git revert [commit]
-
-# 暂时将未提交的变化移除，稍后再移入
-$ git stash
-$ git stash pop
-</code></pre><h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><pre><code># 生成一个可供发布的压缩包
-$ git archives
-</code></pre>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/15/2017-02-15-Git指令整理/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

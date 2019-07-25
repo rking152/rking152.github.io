@@ -91,20 +91,20 @@
 
 
 
-<meta name="description" content="内核对象概述 在Windows内核中有一种很重要的数据结构管理机制，就是内核对象。引用层的进程、线程、文件、驱动模块、时间、信号量等对象或者打开的句柄在内核中都有之对应的内核结构对象。 如上图，一个Windows内核对象可以分为对象头和对象体两个部分。在对象头中至少有1个OBJECT_HEADER和对象的额外信息。对象体紧接着对象头中的OBJECT_HEADER。一个对象指针总是 指向对象体而不是">
+<meta name="description" content="内核对象概述 在Windows内核中有一种很重要的数据结构管理机制，就是内核对象。引用层的进程、线程、文件、驱动模块、时间、信号量等对象或者打开的句柄在内核中都有之对应的内核结构对象。">
 <meta name="keywords" content="操作系统,内核,Windows">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows内核对象">
 <meta property="og:url" content="https://basicbit.cn/2017/06/13/2017-06-13-Windows内核对象/index.html">
 <meta property="og:site_name" content="BasicBit">
-<meta property="og:description" content="内核对象概述 在Windows内核中有一种很重要的数据结构管理机制，就是内核对象。引用层的进程、线程、文件、驱动模块、时间、信号量等对象或者打开的句柄在内核中都有之对应的内核结构对象。 如上图，一个Windows内核对象可以分为对象头和对象体两个部分。在对象头中至少有1个OBJECT_HEADER和对象的额外信息。对象体紧接着对象头中的OBJECT_HEADER。一个对象指针总是 指向对象体而不是">
+<meta property="og:description" content="内核对象概述 在Windows内核中有一种很重要的数据结构管理机制，就是内核对象。引用层的进程、线程、文件、驱动模块、时间、信号量等对象或者打开的句柄在内核中都有之对应的内核结构对象。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://basicbit.cn/img/1550655557295.png">
 <meta property="og:image" content="https://basicbit.cn/img/1550658031014.png">
-<meta property="og:updated_time" content="2019-07-19T06:05:37.093Z">
+<meta property="og:updated_time" content="2019-07-25T05:25:10.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows内核对象">
-<meta name="twitter:description" content="内核对象概述 在Windows内核中有一种很重要的数据结构管理机制，就是内核对象。引用层的进程、线程、文件、驱动模块、时间、信号量等对象或者打开的句柄在内核中都有之对应的内核结构对象。 如上图，一个Windows内核对象可以分为对象头和对象体两个部分。在对象头中至少有1个OBJECT_HEADER和对象的额外信息。对象体紧接着对象头中的OBJECT_HEADER。一个对象指针总是 指向对象体而不是">
+<meta name="twitter:description" content="内核对象概述 在Windows内核中有一种很重要的数据结构管理机制，就是内核对象。引用层的进程、线程、文件、驱动模块、时间、信号量等对象或者打开的句柄在内核中都有之对应的内核结构对象。">
 <meta name="twitter:image" content="https://basicbit.cn/img/1550655557295.png">
 
 
@@ -272,8 +272,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:25:10+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -325,6 +325,7 @@
       
         <h2 id="内核对象概述"><a href="#内核对象概述" class="headerlink" title="内核对象概述"></a>内核对象概述</h2><p><img src="/img/1550655557295.png" alt="1550655557295"></p>
 <p>在Windows内核中有一种很重要的数据结构管理机制，就是内核对象。引用层的进程、线程、文件、驱动模块、时间、信号量等对象或者打开的句柄在内核中都有之对应的内核结构对象。</p>
+<a id="more"></a>  
 <p>如上图，一个Windows内核对象可以分为对象头和对象体两个部分。在对象头中至少有1个OBJECT_HEADER和对象的额外信息。对象体紧接着对象头中的OBJECT_HEADER。一个对象指针总是 指向对象体而不是对象头。如果要访问对象头，需要将对象体指针减去一个特定的偏移值，以获取OBJECT_HEADER结构，通过OBJECT_HEADER结构定位从而访问其他对象结构辅助信息。对象体内部一般会有一个type和一个size成员，用来表示对象的类型和大小。</p>
 <p>Windows内核对象可以分为如下3中类型。</p>
 <h2 id="1-Dispatcher对象"><a href="#1-Dispatcher对象" class="headerlink" title="1. Dispatcher对象"></a>1. Dispatcher对象</h2><p>这种对象在对象体开始位置放置了一个共享的公共数据结构DISPATCHER_HEADER，其结构代码如下。包含DISPATCHER_HEADER结构的内核对象的名字都以字母 K 开头，表明这是一个内核对象，例如KPROCESS、KTHREAD、KEVENT、KSEMAPHORE、KTIMER、KQUEUE、KMUTANT、KMUTEX，但以字母 K 开头的内核对象不一定是Dispatcher对象。包含DISPATCHER_HEADER结构的内核对象都是可以等待的，也就是说。这些恶和对象可以作为参数传给内核的KeWaitForSingleObject()和KeWaitForMultipleObjects()函数，以及应用层的WaitForSingleObject()和WaitForMultipleObjects()函数。</p>

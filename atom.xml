@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://basicbit.cn/"/>
-  <updated>2019-07-23T01:47:18.084Z</updated>
+  <updated>2019-07-25T05:27:49.320Z</updated>
   <id>https://basicbit.cn/</id>
   
   <author>
@@ -17,22 +17,39 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Window PE -- 输出表 基址重定位</title>
+    <link href="https://basicbit.cn/2018/11/01/2018-11-01-Windows%20PE%20%E8%BE%93%E5%87%BA%E8%A1%A8/"/>
+    <id>https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 输出表/</id>
+    <published>2018-10-31T16:00:00.000Z</published>
+    <updated>2019-07-25T05:27:49.320Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Window PE – 输出表 基址重定位&lt;/p&gt;
+&lt;h1 id=&quot;输出表&quot;&gt;&lt;a href=&quot;#输出表&quot; class=&quot;headerlink&quot; title=&quot;输出表&quot;&gt;&lt;/a&gt;输出表&lt;/h1&gt;&lt;p&gt;创建一个DLL时，实际上创建了一组能让XE或其他DLL调用的函数，此时PE装载器根据DLL文件中输出的信息修正被执行文件的IAT。当一个LL函数能被EXE或另一个DLL文件使用时，它就被“输出了”（Exported）。其中，输出信息被保存在输出表中，DLL文件通过输出表向系统提供输出函数名、序号和人口地址等信息。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Windows" scheme="https://basicbit.cn/tags/Windows/"/>
+    
+      <category term="PE" scheme="https://basicbit.cn/tags/PE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>一个简单的CTF小DEMO</title>
     <link href="https://basicbit.cn/2018/11/01/2018-11-03-%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/"/>
     <id>https://basicbit.cn/2018/11/01/2018-11-03-病毒分析/</id>
     <published>2018-10-31T16:00:00.000Z</published>
-    <updated>2019-07-23T01:47:18.084Z</updated>
+    <updated>2019-07-25T05:28:08.805Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;分析&quot;&gt;&lt;a href=&quot;#分析&quot; class=&quot;headerlink&quot; title=&quot;分析&quot;&gt;&lt;/a&gt;分析&lt;/h1&gt;&lt;p&gt;未进行行为分析，直接看代码&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/img/1563843414789.png&quot;
-        
-      
+      &lt;p&gt;​    &lt;/p&gt;
+&lt;h1 id=&quot;分析&quot;&gt;&lt;a href=&quot;#分析&quot; class=&quot;headerlink&quot; title=&quot;分析&quot;&gt;&lt;/a&gt;分析&lt;/h1&gt;&lt;p&gt;未进行行为分析，直接看代码&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/1563843414789.png&quot; alt=&quot;1563843414789&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在cmp eax,…..来看，这是一个无意义的循环，nop掉或者F4。&lt;/p&gt;
     
     </summary>
     
@@ -44,21 +61,16 @@
   </entry>
   
   <entry>
-    <title>Window PE -- 输出表 基址重定位</title>
-    <link href="https://basicbit.cn/2018/11/01/2018-11-01-Windows%20PE%20%E8%BE%93%E5%87%BA%E8%A1%A8/"/>
-    <id>https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 输出表/</id>
+    <title>Window PE -- 资源</title>
+    <link href="https://basicbit.cn/2018/11/01/2018-11-01-Windows%20PE%20%E8%B5%84%E6%BA%90/"/>
+    <id>https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 资源/</id>
     <published>2018-10-31T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.085Z</updated>
+    <updated>2019-07-25T05:27:22.658Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;输出表&quot;&gt;&lt;a href=&quot;#输出表&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;p&gt;Window PE – 资源&lt;/p&gt;
+&lt;h2 id=&quot;资源&quot;&gt;&lt;a href=&quot;#资源&quot; class=&quot;headerlink&quot; title=&quot;资源&quot;&gt;&lt;/a&gt;资源&lt;/h2&gt;&lt;p&gt;Windows程序的各种界面称为资源，包括加速键（Accelerator）、位图（Bitmap）、光标（Cursor）、对话框（DialogBox）、图标（Icon）、菜单（Menu）、串表（StringTable）、工具栏（Toolbar）和版本信息（VersionInformation）等。在PE文件的所有结构中，资源部分是最复杂的。&lt;/p&gt;
     
     </summary>
     
@@ -74,17 +86,11 @@
     <link href="https://basicbit.cn/2018/11/01/2018-11-01-Windows%20PE%20%E6%96%87%E4%BB%B6%E5%A4%B4/"/>
     <id>https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 文件头/</id>
     <published>2018-10-31T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.114Z</updated>
+    <updated>2019-07-25T05:27:12.175Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;PE文件头&quot;&gt;&lt;a href=&quot;#PE文件头&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;h1 id=&quot;Window-PE-–-文件头&quot;&gt;&lt;a href=&quot;#Window-PE-–-文件头&quot; class=&quot;headerlink&quot; title=&quot;Window PE – 文件头&quot;&gt;&lt;/a&gt;Window PE – 文件头&lt;/h1&gt;&lt;h2 id=&quot;PE文件头&quot;&gt;&lt;a href=&quot;#PE文件头&quot; class=&quot;headerlink&quot; title=&quot;PE文件头&quot;&gt;&lt;/a&gt;PE文件头&lt;/h2&gt;&lt;p&gt;紧跟着DOSstub的是PE文件头（PEHeader）。“PEHeader，，是PE关结构NT映像头（IMAGE_NT_HEADERS）的简称，其中包含许多PE装载器能用到的重要字段。当执行体在支持PE文件结构的操作系统中执行时，PE装载器将从IMAGE_DOS_HEADER结构的e_lfanew字段里找到PEHeader的起始偏移量，用其加上基址，得到PE文件头的指针。&lt;/p&gt;
     
     </summary>
     
@@ -100,43 +106,11 @@
     <link href="https://basicbit.cn/2018/11/01/2018-11-01-Windows%20PE%20%E5%8C%BA%E5%9D%97/"/>
     <id>https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 区块/</id>
     <published>2018-10-31T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.075Z</updated>
+    <updated>2019-07-25T05:26:59.302Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;区块&quot;&gt;&lt;a href=&quot;#区块&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Windows" scheme="https://basicbit.cn/tags/Windows/"/>
-    
-      <category term="PE" scheme="https://basicbit.cn/tags/PE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Window PE -- 资源</title>
-    <link href="https://basicbit.cn/2018/11/01/2018-11-01-Windows%20PE%20%E8%B5%84%E6%BA%90/"/>
-    <id>https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 资源/</id>
-    <published>2018-10-31T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.114Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;资源&quot;&gt;&lt;a href=&quot;#资源&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;h1 id=&quot;Window-PE-–-区块&quot;&gt;&lt;a href=&quot;#Window-PE-–-区块&quot; class=&quot;headerlink&quot; title=&quot;Window PE – 区块&quot;&gt;&lt;/a&gt;Window PE – 区块&lt;/h1&gt;&lt;h2 id=&quot;区块&quot;&gt;&lt;a href=&quot;#区块&quot; class=&quot;headerlink&quot; title=&quot;区块&quot;&gt;&lt;/a&gt;区块&lt;/h2&gt;&lt;p&gt;在PE件头与原始数据之间存在一个区块表（SectionTable）。区块表中包含每个块在映像中的信息，分别指向不同的区块实体。&lt;/p&gt;
     
     </summary>
     
@@ -152,18 +126,11 @@
     <link href="https://basicbit.cn/2018/11/01/2018-11-02%20%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84CTF%E5%B0%8Fdemo/"/>
     <id>https://basicbit.cn/2018/11/01/2018-11-02 一个简单的CTF小demo/</id>
     <published>2018-10-31T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.065Z</updated>
+    <updated>2019-07-25T05:28:04.079Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;一个简单的CTF小DEMO&quot;&gt;&lt;a href=&quot;#一个简单的CTF小DEMO&quot; class=&quot;headerlink&quot; title=&quot;一个简单的CTF小DEMO&quot;&gt;&lt;/a&gt;一个简单的CTF小DEMO&lt;/h1&gt;&lt;p&gt;不说废话 ，开始看代码&lt;/p&gt;
-&lt;p&gt;&lt;img
-        
-      
+      &lt;h1 id=&quot;一个简单的CTF小DEMO&quot;&gt;&lt;a href=&quot;#一个简单的CTF小DEMO&quot; class=&quot;headerlink&quot; title=&quot;一个简单的CTF小DEMO&quot;&gt;&lt;/a&gt;一个简单的CTF小DEMO&lt;/h1&gt;
     
     </summary>
     
@@ -179,43 +146,11 @@
     <link href="https://basicbit.cn/2018/11/01/2018-11-01-Windows%20PE%20%E8%BE%93%E5%85%A5%E8%A1%A8/"/>
     <id>https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 输入表/</id>
     <published>2018-10-31T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.076Z</updated>
+    <updated>2019-07-25T05:27:39.296Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;输入表&quot;&gt;&lt;a href=&quot;#输入表&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Windows" scheme="https://basicbit.cn/tags/Windows/"/>
-    
-      <category term="PE" scheme="https://basicbit.cn/tags/PE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Window PE -- 初识</title>
-    <link href="https://basicbit.cn/2018/10/31/2018-10-31-Windows%20PE%20%E5%88%9D%E8%AF%86/"/>
-    <id>https://basicbit.cn/2018/10/31/2018-10-31-Windows PE 初识/</id>
-    <published>2018-10-30T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.113Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;基本概念&quot;&gt;&lt;a href=&quot;#基本概念&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;h1 id=&quot;Window-PE-–-输入表&quot;&gt;&lt;a href=&quot;#Window-PE-–-输入表&quot; class=&quot;headerlink&quot; title=&quot;Window PE – 输入表&quot;&gt;&lt;/a&gt;Window PE – 输入表&lt;/h1&gt;&lt;h2 id=&quot;输入表&quot;&gt;&lt;a href=&quot;#输入表&quot; class=&quot;headerlink&quot; title=&quot;输入表&quot;&gt;&lt;/a&gt;输入表&lt;/h2&gt;&lt;p&gt;可执行文件使用来自其他DLL的代码或数据的动作称为输入。当PE文件被载入时，Windows加载器的工作之一就是定位所有被输入的函数和数据，并让正在入的文件可以使用那些地址。这个过程是通过PE文件的输入表（Impo1tTable，简称“IT”，也称导人表）完成的。输入表中保存的是函数名和其驻留的DLL名等动态链接所需的信息。输入表在软件外亮技术中的地位非常重要，读者在研究与外壳相关的技术时一定要彻底掌握这部分知识。&lt;/p&gt;
     
     </summary>
     
@@ -231,17 +166,12 @@
     <link href="https://basicbit.cn/2018/10/31/2018-10-31-Windows%20Seh%20%E5%88%9D%E8%AF%86/"/>
     <id>https://basicbit.cn/2018/10/31/2018-10-31-Windows Seh 初识/</id>
     <published>2018-10-30T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.111Z</updated>
+    <updated>2019-07-25T05:26:44.862Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;异常处理的基本概念&quot;&gt;&lt;a href=&quot;#异常处理的基本概念&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;p&gt; Window SEH异常 – 异常初识&lt;/p&gt;
+&lt;h2 id=&quot;异常处理的基本概念&quot;&gt;&lt;a href=&quot;#异常处理的基本概念&quot; class=&quot;headerlink&quot; title=&quot;异常处理的基本概念&quot;&gt;&lt;/a&gt;异常处理的基本概念&lt;/h2&gt;&lt;p&gt;所谓异常就是在应用程序正常执行过程中发生的不正常事件。由CPU引发的异常称为硬件异常，例如访问一个无效的内存地址由操作系统或应用程序引发的异常称为软件异常。&lt;/p&gt;
     
     </summary>
     
@@ -253,21 +183,35 @@
   </entry>
   
   <entry>
+    <title>Window PE -- 初识</title>
+    <link href="https://basicbit.cn/2018/10/31/2018-10-31-Windows%20PE%20%E5%88%9D%E8%AF%86/"/>
+    <id>https://basicbit.cn/2018/10/31/2018-10-31-Windows PE 初识/</id>
+    <published>2018-10-30T16:00:00.000Z</published>
+    <updated>2019-07-25T05:26:30.389Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Window-PE-–-初识&quot;&gt;&lt;a href=&quot;#Window-PE-–-初识&quot; class=&quot;headerlink&quot; title=&quot;Window PE – 初识&quot;&gt;&lt;/a&gt;Window PE – 初识&lt;/h1&gt;&lt;h2 id=&quot;基本概念&quot;&gt;&lt;a href=&quot;#基本概念&quot; class=&quot;headerlink&quot; title=&quot;基本概念&quot;&gt;&lt;/a&gt;基本概念&lt;/h2&gt;&lt;p&gt;PE文件使用的是一个平面地址空间，所有代码和数据都合并在一起，组成了一个很大的结构。文件的内容被分割为不同的区块（Section，又称区段、节等，在本章中不区分“区块”与“块”），区块中包含代码或数据，各个区块按页边界对齐。区块没有大小限制，是一个连续结构。每个块都有它自己在内存中的一套属性，例如这个块是否包含代码、是否只读或可读／写等。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Windows" scheme="https://basicbit.cn/tags/Windows/"/>
+    
+      <category term="PE" scheme="https://basicbit.cn/tags/PE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Window SEH异常 -- 异常基础</title>
     <link href="https://basicbit.cn/2018/10/31/2018-10-31-Window%20SEH%20%E5%8E%9F%E7%90%86/"/>
     <id>https://basicbit.cn/2018/10/31/2018-10-31-Window SEH 原理/</id>
     <published>2018-10-30T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.112Z</updated>
+    <updated>2019-07-25T05:26:19.562Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;SEH数据结构&quot;&gt;&lt;a href=&quot;#SEH数据结构&quot; class=&quot;headerlink&quot; title=&quot;SEH数据结构&quot;&gt;&lt;/a&gt;SEH数据结构&lt;/h2&gt;&lt;h3 id=&quot;TIB-结构&quot;&gt;&lt;a href=&quot;#TIB-结构&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;h1 id=&quot;Window-SEH异常-–-异常基础&quot;&gt;&lt;a href=&quot;#Window-SEH异常-–-异常基础&quot; class=&quot;headerlink&quot; title=&quot;Window SEH异常 – 异常基础&quot;&gt;&lt;/a&gt;Window SEH异常 – 异常基础&lt;/h1&gt;&lt;h2 id=&quot;SEH数据结构&quot;&gt;&lt;a href=&quot;#SEH数据结构&quot; class=&quot;headerlink&quot; title=&quot;SEH数据结构&quot;&gt;&lt;/a&gt;SEH数据结构&lt;/h2&gt;&lt;h3 id=&quot;TIB-结构&quot;&gt;&lt;a href=&quot;#TIB-结构&quot; class=&quot;headerlink&quot; title=&quot;TIB 结构&quot;&gt;&lt;/a&gt;TIB 结构&lt;/h3&gt;&lt;p&gt;TIB(ThreadInformatio它位于TEB(ThreadEnvironmentBlock，线程环境块）的头部，而TEB是操作系统为了保存每个线程的私有数据创建的，每个线程都有自己的TEB。&lt;/p&gt;
     
     </summary>
     
@@ -283,18 +227,11 @@
     <link href="https://basicbit.cn/2018/10/20/2018-10-20-%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/"/>
     <id>https://basicbit.cn/2018/10/20/2018-10-20-静态变量底层实现/</id>
     <published>2018-10-19T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.110Z</updated>
+    <updated>2019-07-25T05:25:59.524Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;静态变量有局部静态变量（作用域内的静态变量），全局静态变量，然而他们的实现和全局变量是一样的，而局部静态变量只能在作用域访问是C语言的优化。&lt;/p&gt;
-&lt;p&gt;局部静态变量不会随作用域结束而销毁，并且在未进入作用域之前就已经存在，其生命周期也与全局变量相同。局部静态变量和全局变
-        
-      
+      &lt;h1 id=&quot;静态变量底层实现&quot;&gt;&lt;a href=&quot;#静态变量底层实现&quot; class=&quot;headerlink&quot; title=&quot;静态变量底层实现&quot;&gt;&lt;/a&gt;静态变量底层实现&lt;/h1&gt;&lt;p&gt;静态变量有局部静态变量（作用域内的静态变量），全局静态变量，然而他们的实现和全局变量是一样的，而局部静态变量只能在作用域访问是C语言的优化。&lt;/p&gt;
     
     </summary>
     
@@ -310,17 +247,13 @@
     <link href="https://basicbit.cn/2018/10/16/2018-10-16-%E7%BC%96%E8%AF%91Linux%E5%86%85%E6%A0%B84.17/"/>
     <id>https://basicbit.cn/2018/10/16/2018-10-16-编译Linux内核4.17/</id>
     <published>2018-10-15T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.111Z</updated>
+    <updated>2019-07-25T05:25:47.655Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h2&gt;&lt;p&gt;在Linux3.7之后对驱动添加了签名的限制，更多细节在此不做过多叙述。&lt;/p&gt;
+&lt;p&gt;当我们自己编译的ko文件，进行签名时，是不会得到Ubuntu编译时的私钥的。&lt;/p&gt;
+&lt;p&gt;那我们就要使用自己编译的内核，在编译的过程中将驱动签名的验证关闭。&lt;/p&gt;
     
     </summary>
     
@@ -334,49 +267,15 @@
   </entry>
   
   <entry>
-    <title>VS2017静态编译QT with openssl</title>
-    <link href="https://basicbit.cn/2018/10/08/2018-10-08-VS2017%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91QT%20with%20openssl/"/>
-    <id>https://basicbit.cn/2018/10/08/2018-10-08-VS2017静态编译QT with openssl/</id>
-    <published>2018-10-07T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.109Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;VS2017-静态编译QT-with-openssl&quot;&gt;&lt;a href=&quot;#VS2017-静态编译QT-with-openssl&quot; class=&quot;headerlink&quot; title=&quot;VS2017 静态编译QT with openssl&quot;&gt;&lt;/a&gt;VS2017
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Visual studio" scheme="https://basicbit.cn/tags/Visual-studio/"/>
-    
-      <category term="Qt" scheme="https://basicbit.cn/tags/Qt/"/>
-    
-      <category term="openssl" scheme="https://basicbit.cn/tags/openssl/"/>
-    
-  </entry>
-  
-  <entry>
     <title>VS2017编译 Bitcoin master</title>
     <link href="https://basicbit.cn/2018/10/08/2018-10-09-VS2017%E7%BC%96%E8%AF%91bitcoin%20master/"/>
     <id>https://basicbit.cn/2018/10/08/2018-10-09-VS2017编译bitcoin master/</id>
     <published>2018-10-07T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.110Z</updated>
+    <updated>2019-07-25T05:25:45.472Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;VS2017编译-Bitcoin-master-with-Qt&quot;&gt;&lt;a href=&quot;#VS2017编译-Bitcoin-master-with-Qt&quot; class=&quot;headerlink&quot; title=&quot;VS2017编译 Bitcoin master with
-        
-      
+      &lt;h1 id=&quot;VS2017编译-Bitcoin-master-with-Qt&quot;&gt;&lt;a href=&quot;#VS2017编译-Bitcoin-master-with-Qt&quot; class=&quot;headerlink&quot; title=&quot;VS2017编译 Bitcoin master with Qt&quot;&gt;&lt;/a&gt;VS2017编译 Bitcoin master with Qt&lt;/h1&gt;&lt;h2 id=&quot;下载源码&quot;&gt;&lt;a href=&quot;#下载源码&quot; class=&quot;headerlink&quot; title=&quot;下载源码&quot;&gt;&lt;/a&gt;下载源码&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git &lt;span class=&quot;built_in&quot;&gt;clone&lt;/span&gt; https://github.com/bitcoin/bitcoin&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
@@ -390,22 +289,37 @@
   </entry>
   
   <entry>
+    <title>VS2017静态编译QT with openssl</title>
+    <link href="https://basicbit.cn/2018/10/08/2018-10-08-VS2017%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91QT%20with%20openssl/"/>
+    <id>https://basicbit.cn/2018/10/08/2018-10-08-VS2017静态编译QT with openssl/</id>
+    <published>2018-10-07T16:00:00.000Z</published>
+    <updated>2019-07-25T05:25:32.071Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;VS2017-静态编译QT-with-openssl&quot;&gt;&lt;a href=&quot;#VS2017-静态编译QT-with-openssl&quot; class=&quot;headerlink&quot; title=&quot;VS2017 静态编译QT with openssl&quot;&gt;&lt;/a&gt;VS2017 静态编译QT with openssl&lt;/h1&gt;&lt;p&gt;在GitHub已经有人写了一个很好用的脚本。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Visual studio" scheme="https://basicbit.cn/tags/Visual-studio/"/>
+    
+      <category term="Qt" scheme="https://basicbit.cn/tags/Qt/"/>
+    
+      <category term="openssl" scheme="https://basicbit.cn/tags/openssl/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Window PE感染型木马分析</title>
     <link href="https://basicbit.cn/2017/07/14/2017-07-14-PE%E6%84%9F%E6%9F%93%E5%9E%8B%E6%9C%A8%E9%A9%AC%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/"/>
     <id>https://basicbit.cn/2017/07/14/2017-07-14-PE感染型木马汇编代码分析/</id>
     <published>2017-07-13T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.093Z</updated>
+    <updated>2019-07-25T05:25:13.592Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;PE感染型木马分析&quot;&gt;&lt;a href=&quot;#PE感染型木马分析&quot; class=&quot;headerlink&quot; title=&quot;PE感染型木马分析&quot;&gt;&lt;/a&gt;PE感染型木马分析&lt;/h1&gt;&lt;p&gt;在正式看代码之前先对exe结构（PE）做一个简单了解&lt;/p&gt;
-&lt;h2
-        
-      
+      &lt;h1 id=&quot;PE感染型木马分析&quot;&gt;&lt;a href=&quot;#PE感染型木马分析&quot; class=&quot;headerlink&quot; title=&quot;PE感染型木马分析&quot;&gt;&lt;/a&gt;PE感染型木马分析&lt;/h1&gt;&lt;p&gt;在正式看代码之前先对exe结构（PE）做一个简单了解&lt;/p&gt;
     
     </summary>
     
@@ -423,17 +337,11 @@
     <link href="https://basicbit.cn/2017/06/13/2017-07-15-SSDT,PEB,TEB/"/>
     <id>https://basicbit.cn/2017/06/13/2017-07-15-SSDT,PEB,TEB/</id>
     <published>2017-06-12T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.094Z</updated>
+    <updated>2019-07-25T05:25:19.463Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;SSDT&quot;&gt;&lt;a href=&quot;#SSDT&quot; class=&quot;headerlink&quot; title=&quot;SSDT&quot;&gt;&lt;/a&gt;SSDT&lt;/h2&gt;&lt;h4 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;h2 id=&quot;SSDT&quot;&gt;&lt;a href=&quot;#SSDT&quot; class=&quot;headerlink&quot; title=&quot;SSDT&quot;&gt;&lt;/a&gt;SSDT&lt;/h2&gt;&lt;h4 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h4&gt;&lt;p&gt;SSDT全称是”System Services Descriptor Table”（系统服务描述符表），在内核中的实际名称是”KeSeriveDescriptorTable“。这个表已通过内核ntoskrnl.exe导出（在x64里不导出）。&lt;/p&gt;
     
     </summary>
     
@@ -451,17 +359,12 @@
     <link href="https://basicbit.cn/2017/06/13/2017-06-13-Windows%E5%86%85%E6%A0%B8%E5%AF%B9%E8%B1%A1/"/>
     <id>https://basicbit.cn/2017/06/13/2017-06-13-Windows内核对象/</id>
     <published>2017-06-12T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.093Z</updated>
+    <updated>2019-07-25T05:25:10.449Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;内核对象概述&quot;&gt;&lt;a href=&quot;#内核对象概述&quot; class=&quot;headerlink&quot; title=&quot;内核对象概述&quot;&gt;&lt;/a&gt;内核对象概述&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/img/1550655557295.png&quot;
-        
-      
+      &lt;h2 id=&quot;内核对象概述&quot;&gt;&lt;a href=&quot;#内核对象概述&quot; class=&quot;headerlink&quot; title=&quot;内核对象概述&quot;&gt;&lt;/a&gt;内核对象概述&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/img/1550655557295.png&quot; alt=&quot;1550655557295&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在Windows内核中有一种很重要的数据结构管理机制，就是内核对象。引用层的进程、线程、文件、驱动模块、时间、信号量等对象或者打开的句柄在内核中都有之对应的内核结构对象。&lt;/p&gt;
     
     </summary>
     
@@ -479,17 +382,11 @@
     <link href="https://basicbit.cn/2017/04/13/2017-04-13-Windows%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/"/>
     <id>https://basicbit.cn/2017/04/13/2017-04-13-Windows启动过程/</id>
     <published>2017-04-12T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.092Z</updated>
+    <updated>2019-07-25T05:25:06.344Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;Windows启动包含下面几个阶段&quot;&gt;&lt;a href=&quot;#Windows启动包含下面几个阶段&quot; class=&quot;headerlink&quot; title=&quot;Windows启动包含下面几个阶段&quot;&gt;&lt;/a&gt;Windows启动包含下面几个阶段&lt;/h2&gt;&lt;h3
-        
-      
+      &lt;h2 id=&quot;Windows启动包含下面几个阶段&quot;&gt;&lt;a href=&quot;#Windows启动包含下面几个阶段&quot; class=&quot;headerlink&quot; title=&quot;Windows启动包含下面几个阶段&quot;&gt;&lt;/a&gt;Windows启动包含下面几个阶段&lt;/h2&gt;&lt;h3 id=&quot;1-启动自检阶段&quot;&gt;&lt;a href=&quot;#1-启动自检阶段&quot; class=&quot;headerlink&quot; title=&quot;1.  启动自检阶段&quot;&gt;&lt;/a&gt;1.  启动自检阶段&lt;/h3&gt;&lt;p&gt;​    在打开电源时，计算机开始自检过程，从BIOS中载入必要的指令，然后进行一系列的自检操作，进行硬件的初始化检查（内存，硬盘，键盘等），同时在屏幕上显示信息。&lt;/p&gt;
     
     </summary>
     
@@ -507,17 +404,14 @@
     <link href="https://basicbit.cn/2017/02/16/2017-02-16-Git-%E4%BB%A3%E7%A0%81%E5%9B%9E%E6%BB%9A/"/>
     <id>https://basicbit.cn/2017/02/16/2017-02-16-Git-代码回滚/</id>
     <published>2017-02-15T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.091Z</updated>
+    <updated>2019-07-25T05:25:02.394Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;git-revert-和-git-reset-的区别&quot;&gt;&lt;a href=&quot;#git-revert-和-git-reset-的区别&quot; class=&quot;headerlink&quot; title=&quot;git revert 和 git reset
-        
-      
+      &lt;h1 id=&quot;git-revert-和-git-reset-的区别&quot;&gt;&lt;a href=&quot;#git-revert-和-git-reset-的区别&quot; class=&quot;headerlink&quot; title=&quot;git revert 和 git reset 的区别&quot;&gt;&lt;/a&gt;&lt;strong&gt;git revert&lt;/strong&gt; 和 &lt;strong&gt;git reset&lt;/strong&gt; 的区别&lt;/h1&gt;&lt;p&gt; 先看图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tNbRwgy1fcr9tu6vdjj30t30ez0y8.jpg&quot; alt&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;sourceTree&lt;/strong&gt; 中 &lt;strong&gt;revert&lt;/strong&gt; 译为&lt;strong&gt;&lt;code&gt;提交回滚&lt;/code&gt;&lt;/strong&gt;，作用为忽略你指定的版本，然后提交一个新的版本。新的版本中已近删除了你所指定的版本。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;reset&lt;/strong&gt; 为 &lt;strong&gt;重置到这次提交&lt;/strong&gt;，将内容重置到指定的版本。&lt;code&gt;git reset&lt;/code&gt; 命令后面是需要加2种参数的：&lt;code&gt;–-hard&lt;/code&gt; 和 &lt;code&gt;–-soft&lt;/code&gt;。这条命令默认情况下是 &lt;code&gt;-–soft&lt;/code&gt;。&lt;/p&gt;
     
     </summary>
     
@@ -535,20 +429,20 @@
     <link href="https://basicbit.cn/2017/02/15/2017-02-15-Git%E6%8C%87%E4%BB%A4%E6%95%B4%E7%90%86/"/>
     <id>https://basicbit.cn/2017/02/15/2017-02-15-Git指令整理/</id>
     <published>2017-02-14T16:00:00.000Z</published>
-    <updated>2019-07-19T06:05:37.091Z</updated>
+    <updated>2019-07-25T05:24:57.393Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;blockquote&gt;
+      &lt;blockquote&gt;
 &lt;p&gt;随便整理的一些自用的Git指令&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h1 id=&quot;GitHub创建仓库提示代码&quot;&gt;&lt;a href=&quot;#GitHub创建仓库提示代码&quot; class=&quot;headerlink&quot;
-        
-      
+&lt;h1 id=&quot;GitHub创建仓库提示代码&quot;&gt;&lt;a href=&quot;#GitHub创建仓库提示代码&quot; class=&quot;headerlink&quot; title=&quot;GitHub创建仓库提示代码&quot;&gt;&lt;/a&gt;GitHub创建仓库提示代码&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;echo &amp;quot;# 项目名&amp;quot; &amp;gt;&amp;gt; README.md
+git init
+git add README.md
+git commit -m &amp;quot;first commit&amp;quot;
+git remote add origin git@github.com:qiubaiying/项目名.git
+git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;若仓库存在直接push&lt;/p&gt;
     
     </summary>
     

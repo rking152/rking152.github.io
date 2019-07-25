@@ -91,23 +91,23 @@
 
 
 
-<meta name="description" content="异常处理的基本概念所谓异常就是在应用程序正常执行过程中发生的不正常事件。由CPU引发的异常称为硬件异常，例如访问一个无效的内存地址由操作系统或应用程序引发的异常称为软件异常。 常见的异常见下表  异常处理的基本过程Windows常启动后，将运行在保护模式下，当有中断或异常发生时，CPU会通过中断描述柯：表(IDT）来寻找处理函数。因此，IDT表是CPU（硬件）和操作系统（软件）交接中和异常的关口。">
+<meta name="description" content="Window SEH异常 – 异常初识 异常处理的基本概念所谓异常就是在应用程序正常执行过程中发生的不正常事件。由CPU引发的异常称为硬件异常，例如访问一个无效的内存地址由操作系统或应用程序引发的异常称为软件异常。">
 <meta name="keywords" content="Windows,SEH">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Window SEH异常 -- 异常初识">
 <meta property="og:url" content="https://basicbit.cn/2018/10/31/2018-10-31-Windows Seh 初识/index.html">
 <meta property="og:site_name" content="BasicBit">
-<meta property="og:description" content="异常处理的基本概念所谓异常就是在应用程序正常执行过程中发生的不正常事件。由CPU引发的异常称为硬件异常，例如访问一个无效的内存地址由操作系统或应用程序引发的异常称为软件异常。 常见的异常见下表  异常处理的基本过程Windows常启动后，将运行在保护模式下，当有中断或异常发生时，CPU会通过中断描述柯：表(IDT）来寻找处理函数。因此，IDT表是CPU（硬件）和操作系统（软件）交接中和异常的关口。">
+<meta property="og:description" content="Window SEH异常 – 异常初识 异常处理的基本概念所谓异常就是在应用程序正常执行过程中发生的不正常事件。由CPU引发的异常称为硬件异常，例如访问一个无效的内存地址由操作系统或应用程序引发的异常称为软件异常。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://basicbit.cn/img/1554688283899.png">
 <meta property="og:image" content="https://basicbit.cn/img/1554688741507.png">
 <meta property="og:image" content="https://basicbit.cn/img/1554688751713.png">
 <meta property="og:image" content="https://basicbit.cn/img/1554688974585.png">
 <meta property="og:image" content="https://basicbit.cn/img/1554690873141.png">
-<meta property="og:updated_time" content="2019-07-19T06:05:37.111Z">
+<meta property="og:updated_time" content="2019-07-25T05:26:44.862Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Window SEH异常 -- 异常初识">
-<meta name="twitter:description" content="异常处理的基本概念所谓异常就是在应用程序正常执行过程中发生的不正常事件。由CPU引发的异常称为硬件异常，例如访问一个无效的内存地址由操作系统或应用程序引发的异常称为软件异常。 常见的异常见下表  异常处理的基本过程Windows常启动后，将运行在保护模式下，当有中断或异常发生时，CPU会通过中断描述柯：表(IDT）来寻找处理函数。因此，IDT表是CPU（硬件）和操作系统（软件）交接中和异常的关口。">
+<meta name="twitter:description" content="Window SEH异常 – 异常初识 异常处理的基本概念所谓异常就是在应用程序正常执行过程中发生的不正常事件。由CPU引发的异常称为硬件异常，例如访问一个无效的内存地址由操作系统或应用程序引发的异常称为软件异常。">
 <meta name="twitter:image" content="https://basicbit.cn/img/1554688283899.png">
 
 
@@ -275,8 +275,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:26:44+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -326,7 +326,9 @@
       
 
       
-        <h2 id="异常处理的基本概念"><a href="#异常处理的基本概念" class="headerlink" title="异常处理的基本概念"></a>异常处理的基本概念</h2><p>所谓异常就是在应用程序正常执行过程中发生的不正常事件。由CPU引发的异常称为硬件异常，例如访问一个无效的内存地址由操作系统或应用程序引发的异常称为软件异常。</p>
+        <p> Window SEH异常 – 异常初识</p>
+<h2 id="异常处理的基本概念"><a href="#异常处理的基本概念" class="headerlink" title="异常处理的基本概念"></a>异常处理的基本概念</h2><p>所谓异常就是在应用程序正常执行过程中发生的不正常事件。由CPU引发的异常称为硬件异常，例如访问一个无效的内存地址由操作系统或应用程序引发的异常称为软件异常。</p>
+<a id="more"></a>  
 <p>常见的异常见下表</p>
 <p><img src="/img/1554688283899.png" alt="1554688283899"></p>
 <h2 id="异常处理的基本过程"><a href="#异常处理的基本过程" class="headerlink" title="异常处理的基本过程"></a>异常处理的基本过程</h2><p>Windows常启动后，将运行在保护模式下，当有中断或异常发生时，CPU会通过中断描述柯：表(IDT）来寻找处理函数。因此，IDT表是CPU（硬件）和操作系统（软件）交接中和异常的关口。</p>
@@ -410,8 +412,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/31/2018-10-31-Window SEH 原理/" rel="next" title="Window SEH异常 -- 异常基础">
-                <i class="fa fa-chevron-left"></i> Window SEH异常 -- 异常基础
+              <a href="/2018/10/31/2018-10-31-Windows PE 初识/" rel="next" title="Window PE -- 初识">
+                <i class="fa fa-chevron-left"></i> Window PE -- 初识
               </a>
             
           </div>
@@ -420,8 +422,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/31/2018-10-31-Windows PE 初识/" rel="prev" title="Window PE -- 初识">
-                Window PE -- 初识 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/01/2018-11-01-Windows PE 输入表/" rel="prev" title="Window PE -- 输入表">
+                Window PE -- 输入表 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

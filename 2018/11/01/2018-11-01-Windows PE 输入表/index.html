@@ -91,20 +91,20 @@
 
 
 
-<meta name="description" content="输入表可执行文件使用来自其他DLL的代码或数据的动作称为输入。当PE文件被载入时，Windows加载器的工作之一就是定位所有被输入的函数和数据，并让正在入的文件可以使用那些地址。这个过程是通过PE文件的输入表（Impo1tTable，简称“IT”，也称导人表）完成的。输入表中保存的是函数名和其驻留的DLL名等动态链接所需的信息。输入表在软件外亮技术中的地位非常重要，读者在研究与外壳相关的技术时一定">
+<meta name="description" content="Window PE – 输入表输入表可执行文件使用来自其他DLL的代码或数据的动作称为输入。当PE文件被载入时，Windows加载器的工作之一就是定位所有被输入的函数和数据，并让正在入的文件可以使用那些地址。这个过程是通过PE文件的输入表（Impo1tTable，简称“IT”，也称导人表）完成的。输入表中保存的是函数名和其驻留的DLL名等动态链接所需的信息。输入表在软件外亮技术中的地位非常重要，读">
 <meta name="keywords" content="Windows,PE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Window PE -- 输入表">
 <meta property="og:url" content="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 输入表/index.html">
 <meta property="og:site_name" content="BasicBit">
-<meta property="og:description" content="输入表可执行文件使用来自其他DLL的代码或数据的动作称为输入。当PE文件被载入时，Windows加载器的工作之一就是定位所有被输入的函数和数据，并让正在入的文件可以使用那些地址。这个过程是通过PE文件的输入表（Impo1tTable，简称“IT”，也称导人表）完成的。输入表中保存的是函数名和其驻留的DLL名等动态链接所需的信息。输入表在软件外亮技术中的地位非常重要，读者在研究与外壳相关的技术时一定">
+<meta property="og:description" content="Window PE – 输入表输入表可执行文件使用来自其他DLL的代码或数据的动作称为输入。当PE文件被载入时，Windows加载器的工作之一就是定位所有被输入的函数和数据，并让正在入的文件可以使用那些地址。这个过程是通过PE文件的输入表（Impo1tTable，简称“IT”，也称导人表）完成的。输入表中保存的是函数名和其驻留的DLL名等动态链接所需的信息。输入表在软件外亮技术中的地位非常重要，读">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://basicbit.cn/img/1554866976205.png">
 <meta property="og:image" content="https://basicbit.cn/img/1554867171146.png">
-<meta property="og:updated_time" content="2019-07-19T06:05:37.076Z">
+<meta property="og:updated_time" content="2019-07-25T05:27:39.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Window PE -- 输入表">
-<meta name="twitter:description" content="输入表可执行文件使用来自其他DLL的代码或数据的动作称为输入。当PE文件被载入时，Windows加载器的工作之一就是定位所有被输入的函数和数据，并让正在入的文件可以使用那些地址。这个过程是通过PE文件的输入表（Impo1tTable，简称“IT”，也称导人表）完成的。输入表中保存的是函数名和其驻留的DLL名等动态链接所需的信息。输入表在软件外亮技术中的地位非常重要，读者在研究与外壳相关的技术时一定">
+<meta name="twitter:description" content="Window PE – 输入表输入表可执行文件使用来自其他DLL的代码或数据的动作称为输入。当PE文件被载入时，Windows加载器的工作之一就是定位所有被输入的函数和数据，并让正在入的文件可以使用那些地址。这个过程是通过PE文件的输入表（Impo1tTable，简称“IT”，也称导人表）完成的。输入表中保存的是函数名和其驻留的DLL名等动态链接所需的信息。输入表在软件外亮技术中的地位非常重要，读">
 <meta name="twitter:image" content="https://basicbit.cn/img/1554866976205.png">
 
 
@@ -272,8 +272,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:27:39+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -323,7 +323,8 @@
       
 
       
-        <h2 id="输入表"><a href="#输入表" class="headerlink" title="输入表"></a>输入表</h2><p>可执行文件使用来自其他DLL的代码或数据的动作称为输入。当PE文件被载入时，Windows加载器的工作之一就是定位所有被输入的函数和数据，并让正在入的文件可以使用那些地址。这个过程是通过PE文件的输入表（Impo1tTable，简称“IT”，也称导人表）完成的。输入表中保存的是函数名和其驻留的DLL名等动态链接所需的信息。输入表在软件外亮技术中的地位非常重要，读者在研究与外壳相关的技术时一定要彻底掌握这部分知识。</p>
+        <h1 id="Window-PE-–-输入表"><a href="#Window-PE-–-输入表" class="headerlink" title="Window PE – 输入表"></a>Window PE – 输入表</h1><h2 id="输入表"><a href="#输入表" class="headerlink" title="输入表"></a>输入表</h2><p>可执行文件使用来自其他DLL的代码或数据的动作称为输入。当PE文件被载入时，Windows加载器的工作之一就是定位所有被输入的函数和数据，并让正在入的文件可以使用那些地址。这个过程是通过PE文件的输入表（Impo1tTable，简称“IT”，也称导人表）完成的。输入表中保存的是函数名和其驻留的DLL名等动态链接所需的信息。输入表在软件外亮技术中的地位非常重要，读者在研究与外壳相关的技术时一定要彻底掌握这部分知识。</p>
+<a id="more"></a>  
 <h2 id="输入表的调用"><a href="#输入表的调用" class="headerlink" title="输入表的调用"></a>输入表的调用</h2><p>在代码分析或编程中经常会遇到输入函数（ImportFunctions，或称导人函数）。输入函数就是被程序调用但其执行代码不在程序中的函数，这些函数的代码位于相关的DLL文件中，在调用者程序中只保留相关的函数信息，例如函数名、DLL文件名等。对磁盘上的PE文件来说，它无法得知这些输入函数在内存中的地址。只有当PE文件载入内存后，Windows加载器才将相关DLL载人，并将调用输入函数的指令和函数实际所处的地址联系起来。</p>
 <p>当应用程序调用一个DLL的代码和数据时，它正在被隐式地链接到DLL，这个过程完全由Windows加载器完成。另一种链接是运行期的显式链接，这意味着必须确定目标DLL已经被加载，然后寻找API的地址，这几乎总是通过调用LoadLibra巧和GetProcAddress完成的。</p>
 <p>当隐含地链接一个API时，类似LoadLibrary和GetProcAddress的代码始终在执行，只不过这是由Windows加载器自动完成的。Windows加载器还保证了PE文件所需的任何附加的DLL都巳载入例如，Windows2000/XP上每个由VisualC＋＋创建的正常程序都要链接KERNEL32.DLL，而它又从NTDLL.DLL中输入函数。同样，如果链接了GDI32.DLL，它又依赖USER32、ADVAPI32、NTDLL和KERNEL32等DLL的函数，那么都要由Windows加载器来保证载入并解决输入问题。</p>
@@ -401,8 +402,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/31/2018-10-31-Windows PE 初识/" rel="next" title="Window PE -- 初识">
-                <i class="fa fa-chevron-left"></i> Window PE -- 初识
+              <a href="/2018/10/31/2018-10-31-Windows Seh 初识/" rel="next" title="Window SEH异常 -- 异常初识">
+                <i class="fa fa-chevron-left"></i> Window SEH异常 -- 异常初识
               </a>
             
           </div>
@@ -543,7 +544,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入表"><span class="nav-number">1.</span> <span class="nav-text">输入表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入表的调用"><span class="nav-number">2.</span> <span class="nav-text">输入表的调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入表结构"><span class="nav-number">2.1.</span> <span class="nav-text">输入表结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入地址表"><span class="nav-number">3.</span> <span class="nav-text">输入地址表</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Window-PE-–-输入表"><span class="nav-number">1.</span> <span class="nav-text">Window PE – 输入表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入表"><span class="nav-number">1.1.</span> <span class="nav-text">输入表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入表的调用"><span class="nav-number">1.2.</span> <span class="nav-text">输入表的调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入表结构"><span class="nav-number">1.2.1.</span> <span class="nav-text">输入表结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入地址表"><span class="nav-number">1.3.</span> <span class="nav-text">输入地址表</span></a></li></ol></li></ol></div>
             
 
           </div>

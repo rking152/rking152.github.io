@@ -91,19 +91,19 @@
 
 
 
-<meta name="description" content="git revert 和 git reset 的区别 先看图：  sourceTree 中 revert 译为提交回滚，作用为忽略你指定的版本，然后提交一个新的版本。新的版本中已近删除了你所指定的版本。 reset 为 重置到这次提交，将内容重置到指定的版本。git reset 命令后面是需要加2种参数的：–-hard 和 –-soft。这条命令默认情况下是 -–soft。 执行上述命令时，这该条">
+<meta name="description" content="git revert 和 git reset 的区别 先看图：  sourceTree 中 revert 译为提交回滚，作用为忽略你指定的版本，然后提交一个新的版本。新的版本中已近删除了你所指定的版本。 reset 为 重置到这次提交，将内容重置到指定的版本。git reset 命令后面是需要加2种参数的：–-hard 和 –-soft。这条命令默认情况下是 -–soft。">
 <meta name="keywords" content="Mac,终端,Git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git 代码回滚">
 <meta property="og:url" content="https://basicbit.cn/2017/02/16/2017-02-16-Git-代码回滚/index.html">
 <meta property="og:site_name" content="BasicBit">
-<meta property="og:description" content="git revert 和 git reset 的区别 先看图：  sourceTree 中 revert 译为提交回滚，作用为忽略你指定的版本，然后提交一个新的版本。新的版本中已近删除了你所指定的版本。 reset 为 重置到这次提交，将内容重置到指定的版本。git reset 命令后面是需要加2种参数的：–-hard 和 –-soft。这条命令默认情况下是 -–soft。 执行上述命令时，这该条">
+<meta property="og:description" content="git revert 和 git reset 的区别 先看图：  sourceTree 中 revert 译为提交回滚，作用为忽略你指定的版本，然后提交一个新的版本。新的版本中已近删除了你所指定的版本。 reset 为 重置到这次提交，将内容重置到指定的版本。git reset 命令后面是需要加2种参数的：–-hard 和 –-soft。这条命令默认情况下是 -–soft。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://ww3.sinaimg.cn/large/006tNbRwgy1fcr9tu6vdjj30t30ez0y8.jpg">
-<meta property="og:updated_time" content="2019-07-19T06:05:37.091Z">
+<meta property="og:updated_time" content="2019-07-25T05:25:02.394Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git 代码回滚">
-<meta name="twitter:description" content="git revert 和 git reset 的区别 先看图：  sourceTree 中 revert 译为提交回滚，作用为忽略你指定的版本，然后提交一个新的版本。新的版本中已近删除了你所指定的版本。 reset 为 重置到这次提交，将内容重置到指定的版本。git reset 命令后面是需要加2种参数的：–-hard 和 –-soft。这条命令默认情况下是 -–soft。 执行上述命令时，这该条">
+<meta name="twitter:description" content="git revert 和 git reset 的区别 先看图：  sourceTree 中 revert 译为提交回滚，作用为忽略你指定的版本，然后提交一个新的版本。新的版本中已近删除了你所指定的版本。 reset 为 重置到这次提交，将内容重置到指定的版本。git reset 命令后面是需要加2种参数的：–-hard 和 –-soft。这条命令默认情况下是 -–soft。">
 <meta name="twitter:image" content="https://ww3.sinaimg.cn/large/006tNbRwgy1fcr9tu6vdjj30t30ez0y8.jpg">
 
 
@@ -271,8 +271,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:25:02+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -326,6 +326,7 @@
 <p><img src="https://ww3.sinaimg.cn/large/006tNbRwgy1fcr9tu6vdjj30t30ez0y8.jpg" alt></p>
 <p><strong>sourceTree</strong> 中 <strong>revert</strong> 译为<strong><code>提交回滚</code></strong>，作用为忽略你指定的版本，然后提交一个新的版本。新的版本中已近删除了你所指定的版本。</p>
 <p><strong>reset</strong> 为 <strong>重置到这次提交</strong>，将内容重置到指定的版本。<code>git reset</code> 命令后面是需要加2种参数的：<code>–-hard</code> 和 <code>–-soft</code>。这条命令默认情况下是 <code>-–soft</code>。</p>
+<a id="more"></a>  
 <p>执行上述命令时，这该条commit号之 后（时间作为参考点）的所有commit的修改都会退回到git缓冲区中。使用<code>git status</code> 命令可以在缓冲区中看到这些修改。而如果加上<code>-–hard</code>参数，则缓冲区中不会存储这些修改，git会直接丢弃这部分内容。可以使用 <code>git push origin HEAD --force</code> 强制将分区内容推送到远程服务器。</p>
 <h4 id="代码回退"><a href="#代码回退" class="headerlink" title="代码回退"></a>代码回退</h4><p>默认参数 <code>-soft</code>,所有commit的修改都会退回到git缓冲区<br>参数<code>--hard</code>，所有commit的修改直接丢弃</p>
 <pre><code>$ git reset --hard HEAD^         回退到上个版本

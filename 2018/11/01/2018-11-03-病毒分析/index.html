@@ -91,13 +91,13 @@
 
 
 
-<meta name="description" content="分析未进行行为分析，直接看代码  在cmp eax,…..来看，这是一个无意义的循环，nop掉或者F4。 它的作用只是来干扰分析者。 继续走  又看到一个for循环，这个循环，里面唯一有意义的代码就是GetModuleHandleA，获取kernel32的句柄，我们直接F4跳出循环，  获取GlobalAlloc的地址。  调用globalalloc分配0x181B8字节空间。  这段代码在一个循">
+<meta name="description" content="​     分析未进行行为分析，直接看代码  在cmp eax,…..来看，这是一个无意义的循环，nop掉或者F4。">
 <meta name="keywords" content="Windows,CTF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一个简单的CTF小DEMO">
 <meta property="og:url" content="https://basicbit.cn/2018/11/01/2018-11-03-病毒分析/index.html">
 <meta property="og:site_name" content="BasicBit">
-<meta property="og:description" content="分析未进行行为分析，直接看代码  在cmp eax,…..来看，这是一个无意义的循环，nop掉或者F4。 它的作用只是来干扰分析者。 继续走  又看到一个for循环，这个循环，里面唯一有意义的代码就是GetModuleHandleA，获取kernel32的句柄，我们直接F4跳出循环，  获取GlobalAlloc的地址。  调用globalalloc分配0x181B8字节空间。  这段代码在一个循">
+<meta property="og:description" content="​     分析未进行行为分析，直接看代码  在cmp eax,…..来看，这是一个无意义的循环，nop掉或者F4。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://basicbit.cn/img/1563843414789.png">
 <meta property="og:image" content="https://basicbit.cn/img/1563843566044.png">
@@ -107,10 +107,10 @@
 <meta property="og:image" content="https://basicbit.cn/img/1563844132010.png">
 <meta property="og:image" content="https://basicbit.cn/img/1563844208662.png">
 <meta property="og:image" content="https://basicbit.cn/img/1563844487216.png">
-<meta property="og:updated_time" content="2019-07-23T01:47:18.084Z">
+<meta property="og:updated_time" content="2019-07-25T05:28:08.805Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一个简单的CTF小DEMO">
-<meta name="twitter:description" content="分析未进行行为分析，直接看代码  在cmp eax,…..来看，这是一个无意义的循环，nop掉或者F4。 它的作用只是来干扰分析者。 继续走  又看到一个for循环，这个循环，里面唯一有意义的代码就是GetModuleHandleA，获取kernel32的句柄，我们直接F4跳出循环，  获取GlobalAlloc的地址。  调用globalalloc分配0x181B8字节空间。  这段代码在一个循">
+<meta name="twitter:description" content="​     分析未进行行为分析，直接看代码  在cmp eax,…..来看，这是一个无意义的循环，nop掉或者F4。">
 <meta name="twitter:image" content="https://basicbit.cn/img/1563843414789.png">
 
 
@@ -278,8 +278,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-23T09:47:18+08:00" content="2019-07-23">
-              2019-07-23
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:28:08+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -329,9 +329,11 @@
       
 
       
-        <h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>未进行行为分析，直接看代码</p>
+        <p>​    </p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>未进行行为分析，直接看代码</p>
 <p><img src="/img/1563843414789.png" alt="1563843414789"></p>
 <p>在cmp eax,…..来看，这是一个无意义的循环，nop掉或者F4。</p>
+<a id="more"></a>      
 <p>它的作用只是来干扰分析者。</p>
 <p>继续走</p>
 <p><img src="/img/1563843566044.png" alt="1563843566044"></p>
@@ -380,8 +382,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/01/2018-11-01-Windows PE 输出表/" rel="next" title="Window PE -- 输出表 基址重定位">
-                <i class="fa fa-chevron-left"></i> Window PE -- 输出表 基址重定位
+              <a href="/2018/11/01/2018-11-01-Windows PE 资源/" rel="next" title="Window PE -- 资源">
+                <i class="fa fa-chevron-left"></i> Window PE -- 资源
               </a>
             
           </div>
@@ -389,6 +391,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/01/2018-11-01-Windows PE 输出表/" rel="prev" title="Window PE -- 输出表 基址重定位">
+                Window PE -- 输出表 基址重定位 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>

@@ -91,21 +91,21 @@
 
 
 
-<meta name="description" content="Linux 内存地址与分段机制基于80x86 逻辑地址指定一个操作数或一条指令的地址，这种寻址方式，在80x86分段模式下表现的尤为得体，在Windows里二进制可执行文件会分为若干段。每一个逻辑地址都由一个段和偏移组成，偏移量指定了从段开始的地方到实际地址的距离。 线性地址也可以叫做虚拟地址，是一个32位整数，最高可以表示到4294967296个内存单元。通常用16进制表示，值的范围0x0000">
+<meta name="description" content="Linux 内存地址与分段机制基于80x86 逻辑地址指定一个操作数或一条指令的地址，这种寻址方式，在80x86分段模式下表现的尤为得体，在Windows里二进制可执行文件会分为若干段。每一个逻辑地址都由一个段和偏移组成，偏移量指定了从段开始的地方到实际地址的距离。">
 <meta name="keywords" content="Linux,操作系统,内核">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux 内存地址与分段机制">
 <meta property="og:url" content="https://basicbit.cn/2016/03/12/2016-03-14-Linux内存地址/index.html">
 <meta property="og:site_name" content="BasicBit">
-<meta property="og:description" content="Linux 内存地址与分段机制基于80x86 逻辑地址指定一个操作数或一条指令的地址，这种寻址方式，在80x86分段模式下表现的尤为得体，在Windows里二进制可执行文件会分为若干段。每一个逻辑地址都由一个段和偏移组成，偏移量指定了从段开始的地方到实际地址的距离。 线性地址也可以叫做虚拟地址，是一个32位整数，最高可以表示到4294967296个内存单元。通常用16进制表示，值的范围0x0000">
+<meta property="og:description" content="Linux 内存地址与分段机制基于80x86 逻辑地址指定一个操作数或一条指令的地址，这种寻址方式，在80x86分段模式下表现的尤为得体，在Windows里二进制可执行文件会分为若干段。每一个逻辑地址都由一个段和偏移组成，偏移量指定了从段开始的地方到实际地址的距离。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://basicbit.cn/img/1536740000646.png">
 <meta property="og:image" content="https://basicbit.cn/img/1536740109090.png">
 <meta property="og:image" content="https://basicbit.cn/img/1536740043063.png">
-<meta property="og:updated_time" content="2019-07-19T06:05:37.089Z">
+<meta property="og:updated_time" content="2019-07-25T05:24:46.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 内存地址与分段机制">
-<meta name="twitter:description" content="Linux 内存地址与分段机制基于80x86 逻辑地址指定一个操作数或一条指令的地址，这种寻址方式，在80x86分段模式下表现的尤为得体，在Windows里二进制可执行文件会分为若干段。每一个逻辑地址都由一个段和偏移组成，偏移量指定了从段开始的地方到实际地址的距离。 线性地址也可以叫做虚拟地址，是一个32位整数，最高可以表示到4294967296个内存单元。通常用16进制表示，值的范围0x0000">
+<meta name="twitter:description" content="Linux 内存地址与分段机制基于80x86 逻辑地址指定一个操作数或一条指令的地址，这种寻址方式，在80x86分段模式下表现的尤为得体，在Windows里二进制可执行文件会分为若干段。每一个逻辑地址都由一个段和偏移组成，偏移量指定了从段开始的地方到实际地址的距离。">
 <meta name="twitter:image" content="https://basicbit.cn/img/1536740000646.png">
 
 
@@ -273,8 +273,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:24:46+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -326,6 +326,7 @@
       
         <h1 id="Linux-内存地址与分段机制"><a href="#Linux-内存地址与分段机制" class="headerlink" title="Linux 内存地址与分段机制"></a>Linux 内存地址与分段机制</h1><p>基于80x86</p>
 <h3 id="逻辑地址"><a href="#逻辑地址" class="headerlink" title="逻辑地址"></a>逻辑地址</h3><p>指定一个操作数或一条指令的地址，这种寻址方式，在80x86分段模式下表现的尤为得体，在Windows里二进制可执行文件会分为若干段。每一个逻辑地址都由一个段和偏移组成，偏移量指定了从段开始的地方到实际地址的距离。</p>
+<a id="more"></a>  
 <h3 id="线性地址"><a href="#线性地址" class="headerlink" title="线性地址"></a>线性地址</h3><p>也可以叫做虚拟地址，是一个32位整数，最高可以表示到4294967296个内存单元。通常用16进制表示，值的范围0x00000000到0xFFFFFFFF</p>
 <h3 id="物理地址"><a href="#物理地址" class="headerlink" title="物理地址"></a>物理地址</h3><p>用于内存芯片级内存单元寻址。他们从微处理器的地址引脚发送到内存总线上的电信号对应。物理地址由32位或36位unsigned int 表示</p>
 <p>内存管理单元（MMU）通过一种称为分段单元的硬件电路，把一个逻辑地址转换为线性地址，接着，第二个称之为分页单元的硬件电路把线性地址转换为物理地址。</p>
@@ -441,8 +442,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/03/13/2016-03-13-Windows开机过程/" rel="prev" title="Window开机过程">
-                Window开机过程 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/03/12/2016-03-12-Linux符号文件/" rel="prev" title="Linux内核（文件）">
+                Linux内核（文件） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

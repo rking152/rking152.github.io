@@ -91,13 +91,13 @@
 
 
 
-<meta name="description" content="区块在PE件头与原始数据之间存在一个区块表（SectionTable）。区块表中包含每个块在映像中的信息，分别指向不同的区块实体。 区块表跟IMAGE_NT_HEADERS的是区块表，它是一个IMAGE_SECTION_HEADER结构数组。每个IMAGE_SECTION_HEADER结构包含了它所关联的区块的信息，例如位置、长度、属性，该数组的数目由MAGE_NT_HEADERS.FileHea">
+<meta name="description" content="Window PE – 区块区块在PE件头与原始数据之间存在一个区块表（SectionTable）。区块表中包含每个块在映像中的信息，分别指向不同的区块实体。">
 <meta name="keywords" content="Windows,PE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Window PE -- 区块">
 <meta property="og:url" content="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 区块/index.html">
 <meta property="og:site_name" content="BasicBit">
-<meta property="og:description" content="区块在PE件头与原始数据之间存在一个区块表（SectionTable）。区块表中包含每个块在映像中的信息，分别指向不同的区块实体。 区块表跟IMAGE_NT_HEADERS的是区块表，它是一个IMAGE_SECTION_HEADER结构数组。每个IMAGE_SECTION_HEADER结构包含了它所关联的区块的信息，例如位置、长度、属性，该数组的数目由MAGE_NT_HEADERS.FileHea">
+<meta property="og:description" content="Window PE – 区块区块在PE件头与原始数据之间存在一个区块表（SectionTable）。区块表中包含每个块在映像中的信息，分别指向不同的区块实体。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://basicbit.cn/img/1554724992303.png">
 <meta property="og:image" content="https://basicbit.cn/img/1554725224302.png">
@@ -107,10 +107,10 @@
 <meta property="og:image" content="https://basicbit.cn/img/1554725645315.png">
 <meta property="og:image" content="https://basicbit.cn/img/1554725718474.png">
 <meta property="og:image" content="https://basicbit.cn/img/1554725752993.png">
-<meta property="og:updated_time" content="2019-07-19T06:05:37.075Z">
+<meta property="og:updated_time" content="2019-07-25T05:26:59.302Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Window PE -- 区块">
-<meta name="twitter:description" content="区块在PE件头与原始数据之间存在一个区块表（SectionTable）。区块表中包含每个块在映像中的信息，分别指向不同的区块实体。 区块表跟IMAGE_NT_HEADERS的是区块表，它是一个IMAGE_SECTION_HEADER结构数组。每个IMAGE_SECTION_HEADER结构包含了它所关联的区块的信息，例如位置、长度、属性，该数组的数目由MAGE_NT_HEADERS.FileHea">
+<meta name="twitter:description" content="Window PE – 区块区块在PE件头与原始数据之间存在一个区块表（SectionTable）。区块表中包含每个块在映像中的信息，分别指向不同的区块实体。">
 <meta name="twitter:image" content="https://basicbit.cn/img/1554724992303.png">
 
 
@@ -278,8 +278,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:26:59+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -329,7 +329,8 @@
       
 
       
-        <h2 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h2><p>在PE件头与原始数据之间存在一个区块表（SectionTable）。区块表中包含每个块在映像中的信息，分别指向不同的区块实体。</p>
+        <h1 id="Window-PE-–-区块"><a href="#Window-PE-–-区块" class="headerlink" title="Window PE – 区块"></a>Window PE – 区块</h1><h2 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h2><p>在PE件头与原始数据之间存在一个区块表（SectionTable）。区块表中包含每个块在映像中的信息，分别指向不同的区块实体。</p>
+<a id="more"></a>  
 <h3 id="区块表"><a href="#区块表" class="headerlink" title="区块表"></a>区块表</h3><p>跟IMAGE_NT_HEADERS的是区块表，它是一个IMAGE_SECTION_HEADER结构数组。每个IMAGE_SECTION_HEADER结构包含了它所关联的区块的信息，例如位置、长度、属性，该数组的数目由MAGE_NT_HEADERS.FileHeader.NumberOfSections指出。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_SECTION_HEADER</span> &#123;</span></span><br><span class="line">  BYTE  Name[IMAGE_SIZEOF_SHORT_NAME];</span><br><span class="line">  <span class="keyword">union</span> &#123;</span><br><span class="line">    DWORD PhysicalAddress;</span><br><span class="line">    DWORD VirtualSize;</span><br><span class="line">  &#125; Misc;</span><br><span class="line">  DWORD VirtualAddress;</span><br><span class="line">  DWORD SizeOfRawData;</span><br><span class="line">  DWORD PointerToRawData;</span><br><span class="line">  DWORD PointerToRelocations;</span><br><span class="line">  DWORD PointerToLinenumbers;</span><br><span class="line">  WORD  NumberOfRelocations;</span><br><span class="line">  WORD  NumberOfLinenumbers;</span><br><span class="line">  DWORD Characteristics;</span><br><span class="line">&#125; IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;</span><br></pre></td></tr></table></figure>
 <p>为了便于理解，我们假设PE.exe的区块表含有3个块的描述，分别是.text、.rdata和.data。每个块对应于一个MAGE_SECTION_HEADER结构，用十六进制工具查看块表，如下表。表中的标号对应于第1个IMAGE_SECTION_HEADER结构的以下字段。</p>
@@ -419,8 +420,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/01/2018-11-01-Windows PE 资源/" rel="next" title="Window PE -- 资源">
-                <i class="fa fa-chevron-left"></i> Window PE -- 资源
+              <a href="/2018/11/01/2018-11-02 一个简单的CTF小demo/" rel="next" title="一个简单的CTF小DEMO">
+                <i class="fa fa-chevron-left"></i> 一个简单的CTF小DEMO
               </a>
             
           </div>
@@ -561,7 +562,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#区块"><span class="nav-number">1.</span> <span class="nav-text">区块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区块表"><span class="nav-number">1.1.</span> <span class="nav-text">区块表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见区块与区块合并"><span class="nav-number">1.2.</span> <span class="nav-text">常见区块与区块合并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区块的对齐值"><span class="nav-number">1.3.</span> <span class="nav-text">区块的对齐值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件偏移与虚拟地址的转换"><span class="nav-number">1.4.</span> <span class="nav-text">文件偏移与虚拟地址的转换</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Window-PE-–-区块"><span class="nav-number">1.</span> <span class="nav-text">Window PE – 区块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#区块"><span class="nav-number">1.1.</span> <span class="nav-text">区块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区块表"><span class="nav-number">1.1.1.</span> <span class="nav-text">区块表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见区块与区块合并"><span class="nav-number">1.1.2.</span> <span class="nav-text">常见区块与区块合并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区块的对齐值"><span class="nav-number">1.1.3.</span> <span class="nav-text">区块的对齐值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件偏移与虚拟地址的转换"><span class="nav-number">1.1.4.</span> <span class="nav-text">文件偏移与虚拟地址的转换</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

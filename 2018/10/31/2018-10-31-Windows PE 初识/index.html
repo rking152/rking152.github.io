@@ -91,20 +91,20 @@
 
 
 
-<meta name="description" content="基本概念PE文件使用的是一个平面地址空间，所有代码和数据都合并在一起，组成了一个很大的结构。文件的内容被分割为不同的区块（Section，又称区段、节等，在本章中不区分“区块”与“块”），区块中包含代码或数据，各个区块按页边界对齐。区块没有大小限制，是一个连续结构。每个块都有它自己在内存中的一套属性，例如这个块是否包含代码、是否只读或可读／写等。 认识到PE文件不是作为单一内存映射文件被载入内存是">
+<meta name="description" content="Window PE – 初识基本概念PE文件使用的是一个平面地址空间，所有代码和数据都合并在一起，组成了一个很大的结构。文件的内容被分割为不同的区块（Section，又称区段、节等，在本章中不区分“区块”与“块”），区块中包含代码或数据，各个区块按页边界对齐。区块没有大小限制，是一个连续结构。每个块都有它自己在内存中的一套属性，例如这个块是否包含代码、是否只读或可读／写等。">
 <meta name="keywords" content="Windows,PE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Window PE -- 初识">
 <meta property="og:url" content="https://basicbit.cn/2018/10/31/2018-10-31-Windows PE 初识/index.html">
 <meta property="og:site_name" content="BasicBit">
-<meta property="og:description" content="基本概念PE文件使用的是一个平面地址空间，所有代码和数据都合并在一起，组成了一个很大的结构。文件的内容被分割为不同的区块（Section，又称区段、节等，在本章中不区分“区块”与“块”），区块中包含代码或数据，各个区块按页边界对齐。区块没有大小限制，是一个连续结构。每个块都有它自己在内存中的一套属性，例如这个块是否包含代码、是否只读或可读／写等。 认识到PE文件不是作为单一内存映射文件被载入内存是">
+<meta property="og:description" content="Window PE – 初识基本概念PE文件使用的是一个平面地址空间，所有代码和数据都合并在一起，组成了一个很大的结构。文件的内容被分割为不同的区块（Section，又称区段、节等，在本章中不区分“区块”与“块”），区块中包含代码或数据，各个区块按页边界对齐。区块没有大小限制，是一个连续结构。每个块都有它自己在内存中的一套属性，例如这个块是否包含代码、是否只读或可读／写等。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://basicbit.cn/img/1554714173177.png">
 <meta property="og:image" content="https://basicbit.cn/img/1554715138941.png">
-<meta property="og:updated_time" content="2019-07-19T06:05:37.113Z">
+<meta property="og:updated_time" content="2019-07-25T05:26:30.389Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Window PE -- 初识">
-<meta name="twitter:description" content="基本概念PE文件使用的是一个平面地址空间，所有代码和数据都合并在一起，组成了一个很大的结构。文件的内容被分割为不同的区块（Section，又称区段、节等，在本章中不区分“区块”与“块”），区块中包含代码或数据，各个区块按页边界对齐。区块没有大小限制，是一个连续结构。每个块都有它自己在内存中的一套属性，例如这个块是否包含代码、是否只读或可读／写等。 认识到PE文件不是作为单一内存映射文件被载入内存是">
+<meta name="twitter:description" content="Window PE – 初识基本概念PE文件使用的是一个平面地址空间，所有代码和数据都合并在一起，组成了一个很大的结构。文件的内容被分割为不同的区块（Section，又称区段、节等，在本章中不区分“区块”与“块”），区块中包含代码或数据，各个区块按页边界对齐。区块没有大小限制，是一个连续结构。每个块都有它自己在内存中的一套属性，例如这个块是否包含代码、是否只读或可读／写等。">
 <meta name="twitter:image" content="https://basicbit.cn/img/1554714173177.png">
 
 
@@ -272,8 +272,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:26:30+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -323,7 +323,8 @@
       
 
       
-        <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>PE文件使用的是一个平面地址空间，所有代码和数据都合并在一起，组成了一个很大的结构。文件的内容被分割为不同的区块（Section，又称区段、节等，在本章中不区分“区块”与“块”），区块中包含代码或数据，各个区块按页边界对齐。区块没有大小限制，是一个连续结构。每个块都有它自己在内存中的一套属性，例如这个块是否包含代码、是否只读或可读／写等。</p>
+        <h1 id="Window-PE-–-初识"><a href="#Window-PE-–-初识" class="headerlink" title="Window PE – 初识"></a>Window PE – 初识</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>PE文件使用的是一个平面地址空间，所有代码和数据都合并在一起，组成了一个很大的结构。文件的内容被分割为不同的区块（Section，又称区段、节等，在本章中不区分“区块”与“块”），区块中包含代码或数据，各个区块按页边界对齐。区块没有大小限制，是一个连续结构。每个块都有它自己在内存中的一套属性，例如这个块是否包含代码、是否只读或可读／写等。</p>
+<a id="more"></a>  
 <p>认识到PE文件不是作为单一内存映射文件被载入内存是很重要的。Windows加载器（又称PE装载器）遍历PE文件并决定文件的哪一部分被映射，这种映射方式是将文件较高的偏移位置映射到较高的内存地址中。盘文件一旦被载入内存，磁盘上的数据结构布局和内存中的数据结构布局就是一致的。这样，如果在磁盘的数据结构中寻找一些内容，那么几乎都能在被载人的内存映射文件中找到相同的信息，但数据之间的相对位置可能会改变，某项的偏移地址可能区别于原始的偏移位置。</p>
 <p>不管怎样，对所有表现出来的信息，都允许进行从磁盘文件偏移到内存偏移的转换。</p>
 <h3 id="基地址"><a href="#基地址" class="headerlink" title="基地址"></a>基地址</h3><p>当PE文件通过Windows加载器载入内存后，内存中的版本称为模块（Module）。映射文件的起始地址称为模块句柄（hModule），可以通过模块句柄访问内存中的其他数据结构。这个初始内存地址也称为基地址（ImageBase）。准确地说，对于WindowsCE，这是不成立的，一个模块句辆在WindowsCE下井不等同于安装的起始地址。</p>
@@ -378,8 +379,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/31/2018-10-31-Windows Seh 初识/" rel="next" title="Window SEH异常 -- 异常初识">
-                <i class="fa fa-chevron-left"></i> Window SEH异常 -- 异常初识
+              <a href="/2018/10/31/2018-10-31-Window SEH 原理/" rel="next" title="Window SEH异常 -- 异常基础">
+                <i class="fa fa-chevron-left"></i> Window SEH异常 -- 异常基础
               </a>
             
           </div>
@@ -388,8 +389,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/01/2018-11-01-Windows PE 输入表/" rel="prev" title="Window PE -- 输入表">
-                Window PE -- 输入表 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/10/31/2018-10-31-Windows Seh 初识/" rel="prev" title="Window SEH异常 -- 异常初识">
+                Window SEH异常 -- 异常初识 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -520,7 +521,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基地址"><span class="nav-number">1.1.</span> <span class="nav-text">基地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟地址"><span class="nav-number">1.2.</span> <span class="nav-text">虚拟地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相对虚拟地址"><span class="nav-number">1.3.</span> <span class="nav-text">相对虚拟地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件虚拟地址"><span class="nav-number">2.</span> <span class="nav-text">文件虚拟地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MS-DOS头部"><span class="nav-number">3.</span> <span class="nav-text">MS-DOS头部</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows"><span class="nav-number"></span> <span class="nav-text">Windows</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Window-PE-–-初识"><span class="nav-number">1.</span> <span class="nav-text">Window PE – 初识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基地址"><span class="nav-number">1.1.1.</span> <span class="nav-text">基地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟地址"><span class="nav-number">1.1.2.</span> <span class="nav-text">虚拟地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相对虚拟地址"><span class="nav-number">1.1.3.</span> <span class="nav-text">相对虚拟地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件虚拟地址"><span class="nav-number">1.2.</span> <span class="nav-text">文件虚拟地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MS-DOS头部"><span class="nav-number">1.3.</span> <span class="nav-text">MS-DOS头部</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows"><span class="nav-number">2.</span> <span class="nav-text">Windows</span></a></li></ol></div>
             
 
           </div>

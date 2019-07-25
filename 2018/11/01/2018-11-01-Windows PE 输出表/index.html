@@ -91,13 +91,13 @@
 
 
 
-<meta name="description" content="输出表创建一个DLL时，实际上创建了一组能让XE或其他DLL调用的函数，此时PE装载器根据DLL文件中输出的信息修正被执行文件的IAT。当一个LL函数能被EXE或另一个DLL文件使用时，它就被“输出了”（Exported）。其中，输出信息被保存在输出表中，DLL文件通过输出表向系统提供输出函数名、序号和人口地址等信息。 EXE文件中一般不存在输出表，而大部分DLL文件中存在输出表。当然，这也不是绝">
+<meta name="description" content="Window PE – 输出表 基址重定位 输出表创建一个DLL时，实际上创建了一组能让XE或其他DLL调用的函数，此时PE装载器根据DLL文件中输出的信息修正被执行文件的IAT。当一个LL函数能被EXE或另一个DLL文件使用时，它就被“输出了”（Exported）。其中，输出信息被保存在输出表中，DLL文件通过输出表向系统提供输出函数名、序号和人口地址等信息。">
 <meta name="keywords" content="Windows,PE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Window PE -- 输出表 基址重定位">
 <meta property="og:url" content="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 输出表/index.html">
 <meta property="og:site_name" content="BasicBit">
-<meta property="og:description" content="输出表创建一个DLL时，实际上创建了一组能让XE或其他DLL调用的函数，此时PE装载器根据DLL文件中输出的信息修正被执行文件的IAT。当一个LL函数能被EXE或另一个DLL文件使用时，它就被“输出了”（Exported）。其中，输出信息被保存在输出表中，DLL文件通过输出表向系统提供输出函数名、序号和人口地址等信息。 EXE文件中一般不存在输出表，而大部分DLL文件中存在输出表。当然，这也不是绝">
+<meta property="og:description" content="Window PE – 输出表 基址重定位 输出表创建一个DLL时，实际上创建了一组能让XE或其他DLL调用的函数，此时PE装载器根据DLL文件中输出的信息修正被执行文件的IAT。当一个LL函数能被EXE或另一个DLL文件使用时，它就被“输出了”（Exported）。其中，输出信息被保存在输出表中，DLL文件通过输出表向系统提供输出函数名、序号和人口地址等信息。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://basicbit.cn/img/1554867753098.png">
 <meta property="og:image" content="https://basicbit.cn/img/1554867886934.png">
@@ -105,10 +105,10 @@
 <meta property="og:image" content="https://basicbit.cn/img/1554867947723.png">
 <meta property="og:image" content="https://basicbit.cn/img/1554868151561.png">
 <meta property="og:image" content="https://basicbit.cn/img/1554868174075.png">
-<meta property="og:updated_time" content="2019-07-19T06:05:37.085Z">
+<meta property="og:updated_time" content="2019-07-25T05:27:49.320Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Window PE -- 输出表 基址重定位">
-<meta name="twitter:description" content="输出表创建一个DLL时，实际上创建了一组能让XE或其他DLL调用的函数，此时PE装载器根据DLL文件中输出的信息修正被执行文件的IAT。当一个LL函数能被EXE或另一个DLL文件使用时，它就被“输出了”（Exported）。其中，输出信息被保存在输出表中，DLL文件通过输出表向系统提供输出函数名、序号和人口地址等信息。 EXE文件中一般不存在输出表，而大部分DLL文件中存在输出表。当然，这也不是绝">
+<meta name="twitter:description" content="Window PE – 输出表 基址重定位 输出表创建一个DLL时，实际上创建了一组能让XE或其他DLL调用的函数，此时PE装载器根据DLL文件中输出的信息修正被执行文件的IAT。当一个LL函数能被EXE或另一个DLL文件使用时，它就被“输出了”（Exported）。其中，输出信息被保存在输出表中，DLL文件通过输出表向系统提供输出函数名、序号和人口地址等信息。">
 <meta name="twitter:image" content="https://basicbit.cn/img/1554867753098.png">
 
 
@@ -276,8 +276,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:27:49+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -327,7 +327,9 @@
       
 
       
-        <h1 id="输出表"><a href="#输出表" class="headerlink" title="输出表"></a>输出表</h1><p>创建一个DLL时，实际上创建了一组能让XE或其他DLL调用的函数，此时PE装载器根据DLL文件中输出的信息修正被执行文件的IAT。当一个LL函数能被EXE或另一个DLL文件使用时，它就被“输出了”（Exported）。其中，输出信息被保存在输出表中，DLL文件通过输出表向系统提供输出函数名、序号和人口地址等信息。</p>
+        <p>Window PE – 输出表 基址重定位</p>
+<h1 id="输出表"><a href="#输出表" class="headerlink" title="输出表"></a>输出表</h1><p>创建一个DLL时，实际上创建了一组能让XE或其他DLL调用的函数，此时PE装载器根据DLL文件中输出的信息修正被执行文件的IAT。当一个LL函数能被EXE或另一个DLL文件使用时，它就被“输出了”（Exported）。其中，输出信息被保存在输出表中，DLL文件通过输出表向系统提供输出函数名、序号和人口地址等信息。</p>
+<a id="more"></a>  
 <p>EXE文件中一般不存在输出表，而大部分DLL文件中存在输出表。当然，这也不是绝对的，有些EE文件中也存在输出函数。</p>
 <h2 id="输出表结构"><a href="#输出表结构" class="headerlink" title="输出表结构"></a>输出表结构</h2><p>输出表（ExportTable）主要内容是一个表格，其中包括函数名称、输出序数等。序数是指定DLL中某个函数的16位数字，在所指向的DLL里是独一无二的。在此不提倡仅通过序数引出函数，这会带来DLL维护上的问题。一旦DLL升级或被修改，调用该DLL的程序将无法工作。</p>
 <p>输出表是数据目录表的第I个成员，指向IMAGE_EXPORT_DIRECTORY（简称“IED”）结构。IED结构定义如下。</p>
@@ -399,8 +401,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/01/2018-11-01-Windows PE 文件头/" rel="next" title="Window PE -- 文件头">
-                <i class="fa fa-chevron-left"></i> Window PE -- 文件头
+              <a href="/2018/11/01/2018-11-03-病毒分析/" rel="next" title="一个简单的CTF小DEMO">
+                <i class="fa fa-chevron-left"></i> 一个简单的CTF小DEMO
               </a>
             
           </div>
@@ -408,10 +410,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/01/2018-11-03-病毒分析/" rel="prev" title="一个简单的CTF小DEMO">
-                一个简单的CTF小DEMO <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

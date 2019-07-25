@@ -267,8 +267,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:25:23+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -319,36 +319,15 @@
 
       
         
-          
-            <p>WinDbg 推荐微软商店安装，UI好看</p>
+          <p>WinDbg 推荐微软商店安装，UI好看</p>
 <p>WinDbg本地调试无法通过下断点来跟踪内核的执行，就需要采取特殊的方法，可以通过USB、1394火线等把两台机器连接起来，一台机器运行被调试的内核，另一台机器运行WinDbg，这样就可以调试内核了。不过两台机器的内核调试成本太高，实际上都是通过WinDbg结合虚拟机的方式来调试内核的。虚拟机平台自行选择。</p>
-<ol>
-<li><p>安装好WinDbg后</p>
-</li>
-<li><p>在VMware上创建一个COM串口（COM1或COM2）。如下图，创建的串口是串口2，后文中Windows XP的 boot.ini或者 Windows Vista 以后版本命令行里的设置均填写 “com2”。创建的串口ID为 “com2”的原因是存在虚拟机。为了方便，也可以先将虚拟打印机删除，这样创建的串口ID就是“com1”了。</p>
-</li>
-</ol>
-<p><img src="/img/1550731479128.png" alt="1550731479128"></p>
-<ol start="3">
-<li>设置虚拟机内部系统的调试环境。虚拟机内存操作系统根据不同的版本，设置方法略有差异。</li>
-</ol>
-<p>在Windows XP中是通过BOOT.ini进行配置的。在系统C:\目录下才可以找到boot.ini（注意：该文件为隐藏只读文件，须在文件夹选项中取消对系统文件隐藏才能看见）。在boot.ini文件的最后添加如下行，/debugport=取决于创建的串口ID（com1或com2）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">multi(0)disk(0)rdisk(0)partition(1)\WINDOWS=&quot;Microsoft Windows XP Professional-debug&quot; /debug /debugport=com2 /baudrate=115200 /fastdetect</span><br></pre></td></tr></table></figure>
-<p>在Windows Vista/7及以后的操作系统中，以管理员身份启动CMD，运行如下命令 。  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bcdedit /dbgsettings serial baudrate:115200 debugport:2 </span><br><span class="line">//debugport取决于串口ID</span><br><span class="line">bcdedit /copy &#123;current&#125; /d DebugEntry</span><br><span class="line">bcdedit /displayorder &#123;current&#125; &#123;GUID&#125;</span><br><span class="line">//GUID 请执行第二步时输出的GUID替换</span><br><span class="line">bcdedit /debug &#123;GUID&#125;</span><br><span class="line">//GUID 请执行第二步时输出的GUID替换</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li><p>在虚拟机外建立WinDbg快捷方式，命令如下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">windbg.exe -k com:port=\\.\pipe\com_1,baud=11520,pipe</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动虚拟机内的操作系统，并选择调试启动菜单。</p>
-</li>
-<li><p>通过虚拟机外的WinDbg快捷方式启动WinDbg。</p>
-</li>
-</ol>
-<p>经过以上步骤，稍等片刻，WinDbg和虚拟机就会连接起来。如果长时间没连接上，可以点击WinDbg菜单项 Debug –&gt; Kernel Connection –&gt; Resynchronize，重新进行连接。</p>
-<p>单击WinDbg菜单项Debug –&gt; Break（或按 Crtl + Break快捷键）让系统中断，就可以向WinDbg下调试命令了。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/01/13/2017-10-14-Windbg双机调试/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -421,8 +400,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:24:52+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -473,41 +452,14 @@
 
       
         
-          
-            <h1 id="虚拟地址空间"><a href="#虚拟地址空间" class="headerlink" title="虚拟地址空间"></a>虚拟地址空间</h1><p>当处理器读取或写入存储器位置时，它使用虚拟地址。作为读或写操作的一部分，处理器将虚拟地址转换为物理地址。通过虚拟地址访问内存具有以下优势：</p>
-<ul>
-<li><p>程序可以使用连续范围的虚拟地址来访问在物理内存中不连续的大内存缓冲区。</p>
-</li>
-<li><p>程序可以使用一系列虚拟地址来访问大于可用物理内存的内存缓冲区。随着物理内存的供应变小，内存管理器将物理内存页（通常为4000 bytes）保存到磁盘文件中。根据需要，在物理内存和磁盘之间移动数据页或代码页。</p>
-</li>
-<li><p>不同进程使用的虚拟地址彼此隔离。一个进程中的代码不能改变另一个进程或操作系统正在使用的物理内存。</p>
-<p>进程可用的虚拟地址范围称为进程的<em>虚拟地址空间</em>。每个用户模式进程都有自己的私有虚拟地址空间。对于32位进程，虚拟地址空间通常为2千兆字节范围0x00000000到0x7FFFFFFF。对于64位进程，虚拟地址空间为8 TB，范围为0x000’00000000到0x7FF’FFFFFFFF。一系列虚拟地址有时称为一系列<em>虚拟内存</em>。</p>
-</li>
-</ul>
-<p>此图说明了虚拟地址空间的一些关键功能。</p>
-<p><img src="/img/virtualaddressspace01.png" alt="virtualaddressspace01"></p>
-<p>该图显示了两个64位进程的虚拟地址空间：Notepad.exe和MyApp.exe。</p>
-<p>每个进程都有自己的虚拟地址空间，从0x000’0000000到0x7FF’FFFFFFFF。每个阴影块表示一页（4千字节大小）的虚拟或物理内存。</p>
-<p>注意，记事本进程使用三个连续的虚拟地址页面，从0x7F7’93950000开始。但是这三个连续的虚拟地址页面被映射到物理内存中的不连续页面。另请注意，两个进程都使用从0x7F7’93950000开始的虚拟内存页面，但这些虚拟页面映射到物理内存的不同页面。 </p>
-<h2 id="用户空间和系统空间"><a href="#用户空间和系统空间" class="headerlink" title="用户空间和系统空间"></a>用户空间和系统空间</h2><p>Notepad.exe和MyApp.exe等进程在用户模式下运行。核心操作系统组件和许多驱动程序在更特权的内核模式下运行。每个用户模式进程都有自己的专用虚拟地址空间，但所有以内核模式运行的代码都共享一个称为<em>系统空间的</em>虚拟地址<em>空间</em>。用户模式进程的虚拟地址空间称为<em>用户空间</em>。</p>
-<p>在32位Windows中，总可用虚拟地址空间为2 ^ 32bytes（4gigabytes 节）。通常，较低的2gigabytes 字节用于用户空间，而较高的2千兆字节用于系统空间。</p>
-<p>![virtualaddressspace02]img\virtualaddressspace02.png)</p>
-<p>在32位Windows中，您可以选择（在启动时）指定超过2千兆字节可用于用户空间。结果是可用于系统空间的虚拟地址更少。您可以将用户空间的大小增加到3千兆字节，在这种情况下，系统空间只有1千兆字节可用。 </p>
-<p>在64位Windows中，理论上的虚拟地址空间量为2 ^ 64bytes（16exabytes ），但实际上只使用了16-exabyte范围的一小部分。从0x000’00000000到0x7FF’FFFFFFFF的8TB范围用于用户空间，并且从0xFFFF0800’00000000到0xFFFFFFFF’FFFFFFFF的248TB范围的部分用于系统空间。</p>
-<p><img src="/img/virtualaddressspace02.png" alt="virtualaddressspace02"></p>
-<p>在用户模式下运行的代码可以访问用户空间，但无权访问系统空间。此限制可防止用户模式代码读取或更改受保护的操作系统数据结构。在内核模式下运行的代码可以访问用户空间和系统空间。也就是说，以内核模式运行的代码可以访问系统空间和当前用户模式进程的虚拟地址空间。</p>
-<p>在内核模式下运行的驱动程序必须非常小心，直接读取或写入用户空间中的地址。这个场景说明了原因。</p>
-<ol>
-<li>用户模式程序启动从设备读取某些数据的请求。程序提供缓冲区的起始地址以接收数据。</li>
-<li>在内核模式下运行的设备驱动程序例程启动读取操作并将控制权返回给其调用者。</li>
-<li>稍后，设备会中断当前正在运行的任何线程，以表示读取操作已完成。中断由在此任意线程上运行的内核模式驱动程序例程处理，该线程属于任意进程。</li>
-<li>此时，驱动程序不得将数据写入步骤1中提供的用户模式程序的起始地址。此地址位于发起请求的进程的虚拟地址空间中，这很可能与目前的进程。</li>
-</ol>
-<h2 id="分页池和非分页池"><a href="#分页池和非分页池" class="headerlink" title="分页池和非分页池"></a>分页池和非分页池</h2><p>在用户空间中，可以根据需要将所有物理内存页面分页到磁盘文件。在系统空间中，某些物理页面可以被分页，而其他物理页面则不能。系统空间有两个用于动态分配内存的区域：分页池和非分页池。</p>
-<p>可以根据需要将页面缓冲池中分配的内存分页到磁盘文件中。在非分页池中分配的内存永远不能分页到磁盘文件。</p>
-<p><img src="/img/virtualaddressspace04.png" alt="virtualaddressspace04"> </p>
-
-          
+          <h1 id="虚拟地址空间"><a href="#虚拟地址空间" class="headerlink" title="虚拟地址空间"></a>虚拟地址空间</h1><p>当处理器读取或写入存储器位置时，它使用虚拟地址。作为读或写操作的一部分，处理器将虚拟地址转换为物理地址。通过虚拟地址访问内存具有以下优势：</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/03/20/2016-03-20-Windows地址空间/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -709,8 +661,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:24:41+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -761,395 +713,15 @@
 
       
         
-          
-            <h1 id="一、第一阶段：BIOS"><a href="#一、第一阶段：BIOS" class="headerlink" title="一、第一阶段：BIOS"></a>一、第一阶段：BIOS</h1><p>上个世纪70年代初，”只读内存”（read-only memory，缩写为ROM）发明，开机程序被刷入ROM芯片，计算机通电后，第一件事就是读取它。</p>
+          <h1 id="一、第一阶段：BIOS"><a href="#一、第一阶段：BIOS" class="headerlink" title="一、第一阶段：BIOS"></a>一、第一阶段：BIOS</h1><p>上个世纪70年代初，”只读内存”（read-only memory，缩写为ROM）发明，开机程序被刷入ROM芯片，计算机通电后，第一件事就是读取它。</p>
 <p>这块芯片里的程序叫做”基本輸出輸入系統”（Basic Input/Output System），简称为BIOS。</p>
-<h2 id="1-1-硬件自检"><a href="#1-1-硬件自检" class="headerlink" title="1.1 硬件自检"></a>1.1 硬件自检</h2><p>BIOS程序首先检查，计算机硬件能否满足运行的基本条件，这叫做”硬件自检”（Power-On Self-Test），缩写为POST。</p>
-<p>如果硬件出现问题，主板会发出不同含义的蜂鸣，启动中止。如果没有问题，屏幕就会显示出CPU、内存、硬盘等信息。</p>
-<h2 id="1-2-启动顺序"><a href="#1-2-启动顺序" class="headerlink" title="1.2 启动顺序"></a>1.2 启动顺序</h2><p>硬件自检完成后，BIOS把控制权转交给下一阶段的启动程序。</p>
-<p>这时，BIOS需要知道，”下一阶段的启动程序”具体存放在哪一个设备。也就是说，BIOS需要有一个外部储存设备的排序，排在前面的设备就是优先转交控制权的设备。这种排序叫做”启动顺序”（Boot Sequence）。</p>
-<p>打开BIOS的操作界面，里面有一项就是”设定启动顺序”。</p>
-<h1 id="二、第二阶段：主引导记录"><a href="#二、第二阶段：主引导记录" class="headerlink" title="二、第二阶段：主引导记录"></a>二、第二阶段：主引导记录</h1><p>BIOS按照”启动顺序”，把控制权转交给排在第一位的储存设备。</p>
-<p>这时，计算机读取该设备的第一个扇区，也就是读取最前面的512个字节。如果这512个字节的最后两个字节是0x55和0xAA，表明这个设备可以用于启动；如果不是，表明设备不能用于启动，控制权于是被转交给”启动顺序”中的下一个设备。</p>
-<p>这最前面的512个字节，就叫做”主引导记录”（Master boot record，缩写为MBR）。</p>
-<h2 id="2-1-主引导记录的结构"><a href="#2-1-主引导记录的结构" class="headerlink" title="2.1 主引导记录的结构"></a>2.1 主引导记录的结构</h2><p>“主引导记录”只有512个字节，放不了太多东西。它的主要作用是，告诉计算机到硬盘的哪一个位置去找操作系统。</p>
-<p>主引导记录由三个部分组成：</p>
-<p>（1） 第1-446字节：调用操作系统的机器码。</p>
-<p>（2） 第447-510字节：分区表（Partition table）。</p>
-<p>（3） 第511-512字节：主引导记录签名（0x55和0xAA）。</p>
-<p>其中，第二部分”分区表”的作用，是将硬盘分成若干个区。</p>
-<h2 id="2-2-分区表"><a href="#2-2-分区表" class="headerlink" title="2.2 分区表"></a>2.2 分区表</h2><p>硬盘分区有很多好处。考虑到每个区可以安装不同的操作系统，”主引导记录”因此必须知道将控制权转交给哪个区。</p>
-<p>分区表的长度只有64个字节，里面又分成四项，每项16个字节。所以，一个硬盘最多只能分四个一级分区，又叫做”主分区”。</p>
-<p>每个主分区的16个字节，由6个部分组成：</p>
-<p>（1） 第1个字节：如果为0x80，就表示该主分区是激活分区，控制权要转交给这个分区。四个主分区里面只能有一个是激活的。</p>
-<p>（2） 第2-4个字节：主分区第一个扇区的物理位置（柱面、磁头、扇区号等等）。</p>
-<p>（3） 第5个字节：主分区类型。</p>
-<p>（4） 第6-8个字节：主分区最后一个扇区的物理位置。</p>
-<p>（5） 第9-12字节：该主分区第一个扇区的逻辑地址。</p>
-<p>（6） 第13-16字节：主分区的扇区总数。</p>
-<p>最后的四个字节（”主分区的扇区总数”），决定了这个主分区的长度。也就是说，一个主分区的扇区总数最多不超过2的32次方。</p>
-<p>如果每个扇区为512个字节，就意味着单个分区最大不超过2TB。再考虑到扇区的逻辑地址也是32位，所以单个硬盘可利用的空间最大也不超过2TB。如果想使用更大的硬盘，只有2个方法：一是提高每个扇区的字节数，二是增加扇区总数。</p>
-<h1 id="三、第三阶段：硬盘启动"><a href="#三、第三阶段：硬盘启动" class="headerlink" title="三、第三阶段：硬盘启动"></a>三、第三阶段：硬盘启动</h1><p>这时，计算机的控制权就要转交给硬盘的某个分区了，这里又分成三种情况。</p>
-<h2 id="3-1-情况A：卷引导记录"><a href="#3-1-情况A：卷引导记录" class="headerlink" title="3.1 情况A：卷引导记录"></a>3.1 情况A：卷引导记录</h2><p>上一节提到，四个主分区里面，只有一个是激活的。计算机会读取激活分区的第一个扇区，叫做”卷引导记录”（Volume boot record，缩写为VBR）。</p>
-<p>“卷引导记录”的主要作用是，告诉计算机，操作系统在这个分区里的位置。然后，计算机就会加载操作系统了。</p>
-<h2 id="3-2-情况B：扩展分区和逻辑分区"><a href="#3-2-情况B：扩展分区和逻辑分区" class="headerlink" title="3.2 情况B：扩展分区和逻辑分区"></a>3.2 情况B：扩展分区和逻辑分区</h2><p>随着硬盘越来越大，四个主分区已经不够了，需要更多的分区。但是，分区表只有四项，因此规定有且仅有一个区可以被定义成”扩展分区”（Extended partition）。</p>
-<p>所谓”扩展分区”，就是指这个区里面又分成多个区。这种分区里面的分区，就叫做”逻辑分区”（logical partition）。</p>
-<p>计算机先读取扩展分区的第一个扇区，叫做”扩展引导记录”（Extended boot record，缩写为EBR）。它里面也包含一张64字节的分区表，但是最多只有两项（也就是两个逻辑分区）。</p>
-<p>计算机接着读取第二个逻辑分区的第一个扇区，再从里面的分区表中找到第三个逻辑分区的位置，以此类推，直到某个逻辑分区的分区表只包含它自身为止（即只有一个分区项）。因此，扩展分区可以包含无数个逻辑分区。</p>
-<p>但是，似乎很少通过这种方式启动操作系统。如果操作系统确实安装在扩展分区，一般采用下一种方式启动。</p>
-<h2 id="3-3-情况C：启动管理器"><a href="#3-3-情况C：启动管理器" class="headerlink" title="3.3 情况C：启动管理器"></a>3.3 情况C：启动管理器</h2><p>在这种情况下，计算机读取”主引导记录”前面446字节的机器码之后，不再把控制权转交给某一个分区，而是运行事先安装的”启动管理器”（boot loader），由用户选择启动哪一个操作系统。</p>
-<p>Linux环境中，目前最流行的启动管理器是Grub。</p>
-<h1 id="四、第四阶段：操作系统"><a href="#四、第四阶段：操作系统" class="headerlink" title="四、第四阶段：操作系统"></a>四、第四阶段：操作系统</h1><p>控制权转交给操作系统后，操作系统的内核首先被载入内存。</p>
-<p>以Linux系统为例，先载入/boot目录下面的kernel。内核加载成功后，第一个运行的程序是/sbin/init。它根据配置文件（Debian系统是/etc/initab）产生init进程。这是Linux启动后的第一个进程，pid进程编号为1，其他进程都是它的后代。</p>
-<p>然后，init线程加载系统的各个模块，比如窗口程序和网络程序，直至执行/bin/login程序，跳出登录界面，等待用户输入用户名和密码。</p>
-<p>至此，全部启动过程完成。 </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2016/03/12/2016-03-14-Linux内存地址/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Bi Yuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BasicBit">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/03/12/2016-03-14-Linux内存地址/" itemprop="url">Linux 内存地址与分段机制</a></h1>
-        
-
-        <div class="post-meta">
-          
-            <span class="post-updated">
-            &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
-            </time>
-            </span>
-          
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-12T00:00:00+08:00">
-                2016-03-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Linux-内存地址与分段机制"><a href="#Linux-内存地址与分段机制" class="headerlink" title="Linux 内存地址与分段机制"></a>Linux 内存地址与分段机制</h1><p>基于80x86</p>
-<h3 id="逻辑地址"><a href="#逻辑地址" class="headerlink" title="逻辑地址"></a>逻辑地址</h3><p>指定一个操作数或一条指令的地址，这种寻址方式，在80x86分段模式下表现的尤为得体，在Windows里二进制可执行文件会分为若干段。每一个逻辑地址都由一个段和偏移组成，偏移量指定了从段开始的地方到实际地址的距离。</p>
-<h3 id="线性地址"><a href="#线性地址" class="headerlink" title="线性地址"></a>线性地址</h3><p>也可以叫做虚拟地址，是一个32位整数，最高可以表示到4294967296个内存单元。通常用16进制表示，值的范围0x00000000到0xFFFFFFFF</p>
-<h3 id="物理地址"><a href="#物理地址" class="headerlink" title="物理地址"></a>物理地址</h3><p>用于内存芯片级内存单元寻址。他们从微处理器的地址引脚发送到内存总线上的电信号对应。物理地址由32位或36位unsigned int 表示</p>
-<p>内存管理单元（MMU）通过一种称为分段单元的硬件电路，把一个逻辑地址转换为线性地址，接着，第二个称之为分页单元的硬件电路把线性地址转换为物理地址。</p>
-<p><img src="/../../img/1536740000646.png" alt="1536740000646"></p>
-<p>在多处理器系统中，所有 CPU都共享同一内存，这意味着 RAM芯片可以由独立的 CPU并发地访问。因为在RAM芯片上的读或写操作必须串行地执行，因此一种所谓内存仲裁器的硬件电路插在总线和每个 RAM芯片之间，其作用是如果某个 RAM芯片空闲，就准予一个 CPU访问，如果该芯片忙于为另一个处理器提出的请求服务，就延迟这个 CPU的访问 。即使在单处理器上h也使用内存仲裁器，因为单处理器系统中包含一个叫做 DMA控制器的特殊处理器，在多处理器系统的情况下，因为仲裁器有多个输入端口，所以其结构更加复杂，例如，双Pentium在每个芯片的入口维持一个两端口仲裁器，并在试图使用公用总线前请求两个CPU交换同步信息.从编程观点看，因为仲栽器由硬件电路管理，因此它是隐藏的。</p>
-<h1 id="系统分段"><a href="#系统分段" class="headerlink" title="系统分段"></a>系统分段</h1><p>一个逻辑地址由两部分组成：一个段标识符和一个指定段内先对地址的偏移量。段标识符是一个16位长的字段，称为段描述符。而偏移量是一个32位长的字段。</p>
-<p><img src="/../../img/1536740109090.png" alt="1536740109090"></p>
-<p>处理器提供6个段寄存器，保存了段选择符，分别是：cs ss ds es fs gs，6个段寄存器。</p>
-<p>cs 代码段寄存器</p>
-<p>ss 栈段寄存器</p>
-<p>ds 数据段寄存器 </p>
-<p>cs 寄存器中，含有一个两位字段，用以指明CPU的当前CPL（Current Privilege Level），0代表R0级别，1代表R3级别。分别称为，内核态和用户态。</p>
-<h3 id="段描述符"><a href="#段描述符" class="headerlink" title="段描述符"></a>段描述符</h3><p>每个段由一个8字节的段描述符表示，他描述了段的属性，段描述符放在GDT（Global Descriptor Table）或LDT（Local Description Table）中。</p>
-<p>一般来说只定义一个GDT，而每个进程除了存放在GDT中的段之外如果还有附加的段，就可以有自己的LDT。GDT在主存中的地址和大小存放在gdtr控制寄存器中，当前正在被使用的LDT地址和大小放在ldtr寄存器中。</p>
-<h5 id="段描述符格式"><a href="#段描述符格式" class="headerlink" title="段描述符格式"></a>段描述符格式</h5><p><img src="/../../img/1536740043063.png" alt="1536740043063"></p>
-<p><strong>段描述符字段</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>BASE</td>
-<td>包含段的首字节的线性地址</td>
-</tr>
-<tr>
-<td>G</td>
-<td>粒度标志：如果该位清0,、则段大小以字节为单位，否则以4096字节的倍数计算</td>
-</tr>
-<tr>
-<td>Limit</td>
-<td>存放段中最后一个内存单元的偏移量，从而决定段的长度，如果G被置为0,则一个段的大小在1个字节1 MB之间变化。否則，将在4 KB到 4 GB 之间变化</td>
-</tr>
-<tr>
-<td>S</td>
-<td>系统标志：如果它被清0，则这是一个系统段，存储诸如 LDT这种关鍵的数据结构，否則它是一个普通的代码段或数据段。</td>
-</tr>
-<tr>
-<td>Type</td>
-<td>描述了段的类型特征和它的存取权限。</td>
-</tr>
-<tr>
-<td>DPL</td>
-<td>描述符特权级字段，用于限制对这个段的存取 。 它表示为访问这个段而要求的 CPU最小的优先级 。因此， DPL设为0的段只能当 CPL设为0时（即在内核态）才垃可访问的，而 DPL设为3的段对任何CPL都是可访问的。</td>
-</tr>
-<tr>
-<td>P</td>
-<td>Segment-Present标志：等于0表示段当前不在主存中， Linux总是把这个标志（第47位）设为1。因为它从来不把整个段交换到磁盘上去。</td>
-</tr>
-<tr>
-<td>D 或 B</td>
-<td>称 为 D成 B的标志，取决于是代码段还是数据段 ，D或B的含义在两种情况下稍有所区别，但是如果段偏移量的地址是32位长，就基本上把它置为 1.如果这个偏移置是16位长，它被清0。</td>
-</tr>
-<tr>
-<td>AVL</td>
-<td>被Linux忽略。</td>
-</tr>
-</tbody>
-</table>
-<p>​        </p>
-<p><strong>代码段描述符</strong></p>
-<p>​         表示这个段代表一个代码段，他可以放在GDT或LDT中，S标志位为1。</p>
-<p><strong>数据段描述符</strong></p>
-<p>​         表示这个段代表一个数据段，他可以放在GDT或LDT中，S标志位为1。</p>
-<p><strong>任务状态段描述符(TSSD)</strong></p>
-<p>​         表示这个段描述符代表一个任务状态段（Task State Segment）TSS，也就是说这个段用于保存处理器寄存器的内容它只能出现在GDT中。根据相应的进程是否正在CPU上运行，Type字段的值分别为11或9.这个描述符的S标志置0。</p>
-<p><strong>局部描述符表描述符（LDTD）</strong></p>
-<p>​         表示这个段描述符代表一个包含LDT的段，它只出现在GDT中。相应的Type字段的值 为2，S标志置为0。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2016/03/12/2016-03-12-Linux进程管理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Bi Yuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BasicBit">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/03/12/2016-03-12-Linux进程管理/" itemprop="url">Linux进程管理</a></h1>
-        
-
-        <div class="post-meta">
-          
-            <span class="post-updated">
-            &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
-            </time>
-            </span>
-          
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-12T00:00:00+08:00">
-                2016-03-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="/../../img/session-and-process.png" alt="âLinuxè¿ç¨âçå¾çæç´¢ç&quot;æ"></p>
-<h1 id="管理进程"><a href="#管理进程" class="headerlink" title="管理进程"></a>管理进程</h1><p>fork()创建一个新进程、_exit()终止一个进程、exec() 装入一个新程序</p>
-<p>当一个系统调用执行以后，进程就在所装入的全新地址空间恢复运行。</p>
-<p>调用fork() 的进程是父进程，新进程就是他的子进程，两个进程可以互相通信，在每个进程的数据结构中，包含两个指针，一个指向父进程，另一个指向子进程。</p>
-<p>实现fork() ，可以把父进程的数据与代码复制到子进程，但这会很浪费时间。</p>
-<p>他需要完成以下任务：</p>
-<ul>
-<li>为子进程的页表分配页面</li>
-<li>为子进程的页分配页面</li>
-<li>初始化子进程的页表</li>
-<li>把父进程的页复制到子进程对应的页中</li>
-</ul>
-<p>Linux引进了（Copy-On-Write）写时复制的技术。</p>
-<p>写时复制（copy-on-write）是一种可以推迟甚至避免复制数据的技术。内核此时并不是复制整个进程空间，而是让父进程和子进程共享同一个副本。只有在需要写入的时候，数据才会被复制，从而使父进程、子进程拥有各自的副本。也就是说，资源的复制只有在需要写入的时候才进行，在此之前以只读方式共享。这种技术使得对地址空间中的页的复制被推迟到实际发生写入的时候。有时共享页根本不会被写入，例如，fork()后立即调用exec()，就无需复制父进程的页了。fork()实际开销就是复制父进程的页表以及给子进程创建唯一的PCB。这种优化可以避免复制大量根本就不会使用的数据。</p>
-<p>_exit()系统调用中止一个进程，内核对这个系统调用的处理是通过释放进程所拥有的资源，并向父进程发送SIGCHILD信号，来实现的。</p>
-<h1 id="僵死进程"><a href="#僵死进程" class="headerlink" title="僵死进程"></a>僵死进程</h1><p>wait4()系统调用允许进程等待，直到其中的一个子进程结束，它返回已终止的进程PID</p>
-<p>内核在执行这个系统调用时，检查子进程是否已经终止。引入僵死进程的特殊状态是为了表示终止的进程，父进程在执行完wait4()系统调用之前，进程就一直停留在那种状态。系统调用处理程序从进程描述符字段获取有关资源使用的数据，一旦得到数据，就可以释放进程描述符。若在执行时子进程尚未结束，内核就会把该进程设置为等待 状态，直到子进程结束。</p>
-<p>waitpid()，允许等待一个特殊的子进程。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/03/13/2016-03-13-Windows开机过程/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1222,8 +794,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:24:22+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -1274,52 +846,282 @@
 
       
         
-          
-            <h1 id="链接文件"><a href="#链接文件" class="headerlink" title="链接文件"></a>链接文件</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> ln p1  p2</span><br></pre></td></tr></table></figure>
+          <h1 id="链接文件"><a href="#链接文件" class="headerlink" title="链接文件"></a>链接文件</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> ln p1  p2</span><br></pre></td></tr></table></figure>
 <p>​    创建一个新的硬链接，由路径p1标识的文件创建一个路径名为p2的硬链接。</p>
 <p>硬链接特性：</p>
-<ul>
-<li>不允许用户给目录创建硬链接。因为这可能把目录树变为环形图，从而就不能通过名字定位一个文件。</li>
-<li>只有在同一个文件系统中的文件之间才能创建链接。这带来比较大的限制。</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> ln -s p1 p2</span><br></pre></td></tr></table></figure>
-<p>创建一个软连接，也称符号链接。符号链接是段文件，这些文件包含有另一个文件的任意一个路径名。路径名可以指向2位于任意一个文件系统的人任意目录或文件，甚至包括不存在的文件。</p>
-<h1 id="Linux中的所有文件类型"><a href="#Linux中的所有文件类型" class="headerlink" title="Linux中的所有文件类型"></a>Linux中的所有文件类型</h1><ul>
-<li>普通文件</li>
-<li>目录</li>
-<li>符号链接</li>
-<li>面向块的设备文件</li>
-<li>面向字符的设备文件</li>
-<li>管道和命名管道</li>
-<li>套接字</li>
-</ul>
-<h1 id="Linux中的文件描述与索引"><a href="#Linux中的文件描述与索引" class="headerlink" title="Linux中的文件描述与索引"></a>Linux中的文件描述与索引</h1><p>文件系统处理文件需要所有的信息包含在一个名为索引节点的数据结构中。每个文件都有自己的索引节点 ，文件系统用索引节点来标识文件。</p>
-<p>文件系统及内核函数对索引节点的处理可能随Unix西永的不同有很大的差异，但必须提供POSIX标准中指定如下属性：</p>
-<ul>
-<li>文件类型</li>
-<li>与 文件相关的硬链接数量</li>
-<li>以字节为单位的文件长度</li>
-<li>设备标识符（即包含文件的设备的表示符）</li>
-<li>在文件系统中表示文件的索引节点号</li>
-<li>文件拥有者的UID</li>
-<li>文件的用户组ID</li>
-<li>几个时间戳，表示索引节点状态改变的事件最后访问事件与最后修改时间</li>
-<li>访问权限和文件模式</li>
-</ul>
-<h1 id="Linux文件权限"><a href="#Linux文件权限" class="headerlink" title="Linux文件权限"></a>Linux文件权限</h1><p><img src="/img/LinuxFile.png" alt="LinuxFile"></p>
-<p>每三个为一组</p>
-<p>第一组（文件所有者权限）</p>
-<p>第二组（同组用户，不包括所有者权限）</p>
-<p>第三组（其他用户权限）</p>
-<p>可用chmod命令修改文件权限 例：chmod 777 \<filename></filename></p>
-<h2 id="除此之外还有三种附加的标记"><a href="#除此之外还有三种附加的标记" class="headerlink" title="除此之外还有三种附加的标记"></a>除此之外还有三种附加的标记</h2><p>suid</p>
-<p>进程执行一个文件时通常保持进程拥有者的UID，然而如果设置了可执行文件的suid的标志位，进程就获得了该文件拥有者的UID。</p>
-<p>sgid    </p>
-<p>进程执行一个文件时保持进程组的用户组ID。然而设置了可执行sgid标志位，进程就获得了该文件用户组的ID。</p>
-<p>sticky</p>
-<p>实则知了sticky标志位的可执行文件相当于向内核发出一个请求，当程序执行结束后，依然将他保留在内存。这个标志现在已经使用基于代码页共享的其他方法替代。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/03/12/2016-03-12-Linux符号文件/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2016/03/12/2016-03-14-Linux内存地址/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bi Yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BasicBit">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/03/12/2016-03-14-Linux内存地址/" itemprop="url">Linux 内存地址与分段机制</a></h1>
+        
+
+        <div class="post-meta">
+          
+            <span class="post-updated">
+            &nbsp; | &nbsp; post.updated
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:24:46+08:00" content="2019-07-25">
+              2019-07-25
+            </time>
+            </span>
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-12T00:00:00+08:00">
+                2016-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
 
           
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Linux-内存地址与分段机制"><a href="#Linux-内存地址与分段机制" class="headerlink" title="Linux 内存地址与分段机制"></a>Linux 内存地址与分段机制</h1><p>基于80x86</p>
+<h3 id="逻辑地址"><a href="#逻辑地址" class="headerlink" title="逻辑地址"></a>逻辑地址</h3><p>指定一个操作数或一条指令的地址，这种寻址方式，在80x86分段模式下表现的尤为得体，在Windows里二进制可执行文件会分为若干段。每一个逻辑地址都由一个段和偏移组成，偏移量指定了从段开始的地方到实际地址的距离。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/03/12/2016-03-14-Linux内存地址/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2016/03/12/2016-03-12-Linux进程管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bi Yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BasicBit">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/03/12/2016-03-12-Linux进程管理/" itemprop="url">Linux进程管理</a></h1>
+        
+
+        <div class="post-meta">
+          
+            <span class="post-updated">
+            &nbsp; | &nbsp; post.updated
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:24:39+08:00" content="2019-07-25">
+              2019-07-25
+            </time>
+            </span>
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-12T00:00:00+08:00">
+                2016-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="/../../img/session-and-process.png" alt="âLinuxè¿ç¨âçå¾çæç´¢ç&quot;æ"></p>
+<h1 id="管理进程"><a href="#管理进程" class="headerlink" title="管理进程"></a>管理进程</h1><p>fork()创建一个新进程、_exit()终止一个进程、exec() 装入一个新程序</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/03/12/2016-03-12-Linux进程管理/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1392,8 +1194,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:24:14+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -1444,33 +1246,14 @@
 
       
         
-          
-            <h1 id="Linux-开机过程"><a href="#Linux-开机过程" class="headerlink" title="Linux 开机过程"></a>Linux 开机过程</h1><p>基于centos 6</p>
-<h2 id="当你按下电源键时"><a href="#当你按下电源键时" class="headerlink" title="当你按下电源键时"></a>当你按下电源键时</h2><p>首先按下电源键会进入BIOS</p>
-<p>BIOS 进行查找磁盘可以启动的磁盘</p>
-<h2 id="怎么判断磁盘是可以启动的"><a href="#怎么判断磁盘是可以启动的" class="headerlink" title="怎么判断磁盘是可以启动的"></a>怎么判断磁盘是可以启动的</h2><p>查看磁盘的前512字节的第446字节，如果是 55AA 那么这块磁盘是可启动的，此块磁盘的前512字节被称之为MBR。</p>
-<p>MBR由三个部分组成</p>
-<ol>
-<li>第1-446字节：调用操作系统的机器码。 </li>
-<li>第447-510字节：分区表（Partition table）。 </li>
-<li>第511-512字节：主引导记录签名（0x55和0xAA）。 </li>
-</ol>
-<p>引导文件一般放在/boot/grub/文件夹里 </p>
-<p>最后会运行第一个进程 init 并且是所有进程的父进程 </p>
-<p>通过grub.conf可以看到启动的配置文件</p>
-<p><img src="/img/centos6.png" alt="centos6"></p>
-<h2 id="grub-conf-参数配置"><a href="#grub-conf-参数配置" class="headerlink" title="grub.conf  参数配置"></a>grub.conf  参数配置</h2><blockquote>
-<p> default默认开机条目  </p>
-</blockquote>
-<blockquote>
-<p> timeout 默认等待选择时间</p>
-<p> splashimage开机界面配置</p>
-<p> root 表示开机分区hd代表硬盘0代表那块硬盘，1代表此块硬盘的那块分区</p>
-<p> kernel 内核文件后面跟参数 ro 读取 root=根分区位置  </p>
-<p>  initrd 把不常用的驱动，功能编译成模块，需要的时候动态加载</p>
-</blockquote>
-
-          
+          <h1 id="Linux-开机过程"><a href="#Linux-开机过程" class="headerlink" title="Linux 开机过程"></a>Linux 开机过程</h1>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/03/10/2016-03-10-Linux 开机过程/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1543,8 +1326,8 @@
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
-              2019-07-19
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:24:01+08:00" content="2019-07-25">
+              2019-07-25
             </time>
             </span>
           
@@ -1595,33 +1378,14 @@
 
       
         
-          
-            <h1 id="const变量"><a href="#const变量" class="headerlink" title="const变量"></a>const变量</h1><h2 id="const-定义时初始化"><a href="#const-定义时初始化" class="headerlink" title="const 定义时初始化"></a>const 定义时初始化</h2><p>正确初始化示例：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> j = i;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> j = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n  = j;</span><br></pre></td></tr></table></figure>
-<h2 id="多文件使用"><a href="#多文件使用" class="headerlink" title="多文件使用"></a>多文件使用</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//file1.cpp </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> buff_size = <span class="number">512</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//file1.h</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">const</span> buff_size;</span><br></pre></td></tr></table></figure>
-<p>想在多文件中共享const变量，就要加上extern。</p>
-<h1 id="const引用"><a href="#const引用" class="headerlink" title="const引用"></a>const引用</h1><h2 id="const引用初始化"><a href="#const引用初始化" class="headerlink" title="const引用初始化"></a>const引用初始化</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ci = <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> &amp;ri = ci;     <span class="comment">//正确</span></span><br><span class="line"></span><br><span class="line">ri = <span class="number">42</span> ;     <span class="comment">//错误</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> &amp;rj = ci;  <span class="comment">// 错误</span></span><br></pre></td></tr></table></figure>
-<p><img src="/img/1539182417721.png" alt="1539182417721"></p>
-<p>如果int类型引用初始化时赋值为一个double类型的数据，那么编译器会怎么做。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> i = <span class="number">3.14</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> &amp;j = i;</span><br></pre></td></tr></table></figure>
-<p>这总情况下编译器会创建一个临时变量，如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> temp = i;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> &amp;j = i;</span><br></pre></td></tr></table></figure>
-<p>对const的引用可能引用一个并非const的对象</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i  = <span class="number">42</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> &amp;r1 = i;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> &amp;r2 = i;</span><br><span class="line"></span><br><span class="line">r1 = <span class="number">0</span>; 合法</span><br><span class="line"></span><br><span class="line">r2 = <span class="number">0</span>; 不合法</span><br></pre></td></tr></table></figure>
-<h2 id="指针与const"><a href="#指针与const" class="headerlink" title="指针与const"></a>指针与const</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  <span class="keyword">double</span> pi = <span class="number">3.14</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> *ptr = <span class="number">3.14</span>;<span class="comment">// 不合法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> *cptr = &amp;pi ; <span class="comment">//合法</span></span><br><span class="line"></span><br><span class="line">*cptr  = <span class="number">0</span>; <span class="comment">//不合法</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> * <span class="keyword">const</span> 	curNum = &amp;num ;<span class="comment">// curNum会一直指向num</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> pi = <span class="number">3.14</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> * <span class="keyword">const</span> ptr = &amp;pi ;   <span class="comment">// ptr是一个指向常量对象的常量指针</span></span><br><span class="line"></span><br><span class="line">*ptr = <span class="number">2.01</span> ;<span class="comment">// 错误 ptr是一个指向常量的指针</span></span><br><span class="line"></span><br><span class="line">*curNum = <span class="number">12</span>;  <span class="comment">// 正确</span></span><br></pre></td></tr></table></figure>
-<h2 id="顶层const"><a href="#顶层const" class="headerlink" title="顶层const"></a>顶层const</h2><p><img src="/img/1539184960881.png" alt="1539184960881"></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> *<span class="keyword">const</span> p1 = &amp;i; <span class="comment">//不能改变p1的值，这是一个顶层const。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ci = <span class="number">42</span>; <span class="comment">//不能改变ci的值，这是一个底层const。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>  *p2 = &amp;ci;<span class="comment">//允许改变p2的值，这是一个顶层const;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> * <span class="keyword">const</span> p3 = p2 ; <span class="comment">//靠右的是顶层const 靠左的是底层const</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> &amp;r = ci;  <span class="comment">//声明引用的都是底层const</span></span><br></pre></td></tr></table></figure>
-<h2 id="constexpr"><a href="#constexpr" class="headerlink" title="constexpr"></a>constexpr</h2><h3 id="常量表达式"><a href="#常量表达式" class="headerlink" title="常量表达式"></a>常量表达式</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> max_files = <span class="number">20</span> ;  <span class="comment">//max_files是常量表达式</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> limit = max_files + <span class="number">1</span> ; <span class="comment">//limit 是常量表达式</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> staff_size = <span class="number">20</span>; <span class="comment">//staff_size 不是常量表达式</span></span><br></pre></td></tr></table></figure>
-<h2 id="指针和constexpr"><a href="#指针和constexpr" class="headerlink" title="指针和constexpr"></a>指针和constexpr</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> * p = <span class="literal">nullptr</span>; p是一个指向整型常量的指针</span><br><span class="line"></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> *q = <span class="literal">nullptr</span>; q是一个指向整数常量的指针</span><br><span class="line"></span><br><span class="line"><span class="keyword">constexpr</span>把它定义的对象置为了顶层<span class="keyword">const</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">constexptr <span class="keyword">int</span> i = <span class="number">52</span> ; i是整型常量</span><br><span class="line"></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keyword">int</span> * p = &amp; i; p是常量指针 也可以指向一个非常量</span><br><span class="line"></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> *p1 = &amp;i; p1是常量指针</span><br></pre></td></tr></table></figure>
-<h1 id="AUTO"><a href="#AUTO" class="headerlink" title="AUTO"></a>AUTO</h1><p>利用auto定义变量编译器会推断并指定变量类型</p>
-<p>使用auto也可以在一条语句中声明多个变量，因为一条声明语句只能有一个基本数据类型，所以在该条语句中所有变量的初始基本数据类型都必须一样。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> i = <span class="number">3</span> ， *p = &amp;i; 正确 i是整数类型  *p 是<span class="keyword">int</span>类型指针</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> sz = <span class="number">0</span>, pz = <span class="number">3.14</span>; 错误 sz和pz的数据类型不一样</span><br></pre></td></tr></table></figure>
-<h2 id="复合类型、常量、auto"><a href="#复合类型、常量、auto" class="headerlink" title="复合类型、常量、auto"></a>复合类型、常量、auto</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">0</span> ; <span class="keyword">int</span> &amp;r = i;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> a = r;  a是一个整数 r是i的别名，i是整数</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span>一般会忽略掉顶层<span class="keyword">const</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span>  <span class="keyword">int</span> ci = <span class="number">0</span>; &amp;cr = ci;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> b =ci ; b是一个整数</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> c = 	cr ;c是一个整数 </span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> d = &amp;i; d是一个整型指针 ，整数的地址就是指向整数的指针</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> e = &amp;ci; e是一个指向整数常量的指针，对常量对象取地址是一种底层<span class="keyword">const</span></span><br></pre></td></tr></table></figure>
-<h1 id="decltype类型指示符"><a href="#decltype类型指示符" class="headerlink" title="decltype类型指示符"></a>decltype类型指示符</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">decltype</span>(f()) num = f;</span><br></pre></td></tr></table></figure>
-<p>num的类型是f函数的返回值，在这期间不会调用f函数。</p>
-
-          
+          <p> C++ 重点笔记 01</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/05/12/2015-05-12-C++ const/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
