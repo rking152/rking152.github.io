@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+
+<!-- Google AdSense start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1206611804757181",
+    enable_page_level_ads: true
+  });
+</script>
+<!-- Google AdSense end -->
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="操作系统,内核,Windows,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BasicBit" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="内核对象概述 在Windows内核中有一种很重要的数据结构管理机制，就是内核对象。引用层的进程、线程、文件、驱动模块、时间、信号量等对象或者打开的句柄在内核中都有之对应的内核结构对象。 如上图，一个Windows内核对象可以分为对象头和对象体两个部分。在对象头中至少有1个OBJECT_HEADER和对象的额外信息。对象体紧接着对象头中的OBJECT_HEADER。一个对象指针总是 指向对象体而不是">
+<meta name="keywords" content="操作系统,内核,Windows">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows内核对象">
+<meta property="og:url" content="https://basicbit.cn/2017/06/13/2017-06-13-Windows内核对象/index.html">
+<meta property="og:site_name" content="BasicBit">
+<meta property="og:description" content="内核对象概述 在Windows内核中有一种很重要的数据结构管理机制，就是内核对象。引用层的进程、线程、文件、驱动模块、时间、信号量等对象或者打开的句柄在内核中都有之对应的内核结构对象。 如上图，一个Windows内核对象可以分为对象头和对象体两个部分。在对象头中至少有1个OBJECT_HEADER和对象的额外信息。对象体紧接着对象头中的OBJECT_HEADER。一个对象指针总是 指向对象体而不是">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://basicbit.cn/img/1550655557295.png">
+<meta property="og:image" content="https://basicbit.cn/img/1550658031014.png">
+<meta property="og:updated_time" content="2019-07-19T06:05:37.093Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows内核对象">
+<meta name="twitter:description" content="内核对象概述 在Windows内核中有一种很重要的数据结构管理机制，就是内核对象。引用层的进程、线程、文件、驱动模块、时间、信号量等对象或者打开的句柄在内核中都有之对应的内核结构对象。 如上图，一个Windows内核对象可以分为对象头和对象体两个部分。在对象头中至少有1个OBJECT_HEADER和对象的额外信息。对象体紧接着对象头中的OBJECT_HEADER。一个对象指针总是 指向对象体而不是">
+<meta name="twitter:image" content="https://basicbit.cn/img/1550655557295.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://basicbit.cn/2017/06/13/2017-06-13-Windows内核对象/">
+
+
+
+
+
+  <title>Windows内核对象 | BasicBit</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BasicBit</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Focus on the underlying operating system</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2017/06/13/2017-06-13-Windows内核对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bi Yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BasicBit">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Windows内核对象</h1>
+        
+
+        <div class="post-meta">
+          
+            <span class="post-updated">
+            &nbsp; | &nbsp; post.updated
+            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
+              2019-07-19
+            </time>
+            </span>
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-13T00:00:00+08:00">
+                2017-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="内核对象概述"><a href="#内核对象概述" class="headerlink" title="内核对象概述"></a>内核对象概述</h2><p><img src="/img/1550655557295.png" alt="1550655557295"></p>
+<p>在Windows内核中有一种很重要的数据结构管理机制，就是内核对象。引用层的进程、线程、文件、驱动模块、时间、信号量等对象或者打开的句柄在内核中都有之对应的内核结构对象。</p>
+<p>如上图，一个Windows内核对象可以分为对象头和对象体两个部分。在对象头中至少有1个OBJECT_HEADER和对象的额外信息。对象体紧接着对象头中的OBJECT_HEADER。一个对象指针总是 指向对象体而不是对象头。如果要访问对象头，需要将对象体指针减去一个特定的偏移值，以获取OBJECT_HEADER结构，通过OBJECT_HEADER结构定位从而访问其他对象结构辅助信息。对象体内部一般会有一个type和一个size成员，用来表示对象的类型和大小。</p>
+<p>Windows内核对象可以分为如下3中类型。</p>
+<h2 id="1-Dispatcher对象"><a href="#1-Dispatcher对象" class="headerlink" title="1. Dispatcher对象"></a>1. Dispatcher对象</h2><p>这种对象在对象体开始位置放置了一个共享的公共数据结构DISPATCHER_HEADER，其结构代码如下。包含DISPATCHER_HEADER结构的内核对象的名字都以字母 K 开头，表明这是一个内核对象，例如KPROCESS、KTHREAD、KEVENT、KSEMAPHORE、KTIMER、KQUEUE、KMUTANT、KMUTEX，但以字母 K 开头的内核对象不一定是Dispatcher对象。包含DISPATCHER_HEADER结构的内核对象都是可以等待的，也就是说。这些恶和对象可以作为参数传给内核的KeWaitForSingleObject()和KeWaitForMultipleObjects()函数，以及应用层的WaitForSingleObject()和WaitForMultipleObjects()函数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span>  <span class="class"><span class="keyword">struct</span>  _<span class="title">DISPATCHER_HEADER</span>&#123;</span></span><br><span class="line">    UCHAR  Type ;  <span class="comment">//DISP_TYPE_*</span></span><br><span class="line">    UCHAR  Abso lu te ;</span><br><span class="line">    UCHAR  Size ;  <span class="comment">//number of DWORDs</span></span><br><span class="line">    UCHAR  Inserted ;</span><br><span class="line">    LONG</span><br><span class="line">    LIST_ENTRY  WaitListHead ;</span><br><span class="line">&#125;</span><br><span class="line">DISPATCHER_HEADER,</span><br><span class="line">*PDISPATCHER_HEADER,</span><br><span class="line">**PDISPATCHER_HEADER；</span><br></pre></td></tr></table></figure>
+<h3 id="2-I-O对象"><a href="#2-I-O对象" class="headerlink" title="2. I/O对象"></a>2. I/O对象</h3><p>I/O对象在对象体开始位置并未放置DISPATCHER_HEADER结构，但通常会放置一个与type和size有关的整型成员，以表示该内核对象的类型（例如文件内核对象的类型为26）和大小。常见的IO对象包括DEVICE_OBJECT、DRIVER_OBJECT、FILE_OBJECT、IRP、VPB、KPROFILE等。</p>
+<h3 id="3-其他对象"><a href="#3-其他对象" class="headerlink" title="3. 其他对象"></a>3. 其他对象</h3><p>除了Dispatcher对象和IO对象，剩下的都属于其他内核对象。其中有两个最常用的内核对象，分别是进程对象（EPROCESS）与线程对象（ETHREAD）。</p>
+<h4 id="EPROCESS"><a href="#EPROCESS" class="headerlink" title="EPROCESS"></a>EPROCESS</h4><p>EPROCESS用于在内核中管理进程的各种信息，每个进程都对应于一个EPROCESS结构，用于记录进程执行期间的各种数据。尽管EPROCESS结构非常大，但他是一个不透明的结构（Opaque Structure），具体成员并未导出，随操作系统的变化而变化。因此，想查看EPROCESS结构中的成员，只能查阅网上资料或使用Windbg调试器加载内核符号后进行。</p>
+<p>所有进程的EPROCESS内核结构都被放入一个双向链表，R3在枚举系统进程的时候，通过遍历这个链表获得了进程的列表。因此，有的Rootkit会试图将自己进程的EPROCESS结构从这个链表中摘掉，从而达到隐藏自己的目的。</p>
+<p>EPROCESS结构中的一些关键数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">KPROCESS pcb；				//进程的内核对象</span><br><span class="line">PVOID UniqueProcessId；		//进程的PID</span><br><span class="line">PVOID DebugPort；			//调试端口，设置为0，禁止进程被调试</span><br><span class="line">EX_FAST_REF Token；			//进程的权限token</span><br><span class="line">UCHAR ImageFileName[16]；	//进程的名字，最长16字节</span><br><span class="line">PPEB Peb；					//进程的环境快</span><br><span class="line">PEJOB Job；					//进程的job</span><br><span class="line">PVOID Win32Process；		</span><br><span class="line">LIST_ENTRY ActiveProccessLinks；	//指向正在运行的系统进程列表</span><br><span class="line">PHANDLE_TABLE ObjectTable；	//进程的handle表</span><br></pre></td></tr></table></figure>
+<p>调用线面的内核函数可以获得进程的EPROCESS结构。PsLookupProcessByProcessId函数的结构如下。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">NTSTATUS <span class="title">PsLookupProcessByProcessId</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params"><span class="comment">//根据进程PID拿到进程的EPROCESS结构</span></span></span></span><br><span class="line"><span class="function"><span class="params">	IN HANDLE ProcessId，</span></span></span><br><span class="line"><span class="function"><span class="params">	OUT PEPROCESS *Process</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">PEPROCESS <span class="title">PsGetCurrentProcess</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params"><span class="comment">//直接获取当前进程的EPROCESS结构</span></span></span></span><br><span class="line"><span class="function"><span class="params">VOID</span></span></span><br><span class="line">)；</span><br></pre></td></tr></table></figure>
+<h4 id="ETHREAD"><a href="#ETHREAD" class="headerlink" title="ETHREAD"></a>ETHREAD</h4><p>ETHREAD结构式线程的内核管理对象，每个线程都有一个对应的ETHREAD结构。ETHREAD结构也是一个不透明的结构，具体成员你并未导出，而且会随着操作系统的版本的变化而变化。在ETHREAD结构中，第一个成员就是线程对象KTHREAD成员，所有的ETHREAD结构也被放在一个双向链表里进行管理。</p>
+<p>ETHREAD结构中的一些成员信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">KTHREAD Tcb；			//线程内核对象</span><br><span class="line">CLIENT_ID Cid；			//进程PID</span><br></pre></td></tr></table></figure>
+<p>EPROCESS、KPROCESS、ETHREAD、KTHREAD结构之间的关系图如下。可以看出，EPROCESS和ETHREAD结构都是通过双向链表组织管理的。一个EPROCESS结构中包含了一个KPROCESS结构，而在一个KPROCESS结构又有一个指向ETHREAD结构的指针。在ETHREAD结构中，又包含了KTHREAD结构成员。</p>
+<p><img src="/img/1550658031014.png" alt="1550658031014"></p>
+<p>​                        EPROCESS、KPROCESS、ETHREAD、KTHREAD结构关系图</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
+          
+            <a href="/tags/内核/" rel="tag"># 内核</a>
+          
+            <a href="/tags/Windows/" rel="tag"># Windows</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/13/2017-04-13-Windows启动过程/" rel="next" title="Window启动过程">
+                <i class="fa fa-chevron-left"></i> Window启动过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/13/2017-07-15-SSDT,PEB,TEB/" rel="prev" title="SSDT、PEB、TEB & Hook">
+                SSDT、PEB、TEB & Hook <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Bi Yuan</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内核对象概述"><span class="nav-number">1.</span> <span class="nav-text">内核对象概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Dispatcher对象"><span class="nav-number">2.</span> <span class="nav-text">1. Dispatcher对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-I-O对象"><span class="nav-number">2.1.</span> <span class="nav-text">2. I/O对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-其他对象"><span class="nav-number">2.2.</span> <span class="nav-text">3. 其他对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#EPROCESS"><span class="nav-number">2.2.1.</span> <span class="nav-text">EPROCESS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ETHREAD"><span class="nav-number">2.2.2.</span> <span class="nav-text">ETHREAD</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bi Yuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

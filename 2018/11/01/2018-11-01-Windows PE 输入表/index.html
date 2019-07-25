@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+<!-- Google AdSense start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1206611804757181",
+    enable_page_level_ads: true
+  });
+</script>
+<!-- Google AdSense end -->
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Windows,PE,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BasicBit" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="输入表可执行文件使用来自其他DLL的代码或数据的动作称为输入。当PE文件被载入时，Windows加载器的工作之一就是定位所有被输入的函数和数据，并让正在入的文件可以使用那些地址。这个过程是通过PE文件的输入表（Impo1tTable，简称“IT”，也称导人表）完成的。输入表中保存的是函数名和其驻留的DLL名等动态链接所需的信息。输入表在软件外亮技术中的地位非常重要，读者在研究与外壳相关的技术时一定">
+<meta name="keywords" content="Windows,PE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Window PE -- 输入表">
+<meta property="og:url" content="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 输入表/index.html">
+<meta property="og:site_name" content="BasicBit">
+<meta property="og:description" content="输入表可执行文件使用来自其他DLL的代码或数据的动作称为输入。当PE文件被载入时，Windows加载器的工作之一就是定位所有被输入的函数和数据，并让正在入的文件可以使用那些地址。这个过程是通过PE文件的输入表（Impo1tTable，简称“IT”，也称导人表）完成的。输入表中保存的是函数名和其驻留的DLL名等动态链接所需的信息。输入表在软件外亮技术中的地位非常重要，读者在研究与外壳相关的技术时一定">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://basicbit.cn/img/1554866976205.png">
+<meta property="og:image" content="https://basicbit.cn/img/1554867171146.png">
+<meta property="og:updated_time" content="2019-07-19T06:05:37.076Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Window PE -- 输入表">
+<meta name="twitter:description" content="输入表可执行文件使用来自其他DLL的代码或数据的动作称为输入。当PE文件被载入时，Windows加载器的工作之一就是定位所有被输入的函数和数据，并让正在入的文件可以使用那些地址。这个过程是通过PE文件的输入表（Impo1tTable，简称“IT”，也称导人表）完成的。输入表中保存的是函数名和其驻留的DLL名等动态链接所需的信息。输入表在软件外亮技术中的地位非常重要，读者在研究与外壳相关的技术时一定">
+<meta name="twitter:image" content="https://basicbit.cn/img/1554866976205.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 输入表/">
+
+
+
+
+
+  <title>Window PE -- 输入表 | BasicBit</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BasicBit</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Focus on the underlying operating system</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 输入表/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bi Yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BasicBit">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Window PE -- 输入表</h1>
+        
+
+        <div class="post-meta">
+          
+            <span class="post-updated">
+            &nbsp; | &nbsp; post.updated
+            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
+              2019-07-19
+            </time>
+            </span>
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-01T00:00:00+08:00">
+                2018-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="输入表"><a href="#输入表" class="headerlink" title="输入表"></a>输入表</h2><p>可执行文件使用来自其他DLL的代码或数据的动作称为输入。当PE文件被载入时，Windows加载器的工作之一就是定位所有被输入的函数和数据，并让正在入的文件可以使用那些地址。这个过程是通过PE文件的输入表（Impo1tTable，简称“IT”，也称导人表）完成的。输入表中保存的是函数名和其驻留的DLL名等动态链接所需的信息。输入表在软件外亮技术中的地位非常重要，读者在研究与外壳相关的技术时一定要彻底掌握这部分知识。</p>
+<h2 id="输入表的调用"><a href="#输入表的调用" class="headerlink" title="输入表的调用"></a>输入表的调用</h2><p>在代码分析或编程中经常会遇到输入函数（ImportFunctions，或称导人函数）。输入函数就是被程序调用但其执行代码不在程序中的函数，这些函数的代码位于相关的DLL文件中，在调用者程序中只保留相关的函数信息，例如函数名、DLL文件名等。对磁盘上的PE文件来说，它无法得知这些输入函数在内存中的地址。只有当PE文件载入内存后，Windows加载器才将相关DLL载人，并将调用输入函数的指令和函数实际所处的地址联系起来。</p>
+<p>当应用程序调用一个DLL的代码和数据时，它正在被隐式地链接到DLL，这个过程完全由Windows加载器完成。另一种链接是运行期的显式链接，这意味着必须确定目标DLL已经被加载，然后寻找API的地址，这几乎总是通过调用LoadLibra巧和GetProcAddress完成的。</p>
+<p>当隐含地链接一个API时，类似LoadLibrary和GetProcAddress的代码始终在执行，只不过这是由Windows加载器自动完成的。Windows加载器还保证了PE文件所需的任何附加的DLL都巳载入例如，Windows2000/XP上每个由VisualC＋＋创建的正常程序都要链接KERNEL32.DLL，而它又从NTDLL.DLL中输入函数。同样，如果链接了GDI32.DLL，它又依赖USER32、ADVAPI32、NTDLL和KERNEL32等DLL的函数，那么都要由Windows加载器来保证载入并解决输入问题。</p>
+<p>在PE文件内有一组数据结构，它们分别对应于被输入的DLL。每一个这样的结构都给出了被输入的DLL的名井指向一组函数指针。这组函数指针称为输入地址表（ImportAddressTable,IAT）。每一个被引人的API在IAT里都有保留的位置，在那里它将被Windows加载器写人输入函数的地址。最后一点特别重要：一旦模块被载入，IAT中将包含所要调用输入函数的地址。</p>
+<p>把所有输入函数放在IAT中的同一个地方是很有意义的。这样，无论在代码中调用一个输入函数多少次，都会通过IAT中的同一个函数指针来完成。</p>
+<p>现在看看怎样调用一个输入函数。需要考虑两种情况，即高效和低效。最好的情况是像下面这样，直接调用00402010h处的函数，00402010h位于IAT中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CALL  DWORD  PTR  [00402010]</span><br></pre></td></tr></table></figure>
+<p>而实际上，对一个被输入的API的低效调用像下面这样（实例PE.exe中调用LoadlconA函数的代码）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">	Call  00401164</span><br><span class="line">	...</span><br><span class="line">:00401164</span><br><span class="line">	Jmp  dword  ptr  [00402010]</span><br></pre></td></tr></table></figure>
+<p>这种情况下，CALL令把控制权转交给一个子程序，子程序中的JMP指令跳转到IAT中的00402010h。简单地说就是：使用5字节的额外代码；由于使用了额外的JMP指令，将花费更多的执行时间。</p>
+<p>有人可能会问：为什么要采用此种低效的方法？对这个问题有一很好的解释：编译器元法区分输入函数调用和普通函数调用。对每个函数调用，编译器使用同样形式的CALL指令，示例如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CALL  XXXXXXXX</span><br></pre></td></tr></table></figure>
+<p>“xxxxxxxx”是一个由链接器填充的实际地址。注意，这条指令不是从函数指针来的，而是从代码中的实际地址来的。为了实现因果平衡，链接器必须产生一块代码来取代“xxxxxxxx”，简单的方法就是像上面一样调用一个JMPstub。</p>
+<p>JMP指令来自为输入函数准备的输入库。如果读者检查过输入库，在输入函数名字的关联处就会发现与上面的JMPstub相似的指令，即在默认情况下，对被输入API的调用将使用低效的形式。</p>
+<p>如何得到优化的形式？答案来自一个给编译器的提示形式。可以使用修饰函数的＿declspec(dllimport）来告诉编译器，这个函数来自另一个DLL，这样编译器就会产生指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CALL  DWORD  PTR  [XXXXXXXX]</span><br></pre></td></tr></table></figure>
+<p>而不是指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CALL  XXXXXXXX</span><br></pre></td></tr></table></figure>
+<p>此外，编译器将给函数加上“＿imp＿＂前缀，然后将函数送给链接器，这样就可以直接把一imp_xxx送到IAT中，而不需要调用JMPstub了。</p>
+<p>如果要编写一个输出函数，井为它们提供一个头文件，不要忘了在函数的前面加上修饰符“_declspec(dllimport）”，在winnt.h等系统头文件中就是这样做的，示例如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_declspec(dllimport) void Foo(void)</span><br></pre></td></tr></table></figure>
+<h3 id="输入表结构"><a href="#输入表结构" class="headerlink" title="输入表结构"></a>输入表结构</h3><p>PE文件头的可选映像头中，数据目录表的第2个成员指向输入表。入表以一个IMAGE_IMPORT_DESCRI凹、OR(IID）数组开始。每个被PE文件隐式链接的DLL都有一个IID。在这个数组中，没有字段指出该结构数组的项数，但它的最后一个单元是“NULL”，由此可以计算出该数组的项数。如，某个PE文件从两个DLL文件中引人函数，因此存在两个IID结构来描述这些DLL文件，并在两个IID结构的最后由一个内容全为0的IID结构作为结束。IID的结构如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _IMAGE_IMPORT_DESCRIPTOR &#123;</span><br><span class="line">	union &#123;</span><br><span class="line">		DWORD Characteristics;</span><br><span class="line">		DWORD OriginalFirstThunk;			//INT(Import Name Table) address (RVA)</span><br><span class="line">	&#125;;</span><br><span class="line">	DWORD TimeDateStamp;</span><br><span class="line">	DWORD ForwarderChain;</span><br><span class="line">	DWORD Name;								//library name string address (RVA)</span><br><span class="line">	DWORD FirstThunk;						//IAT(Import Address Table) address (RVA)</span><br><span class="line">&#125; IMAGE_IMPORT_DESCRIPTOR;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>OriginalFirstThunk(Characte1istics）：包含指向输入名称表（INT）的RVA。INT是一个IMAGETHUNK_DATA结构的数组，数组中的每个MAGE_THUNK_DATA结构都指向IMAGEIMPORT_BY_NAME构，数组以一个内容为0的IMAGE_THUNK_DATA结构结束。</li>
+<li>TimeDateStamp：一个32位的时间标志，可以忽略。</li>
+<li>ForwarderChain：这是第l个被转向的A凹的索引，一般为0，在程序引用一个DLL中的API,而这个API又在引用其他DLL的API时使用（但这样的情况很少出现）。</li>
+<li>Name:DLL名字的指针。它是一个以“00”结尾的ASCII字符的RVA地址该字符串包含输入的DLL名，例如“KERNEL32.DLL”USER32.DLL”。</li>
+<li>FirstThunk：包含指向输入地址表（IAT）的RVA。IAT是一个IMAGE_THUNK_DATA结构的数、</li>
+</ul>
+<p>OriginalFirst 和 FirstThunk结构类似。他们分别指向两个本质上相同的数组IMAGE_THUNK_DATA，这些数组有好几种叫法，最常见的是输入名称表（ImportNameTable,INT）和输入地址表（lmpot Address Table,IAT）。如下图所示为一个可执行文件正在从USER32DLL里输入一些API。</p>
+<p><img src="/img/1554866976205.png" alt="1554866976205"></p>
+<p>两个数组中都有IMAGE_THUNK_DATA结构类型的元素，它是一个指针大小的联合（union）。每个IMAGE_THUNK_DATA元素对应于一个从可执行文件输入的函数。两个数组的结束都是由一个值为0的IMAGE_THUNK_DATA元素表示的。IMAGE_THUNK_DATA结构实际上是一个双字，该结构在不同时刻有不同的含义，具体如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _IMAGE_THUNK_DATA32 &#123;</span><br><span class="line">    union &#123;</span><br><span class="line">        DWORD ForwarderString;      // PBYTE  指向一个转向者字符串的RVA</span><br><span class="line">        DWORD Function;             // PDWORD 被输入的函数的内存地址</span><br><span class="line">         DWORD Ordinal;              // 被输入的 API 的序数值</span><br><span class="line">         DWORD AddressOfData;        // PIMAGE_IMPORT_BY_NAME   指向 IMAGE_IMPORT_BY_NAME</span><br><span class="line">    &#125; u1;</span><br><span class="line">&#125; IMAGE_THUNK_DATA32;</span><br><span class="line">typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</span><br></pre></td></tr></table></figure>
+<p>IMAGE_THUNK_DATA值的最高位为1时，表示函数以序号方式输入，这时低31位（或者一个64位可执行文件的低63位）被看成一个函数序号。当双字的最高位为0时，表示函数以字符串类型的函数名方式输入，这时双字的值是一个RVA，指向一个IMAGE_lMPORT_BY_NAME结构。</p>
+<p>IMAGE_IMPORT_BY_NAME结构仅有1个字大小，存储了一个输入函数的相关信息，结构如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">　　IMAGE_IMPORT_BY_NAME STRUCT</span><br><span class="line">　　Hint WORD ?</span><br><span class="line">　　Name BYTE ?</span><br><span class="line">　　IMAGE_IMPORT_BY_NAME ENDS</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Hint：本函数在其所驻留DLL的输出表中的序号。该域被PE装载器用来在DLL的输出表里快速查询函数。该值不是必需的，一些链接器将它设为0。</li>
+<li>Name：含有输入函数的函数名。函数名是一个ASCII字符串，以“NULL”结尾。注意，这里虽然将Name的大小以字节为单位进行定义，但其实它是一个可变尺寸域，由于没有更好的表示方法，只好在上面的定义中写成“BYTE”。</li>
+</ul>
+<h2 id="输入地址表"><a href="#输入地址表" class="headerlink" title="输入地址表"></a>输入地址表</h2><p>为什么会有两个并行的指针数组指向IMAGE_IMPORT_BY_NAME结构呢？第1个数组（由OriginalFirstThunk所指向）是单独的一项，不可改写，称为INT，有时也称为提示名表（Hint-nameTable）。第2个数组（由FirstThunk所指向）是由PE装载器重写的。PE装载器先搜索OriginalFirstThunk，如果找到，加载程序就迭代搜索数组中的每个指针，找出每个IMAGE_IMPORT_BY_NAME结构所指向的输入函数的地址。然后，加载器用函数真正的人口地址来替代由FirstThunk指向的IMAGE_THUNK_DATA数组里元素的值。“Jmpdwordptr[xxxxxxxx］”语句中的“［口xxxxxx］”是指FirstThunk数组中的一个人口，因此称为输入地址表（Import Address Table,IAT）。所以，当PE文件装载内存后准备执行时，图11.13己转换成如图11.14所示的状态，所有函数人口地址排列在一起。此时，输入表中的其他部分就不重要了，程序依靠IAT提供的函数地址就可以正常运行。</p>
+<p><img src="/img/1554867171146.png" alt="1554867171146"></p>
+<p>在某些情况下，一些函数仅由序号引出。也就是说，不能用函数名来调用它们，只能用它们的位置来调用它们。此时，IMAGE_THUNK_DATA值的低位字指示函数序数，最高有效位（MSB）设为1。微软提供了一个方便的常量IMAGE_ORDINAL_FLAG32来测试DWORD值的M钮，其值为80000000h（在PE32＋中是IMAGE_ORDINAL_FLAG64，其值为8000000000000000h）。</p>
+<p>另一种情况是程序OrignalFirstThunk的值为0。在初始化时，系统根据FirstThunk的值找到指向函数名的地址串，根据地址串找到函数名，再根据函数名得到人口地址，然后用入口地址取代FirstThunk指向的地址串中的原值。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Windows/" rel="tag"># Windows</a>
+          
+            <a href="/tags/PE/" rel="tag"># PE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/31/2018-10-31-Windows PE 初识/" rel="next" title="Window PE -- 初识">
+                <i class="fa fa-chevron-left"></i> Window PE -- 初识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/01/2018-11-02 一个简单的CTF小demo/" rel="prev" title="一个简单的CTF小DEMO">
+                一个简单的CTF小DEMO <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Bi Yuan</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入表"><span class="nav-number">1.</span> <span class="nav-text">输入表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入表的调用"><span class="nav-number">2.</span> <span class="nav-text">输入表的调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入表结构"><span class="nav-number">2.1.</span> <span class="nav-text">输入表结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入地址表"><span class="nav-number">3.</span> <span class="nav-text">输入地址表</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bi Yuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

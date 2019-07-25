@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+
+<!-- Google AdSense start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1206611804757181",
+    enable_page_level_ads: true
+  });
+</script>
+<!-- Google AdSense end -->
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Windows,PE,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BasicBit" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="资源Windows程序的各种界面称为资源，包括加速键（Accelerator）、位图（Bitmap）、光标（Cursor）、对话框（DialogBox）、图标（Icon）、菜单（Menu）、串表（StringTable）、工具栏（Toolbar）和版本信息（VersionInformation）等。在PE文件的所有结构中，资源部分是最复杂的。 资源结构资源用类似于磁盘目录结构的方式保存，目录通常包">
+<meta name="keywords" content="Windows,PE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Window PE -- 资源">
+<meta property="og:url" content="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 资源/index.html">
+<meta property="og:site_name" content="BasicBit">
+<meta property="og:description" content="资源Windows程序的各种界面称为资源，包括加速键（Accelerator）、位图（Bitmap）、光标（Cursor）、对话框（DialogBox）、图标（Icon）、菜单（Menu）、串表（StringTable）、工具栏（Toolbar）和版本信息（VersionInformation）等。在PE文件的所有结构中，资源部分是最复杂的。 资源结构资源用类似于磁盘目录结构的方式保存，目录通常包">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://basicbit.cn/img/1554868326942.png">
+<meta property="og:image" content="https://basicbit.cn/img/1554868630997.png">
+<meta property="og:updated_time" content="2019-07-19T06:05:37.114Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Window PE -- 资源">
+<meta name="twitter:description" content="资源Windows程序的各种界面称为资源，包括加速键（Accelerator）、位图（Bitmap）、光标（Cursor）、对话框（DialogBox）、图标（Icon）、菜单（Menu）、串表（StringTable）、工具栏（Toolbar）和版本信息（VersionInformation）等。在PE文件的所有结构中，资源部分是最复杂的。 资源结构资源用类似于磁盘目录结构的方式保存，目录通常包">
+<meta name="twitter:image" content="https://basicbit.cn/img/1554868326942.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 资源/">
+
+
+
+
+
+  <title>Window PE -- 资源 | BasicBit</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BasicBit</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Focus on the underlying operating system</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 资源/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bi Yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BasicBit">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Window PE -- 资源</h1>
+        
+
+        <div class="post-meta">
+          
+            <span class="post-updated">
+            &nbsp; | &nbsp; post.updated
+            <time itemprop="dateUpdated" datetime="2019-07-19T14:05:37+08:00" content="2019-07-19">
+              2019-07-19
+            </time>
+            </span>
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-01T00:00:00+08:00">
+                2018-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><p>Windows程序的各种界面称为资源，包括加速键（Accelerator）、位图（Bitmap）、光标（Cursor）、对话框（DialogBox）、图标（Icon）、菜单（Menu）、串表（StringTable）、工具栏（Toolbar）和版本信息（VersionInformation）等。在PE文件的所有结构中，资源部分是最复杂的。</p>
+<h2 id="资源结构"><a href="#资源结构" class="headerlink" title="资源结构"></a>资源结构</h2><p>资源用类似于磁盘目录结构的方式保存，目录通常包含3层。第l层目录类似于一个文件系统的根目录，每个根目录下的条目总是在它自己权限下的一个目录。第2层目录中的每一个都对应于一个资源类型（字符串表、菜单、对话框、菜单等）。每个第2层资源类型目录下是第3层目录。</p>
+<p><img src="/img/1554868326942.png" alt="1554868326942"></p>
+<h2 id="资源目录结构"><a href="#资源目录结构" class="headerlink" title="资源目录结构"></a>资源目录结构</h2><p>数据目录表中的IMAGEDIRECTORY_ENTRY_RESOURCE条目包含资源的RVA和大小。资源目录结构中的每一个节点都是由IMAGE_RESOURCE_DIRECTORY结构和紧随其后的数个IMAGE_RESOURCE_DIRECTORY_ENTRY结构组成的，这两种结构组成了一个目录块。</p>
+<p>IMAGE_RESOURCE_DIRECTORY结构长度为16字节，共有6个字段，其定义如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _IMAGE_RESOURCE_DIRECTORY &#123;</span><br><span class="line">    ULONG   Characteristics;</span><br><span class="line">    ULONG   TimeDateStamp;</span><br><span class="line">    USHORT  MajorVersion;</span><br><span class="line">    USHORT  MinorVersion;</span><br><span class="line">    USHORT  NumberOfNamedEntries;</span><br><span class="line">    USHORT  NumberOfIdEntries;</span><br><span class="line">&#125; IMAGE_RESOURCE_DIRECTORY, *PIMAGE_RESOURCE_DIRECTORY;</span><br></pre></td></tr></table></figure>
+<p>这个结构中让人感兴趣的字段是NumberOfNamedEntries和NumberOfldEntries，它们说明了本目录中目录项的数量。umberOfNamedEntries字段是以字符串命名的资源数量，NumberOfldEntries字段是以整型数字命名的资源数量，两者加起来是本目录中的目录项总和，即紧随其后的IMAGE_RESOURCE_DIRECTORY_ENTRY结构的数量。</p>
+<h2 id="资源目录入口结构"><a href="#资源目录入口结构" class="headerlink" title="资源目录入口结构"></a>资源目录入口结构</h2><p>紧跟资源目录结构的就是资源目录入口（ResourceDirEntries）结构，此结构长度为8字节，包含2个字段。IMAGE_RESOURCE_DIRECTORY_ENTRY结构定义如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">typedef struct IMAGE_RESOURCE_DIRECTORY_ENTRY</span><br><span class="line">&#123;</span><br><span class="line">	Name  DWORD  ?</span><br><span class="line">	OffsetToData  DWORD  ?</span><br><span class="line">&#125;IMAGE_RESOURCE_DIRECTORY_ENTRY,*PIMAGE_RESOURCE_DIRECTORY_ENTRY;</span><br></pre></td></tr></table></figure>
+<p>根据不同的情况，这2个字段的含义有所不同。</p>
+<ul>
+<li><p>Name字段：定义目录项的名称或ID。当结构用于第1层目录时，定义的是资源类型；当结构用于第2层目录时，定义的是资源的名称；当结用于第3层目录时，定义的是代码页编号。当最高位为0时，表示字段的值作为ID使用；当最高位为1时，表示字段的低位作为指针使用，资源名称字符串使用Unicode编码，这个指针不直接指向字符串，而指向一个IMAGE_RESOURCE_DIR_STRING_U结构。Name字段定义如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">IMAGE RESOURCE  DIR  STRING  U STRUCT</span><br><span class="line">	Length</span><br><span class="line">	NameStr in g</span><br><span class="line">	WORD  ?</span><br><span class="line">	WCHAR  ?</span><br><span class="line">IMAGE RESOURCE  DIR  STRING  U ENDS</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>OffsetToData字段：一个指针当最高位（位31）为1时，低位数据指向下一层目录块的起始地址；当最高位为0时，指针指向IMAGE_RESOURCE_DATA_ENTRY结构。在将Name和OffsetToData作为指针时需要注意，该指针从资源区块开始处计算偏移量，并非从RVA（根目录的起始位置）开始处计算偏移量。</p>
+</li>
+</ul>
+<p>有一点要说明的是，当IMAGE_RESOURCE_DIRECTORY_ENTRY在第1层目录中，它的Name字段作为资源类型使用。当资源类型以ID定义且数值在1到16之间时，表示是系统预定义的类型，具体如下表所示。</p>
+<p><img src="/img/1554868630997.png" alt="1554868630997"></p>
+<h2 id="资源数据入口"><a href="#资源数据入口" class="headerlink" title="资源数据入口"></a>资源数据入口</h2><p>经过3层IMAGE_RESOURCE_DIRECTORY_ENTRY（一般是3层，也有可能更少，第1层是资源类型，第2层是资源名，第3层是资源的Language），第3层录结构中的OffsetToData将指向IMAGE_RESOURCE_DATA_ENTRY结构。该结构描述了资、源数据的位置和大小，其定义如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">IMAGE RESOURCE  DATA  ENTRY STRUCT</span><br><span class="line">OffsetToData</span><br><span class="line">Size</span><br><span class="line">Code  Page</span><br><span class="line">DWORD  ?</span><br><span class="line">DWORD  ?</span><br><span class="line">DWORD  ?</span><br><span class="line">Reserved  DWORD  ?</span><br><span class="line">&#125; IMA GE  RESOURCE  DATA  ENTRY ENDS</span><br></pre></td></tr></table></figure>
+<p>经过多层结构，此处的IMAGE_RESOURCE_DATA_ENTRY结构就是真正的资源数据了。结构中的OffsetToData指向资源数据的指针（其为RVA值）。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Windows/" rel="tag"># Windows</a>
+          
+            <a href="/tags/PE/" rel="tag"># PE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/01/2018-11-02 一个简单的CTF小demo/" rel="next" title="一个简单的CTF小DEMO">
+                <i class="fa fa-chevron-left"></i> 一个简单的CTF小DEMO
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/01/2018-11-01-Windows PE 区块/" rel="prev" title="Window PE -- 区块">
+                Window PE -- 区块 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Bi Yuan</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#资源"><span class="nav-number">1.</span> <span class="nav-text">资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源结构"><span class="nav-number">2.</span> <span class="nav-text">资源结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源目录结构"><span class="nav-number">3.</span> <span class="nav-text">资源目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源目录入口结构"><span class="nav-number">4.</span> <span class="nav-text">资源目录入口结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源数据入口"><span class="nav-number">5.</span> <span class="nav-text">资源数据入口</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bi Yuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
