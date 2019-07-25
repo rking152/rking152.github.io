@@ -241,139 +241,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 输出表/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Bi Yuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BasicBit">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/01/2018-11-01-Windows PE 输出表/" itemprop="url">Window PE -- 输出表 基址重定位</a></h1>
-        
-
-        <div class="post-meta">
-          
-            <span class="post-updated">
-            &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-25T13:27:49+08:00" content="2019-07-25">
-              2019-07-25
-            </time>
-            </span>
-          
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-01T00:00:00+08:00">
-                2018-11-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Window PE – 输出表 基址重定位</p>
-<h1 id="输出表"><a href="#输出表" class="headerlink" title="输出表"></a>输出表</h1><p>创建一个DLL时，实际上创建了一组能让XE或其他DLL调用的函数，此时PE装载器根据DLL文件中输出的信息修正被执行文件的IAT。当一个LL函数能被EXE或另一个DLL文件使用时，它就被“输出了”（Exported）。其中，输出信息被保存在输出表中，DLL文件通过输出表向系统提供输出函数名、序号和人口地址等信息。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/01/2018-11-01-Windows PE 输出表/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2018/11/01/2018-11-03-病毒分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -509,7 +376,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 资源/">
+    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 输出表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bi Yuan">
@@ -528,14 +395,14 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/01/2018-11-01-Windows PE 资源/" itemprop="url">Window PE -- 资源</a></h1>
+                <a class="post-title-link" href="/2018/11/01/2018-11-01-Windows PE 输出表/" itemprop="url">Window PE -- 输出表 基址重定位</a></h1>
         
 
         <div class="post-meta">
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-25T13:27:22+08:00" content="2019-07-25">
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:27:49+08:00" content="2019-07-25">
               2019-07-25
             </time>
             </span>
@@ -587,11 +454,143 @@
 
       
         
-          <p>Window PE – 资源</p>
-<h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><p>Windows程序的各种界面称为资源，包括加速键（Accelerator）、位图（Bitmap）、光标（Cursor）、对话框（DialogBox）、图标（Icon）、菜单（Menu）、串表（StringTable）、工具栏（Toolbar）和版本信息（VersionInformation）等。在PE文件的所有结构中，资源部分是最复杂的。</p>
+          <p>Window PE – 输出表 基址重定位</p>
+<h1 id="输出表"><a href="#输出表" class="headerlink" title="输出表"></a>输出表</h1><p>创建一个DLL时，实际上创建了一组能让XE或其他DLL调用的函数，此时PE装载器根据DLL文件中输出的信息修正被执行文件的IAT。当一个LL函数能被EXE或另一个DLL文件使用时，它就被“输出了”（Exported）。其中，输出信息被保存在输出表中，DLL文件通过输出表向系统提供输出函数名、序号和人口地址等信息。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/01/2018-11-01-Windows PE 资源/#more" rel="contents">
+            <a class="btn" href="/2018/11/01/2018-11-01-Windows PE 输出表/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 区块/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bi Yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BasicBit">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/01/2018-11-01-Windows PE 区块/" itemprop="url">Window PE -- 区块</a></h1>
+        
+
+        <div class="post-meta">
+          
+            <span class="post-updated">
+            &nbsp; | &nbsp; post.updated
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:26:59+08:00" content="2019-07-25">
+              2019-07-25
+            </time>
+            </span>
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-01T00:00:00+08:00">
+                2018-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Window-PE-–-区块"><a href="#Window-PE-–-区块" class="headerlink" title="Window PE – 区块"></a>Window PE – 区块</h1><h2 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h2><p>在PE件头与原始数据之间存在一个区块表（SectionTable）。区块表中包含每个块在映像中的信息，分别指向不同的区块实体。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/01/2018-11-01-Windows PE 区块/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -774,7 +773,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 区块/">
+    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2018/11/01/2018-11-01-Windows PE 资源/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bi Yuan">
@@ -793,14 +792,14 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/01/2018-11-01-Windows PE 区块/" itemprop="url">Window PE -- 区块</a></h1>
+                <a class="post-title-link" href="/2018/11/01/2018-11-01-Windows PE 资源/" itemprop="url">Window PE -- 资源</a></h1>
         
 
         <div class="post-meta">
           
             <span class="post-updated">
             &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-25T13:26:59+08:00" content="2019-07-25">
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:27:22+08:00" content="2019-07-25">
               2019-07-25
             </time>
             </span>
@@ -852,10 +851,11 @@
 
       
         
-          <h1 id="Window-PE-–-区块"><a href="#Window-PE-–-区块" class="headerlink" title="Window PE – 区块"></a>Window PE – 区块</h1><h2 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h2><p>在PE件头与原始数据之间存在一个区块表（SectionTable）。区块表中包含每个块在映像中的信息，分别指向不同的区块实体。</p>
+          <p>Window PE – 资源</p>
+<h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><p>Windows程序的各种界面称为资源，包括加速键（Accelerator）、位图（Bitmap）、光标（Cursor）、对话框（DialogBox）、图标（Icon）、菜单（Menu）、串表（StringTable）、工具栏（Toolbar）和版本信息（VersionInformation）等。在PE文件的所有结构中，资源部分是最复杂的。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/01/2018-11-01-Windows PE 区块/#more" rel="contents">
+            <a class="btn" href="/2018/11/01/2018-11-01-Windows PE 资源/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1170,6 +1170,138 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2018/10/31/2018-10-31-Windows PE 初识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bi Yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BasicBit">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/31/2018-10-31-Windows PE 初识/" itemprop="url">Window PE -- 初识</a></h1>
+        
+
+        <div class="post-meta">
+          
+            <span class="post-updated">
+            &nbsp; | &nbsp; post.updated
+            <time itemprop="dateUpdated" datetime="2019-07-25T13:26:30+08:00" content="2019-07-25">
+              2019-07-25
+            </time>
+            </span>
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-31T00:00:00+08:00">
+                2018-10-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Window-PE-–-初识"><a href="#Window-PE-–-初识" class="headerlink" title="Window PE – 初识"></a>Window PE – 初识</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>PE文件使用的是一个平面地址空间，所有代码和数据都合并在一起，组成了一个很大的结构。文件的内容被分割为不同的区块（Section，又称区段、节等，在本章中不区分“区块”与“块”），区块中包含代码或数据，各个区块按页边界对齐。区块没有大小限制，是一个连续结构。每个块都有它自己在内存中的一套属性，例如这个块是否包含代码、是否只读或可读／写等。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/31/2018-10-31-Windows PE 初识/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2018/10/31/2018-10-31-Windows Seh 初识/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1253,138 +1385,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/10/31/2018-10-31-Windows Seh 初识/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://basicbit.cn/2018/10/31/2018-10-31-Windows PE 初识/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Bi Yuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BasicBit">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/31/2018-10-31-Windows PE 初识/" itemprop="url">Window PE -- 初识</a></h1>
-        
-
-        <div class="post-meta">
-          
-            <span class="post-updated">
-            &nbsp; | &nbsp; post.updated
-            <time itemprop="dateUpdated" datetime="2019-07-25T13:26:30+08:00" content="2019-07-25">
-              2019-07-25
-            </time>
-            </span>
-          
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-31T00:00:00+08:00">
-                2018-10-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Window-PE-–-初识"><a href="#Window-PE-–-初识" class="headerlink" title="Window PE – 初识"></a>Window PE – 初识</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>PE文件使用的是一个平面地址空间，所有代码和数据都合并在一起，组成了一个很大的结构。文件的内容被分割为不同的区块（Section，又称区段、节等，在本章中不区分“区块”与“块”），区块中包含代码或数据，各个区块按页边界对齐。区块没有大小限制，是一个连续结构。每个块都有它自己在内存中的一套属性，例如这个块是否包含代码、是否只读或可读／写等。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/31/2018-10-31-Windows PE 初识/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
