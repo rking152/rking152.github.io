@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://basicbit.cn/2015/05/12/2015-05-12-C++%20const/</loc>
+    
+    <lastmod>2019-07-26T02:24:09.433Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://basicbit.cn/categories/index.html</loc>
     
     <lastmod>2019-07-26T02:12:34.800Z</lastmod>
@@ -187,13 +194,6 @@
     <loc>https://basicbit.cn/2018/11/01/2018-11-02%20%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84CTF%E5%B0%8Fdemo/</loc>
     
     <lastmod>2019-07-26T02:00:23.921Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://basicbit.cn/2015/05/12/2015-05-12-C++%20const/</loc>
-    
-    <lastmod>2019-07-26T01:51:25.158Z</lastmod>
     
   </url>
   
