@@ -66,7 +66,7 @@ ga('send', 'pageview');</script><link rel="dns-prefetch" href="http://ta.qq.com"
 <li>在这些函数内部，很有可能会对this指针使用相对间接的访问方式</li>
 </ul>
 <p>虚表初始化特征码（在构造或析构函数中出现）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">;下面这段代码出现的函数，需要具有成员函数特征，传递对象首地址作为this指针lea ecx,[ebp - 8];获取对象首地址call xxxxxxxxh ;函数调用mov reg,this ;某寄存器得到对象首地址mov dword ptr[eax], xxxxxxxxh; 向对象首地址写入4字节数据，查看并确认这4字节是否为函数地址表的首地址</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">;下面这段代码出现的函数，需要具有成员函数特征，传递对象首地址作为this指针</span><br><span class="line">lea ecx,[ebp - 8];获取对象首地址</span><br><span class="line">call xxxxxxxxh ;函数调用</span><br><span class="line">mov reg,this ;某寄存器得到对象首地址</span><br><span class="line">mov dword ptr[eax], xxxxxxxxh</span><br><span class="line">; 向对象首地址写入4字节数据，查看并确认这4字节是否为函数地址表的首地址</span><br></pre></td></tr></table></figure>
 <p>如果上述代码出现，应该高度怀疑此函数是一个构造或析构函数。</p>
 <p>Good job.</p>
 <p><img src="/img/1571160018433.png" alt="1571160018433"></p>
