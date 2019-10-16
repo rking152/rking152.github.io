@@ -38,9 +38,9 @@ ga('send', 'pageview');</script><link rel="dns-prefetch" href="http://ta.qq.com"
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">......  </span><br><span class="line">0057179F  pop         ecx  ;恢复this指针</span><br><span class="line">005717A0  mov         dword ptr [ebp-8],ecx ;保存this指针</span><br><span class="line">005717A3  mov         eax,dword ptr [ebp-8]  ;取出this指针</span><br><span class="line">005717A6  mov         dword ptr [eax],577BF8h  ;多态表初始化</span><br><span class="line">005717AC  mov         eax,dword ptr [ebp-8]  ;返回this指针</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
 <p>我把多余的代码删掉了，构造函数只做了这一件事情，就是把多态表的指针赋值到对象地址中，也就是文中的this指针。</p>
 <p>由上面的代码可以看出，此类对象的内存应该如下图：</p>
-<p><img src="/img/640.png" alt="img"></p>
+<p><img src="/img/1571234058141.png" alt="1571234058141"></p>
 <p>我们看下 0x577BF8 中保存的内容：</p>
-<p><img src="/img/640.png" alt="img"></p>
+<p><img src="/img/1571234067497.png" alt="1571234067497"></p>
 <p>整理一下是这样的，0x005713C0，0x005713BB，0x0000000。</p>
 <p>那么这两个有效地址就是我们代码中的两个多态函数，我们来验证下。</p>
 <p><img src="/img/640.png" alt="img"></p>
