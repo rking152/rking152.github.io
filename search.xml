@@ -408,6 +408,33 @@
     
     
     <entry>
+      <title>Themida &amp; WinLicense 2.0 - 2.4.6 脱壳</title>
+      <link href="/2018/11/01/2018-11-16-Themida%20&amp;%20WinLicense%202.0%20-%202.4.6%20%E8%84%B1%E5%A3%B3/"/>
+      <url>/2018/11/01/2018-11-16-Themida%20&amp;%20WinLicense%202.0%20-%202.4.6%20%E8%84%B1%E5%A3%B3/</url>
+      
+        <content type="html"><![CDATA[<p>碰上了这个壳，具体文件就不说了</p><p>百度查了一圈找不到相关文章？难道要手脱？</p><p>濒临绝望之前，看到了国外某大佬的文章，链接：<a href="https://zenhax.com/viewtopic.php?f=4&amp;t=1051Hello" target="_blank" rel="noopener">https://zenhax.com/viewtopic.php?f=4&amp;t=1051Hello</a></p><p>来看过程吧</p><p>PEID查壳</p><p><img src="/img/1571830112209.png" alt="1571830112209"></p><p>脱壳需要的文件如下：</p><p>OD</p><p>插件：</p><p>ODBGScript v1.82.6<br>StrongOD 0.4.8.892<br>PhantOm 1.79<br>ARImpRec.dll</p><p>脱壳脚本（Themida - Winlicense Ultra Unpacker 1.4）</p><p>文件会在文末留下链接</p><p>在使用脱壳脚本之前，需要修改一下ARImpRec.dll的路径。</p><p>打开脚本文件搜索HERE_ENTER_YOUR_DLL_PATH_TO_ARIMPREC_DLL:</p><p><img src="/img/1571830437147.png" alt="1571830437147"></p><p>在324行中修改为你存储此dll的绝对路径。</p><p>还有一点需要注意的就是，要使用英文版本的OD，下图中的OllyDBG.exe，然后备份OllyDBG.ini文件。</p><p>并创建一个新的OllyDBG.ini，使其文件内容为空</p><p><img src="/img/1571830775825.png" alt="1571830775825"></p><p>打开OllDBG.exe，加载待脱壳文件，然后加载脚本</p><p><img src="/img/1571831000405.png" alt="1571831000405"></p><p>运行脚本</p><p><img src="/img/1571831031397.png" alt="1571831031397"></p><p>点击是</p><p><img src="/img/1571831063517.png" alt="1571831063517"></p><p>点击否</p><p><img src="/img/1571831111781.png" alt="1571831111781"></p><p>脚本已经开始工作了</p><p><img src="/img/1571831144245.png" alt="1571831144245"></p><p>在运行几秒后，脚本暂停在了上图的位置，继续运行脚本即可</p><p><img src="/img/1571831251717.png" alt="1571831251717"></p><p>随后我们获得了如下图的弹窗，需要在OllyDBG.ini文件中，根据提示修改文件，并重新运行脚本，我在文末的打包文件中已经修改好了</p><p><img src="/img/1571831293135.png" alt="1571831293135"></p><p>关掉弹窗，继续运行</p><p><img src="/img/1571831409264.png" alt="1571831409264"></p><p>点击是，进行更多的检查</p><p><img src="/img/1571831485640.png" alt="1571831485640"></p><p>在这一步，点击否</p><p><img src="/img/1571832082751.png" alt="1571832082751"></p><p>如果你在虚拟机中运行点击时，真机的话点击否就好了</p><p><img src="/img/1571832196873.png" alt="1571832196873"></p><p>搞定了，现在可以进行dump了，点击是</p><p><img src="/img/1571832266301.png" alt="1571832266301"></p><p>按照上图说的去做，第一次看到这个弹窗，点击否，不是第一次点击是</p><p><img src="/img/1571832353478.png" alt="1571832353478"></p><p>文件大小可以接受，不需要压缩，点击是</p><p><img src="/img/1571832437892.png" alt="1571832437892">、</p><p>一些文件信息，点击是</p><p>OK，脱壳结束，脱壳的文件被命名为&lt;原文件名&gt;_DP。</p><p>再来查一下壳</p><p><img src="/img/1571832578604.png" alt="1571832578604"></p><p>搞定。</p><p>Themida &amp; WinLicense 2.0 - 2.4.6 </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Crack set </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Windows </tag>
+            
+            <tag> CTF </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Window SEH异常 -- 异常基础</title>
       <link href="/2018/10/31/2018-10-31-Window%20SEH%20%E5%8E%9F%E7%90%86/"/>
       <url>/2018/10/31/2018-10-31-Window%20SEH%20%E5%8E%9F%E7%90%86/</url>
