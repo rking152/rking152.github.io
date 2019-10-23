@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.basicbit.cn/"/>
-  <updated>2019-10-21T10:04:49.637Z</updated>
+  <updated>2019-10-15T17:18:01.064Z</updated>
   <id>https://www.basicbit.cn/</id>
   
   <author>
@@ -15,20 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="https://www.basicbit.cn/2019/10/21/2018-11-15-%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81%E8%BF%98%E5%8E%9FC%E4%BB%A3%E7%A0%81/"/>
-    <id>https://www.basicbit.cn/2019/10/21/2018-11-15-汇编代码还原C代码/</id>
-    <published>2019-10-21T10:04:49.637Z</published>
-    <updated>2019-10-21T10:04:49.637Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>vmp3.3.1 虚拟机分析</title>
@@ -44,6 +30,66 @@
       
       
         &lt;h1 id=&quot;虚拟机概述&quot;&gt;&lt;a href=&quot;#虚拟机概述&quot; class=&quot;headerlink&quot; title=&quot;虚拟机概述&quot;&gt;&lt;/a&gt;虚拟机概述&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/img/1564389415873.png&quot; alt=&quot;1564389415873&quot;&gt;&lt;/p&gt;
+      
+    
+    </summary>
+    
+      <category term="Crack set" scheme="https://www.basicbit.cn/categories/Crack-set/"/>
+    
+    
+      <category term="Windows" scheme="https://www.basicbit.cn/tags/Windows/"/>
+    
+      <category term="CTF" scheme="https://www.basicbit.cn/tags/CTF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微信结构分析</title>
+    <link href="https://www.basicbit.cn/2018/11/16/2018-11-16-%E5%BE%AE%E4%BF%A1%E6%8E%A5%E5%8F%A3%E5%88%86%E6%9E%90/"/>
+    <id>https://www.basicbit.cn/2018/11/16/2018-11-16-微信接口分析/</id>
+    <published>2018-11-15T16:00:00.000Z</published>
+    <updated>2019-10-23T16:40:00.677Z</updated>
+    
+    <content type="html"><![CDATA[<p>微信接口分析</p><p>之前搞过一次微信结构分析，想做一次记录，微信最近更新了，那就重新分析下吧。</p><p>微信版本号：</p><p><img src="/img/1571745519002.png" alt="1571745519002"></p><p>主要分析发送和接收消息。</p><p>用到的工具CE、x64dbg。</p><p>文中主要解决的点：</p><p>找到接收消息的关键点，实现可拦截，修改。</p><p>找到发送消息的关键点，实现可拦截，可外部调用。</p><p>先来分析接收消息吧，分析前先猜测下微信的消息处理流程。</p><p>我的过程查找如下：</p><ul><li>启动微信，并登录。</li><li>x64dbg附加进来(Alt + a)。</li><li>启动CE，并选择微信应用。</li></ul><p>做完上述内容后，用其他账号给当前账号发送消息，用CE搜索发送的消息内容（123）。</p><p>搜索结果如下：</p><p><img src="/img/1571745340960.png" alt="1571745340960"></p><p>336条太多了。</p><p>再次发送消息（2563），进行过滤：</p><p>最终出现两条结果：</p><p><img src="/img/1571745476665.png" alt="1571745476665"></p><p>经筛选最终选用05CA9185。</p><p>在x64dbg中下硬件写入断点。</p><p><img src="/img/1571745953091.png" alt="1571745953091"></p><p>为什么下写入而不是读取？因为出现新消息会写入这个地址呀。</p><p>在向电脑登陆的微信发送一条消息，由于x64dbg对中文支持不是很友好，建议发送字母或数字（567891234）。</p><p>发送消息后，程序断下，此时我们来看看调用堆栈。</p><p><img src="/img/1571746238446.png" alt="1571746238446"></p><p>函数调用还挺多的，当然这里的不一定全。</p><p>再来看看堆栈。</p><p><img src="/img/1571746278324.png" alt="1571746278324"></p><p>一直向下拉，看看有没有什么可用的信息。</p><p><img src="/img/1571746335556.png" alt="1571746335556"></p><p>看到上图中的我们发送的消息内容了吗？那么这附近的函数调用一定要着重观察。</p><p>各个call的分析我们就不说的，主要看call传递的参数信息是否有我们所需要的，最终找到的的call如下，地址：wechatwin:base + 0x2650F4，可能除了这个call还有其他call可以用，文中就用这个吧：</p><p><img src="/img/1571746692912.png" alt="1571746692912"></p><p>这个函数只压入了一个参数，消息内容就在  [[esp]] 的位置：</p><p><img src="/img/1571746763957.png" alt="1571746763957"></p><p>这里分别列出了微信ID和消息内容，这里的微信ID和我们在微信里看到的微信ID并不一样，具体我也不知道为什么。</p><p>这两个字符串后面跟随的4个字节就是字符串的长度，因此如修改内容需要将字符串长度一并修改。</p><p>这里实际上是一个结构体，包含的信息不止这两个内容，具体分析看文末。</p><p>接收消息搞定了，来看看发送消息吧，并且要进行。</p><p>在电脑端的微信中向文件传输助手中发送消息，发送结束后，在CE中搜索filehelper，这个就是文件传输助手的微信ID。</p><p><img src="/img/1571747328061.png" alt="1571747328061"></p><p>搜索出23条结果。</p><p>在向其他账号发送消息，观察CE变动的的数据。</p><p><img src="/img/1571747393910.png" alt="1571747393910"></p><p>变动的不多，经分析可以看出05CA814D保存的就是刚刚发送的消息的接收者的ID。</p><p>老规矩，对这个地址进行硬件写入断点：</p><p><img src="/img/1571747709507.png" alt="1571747709507"></p><p>再次向文件传输助手发送一条消息，断点断下。</p><p>向上文一样，找call，主要看传递的参数，再次不在赘述了。</p><p>最终找到了两个call，两个call描述如下：</p><ul><li>第一个call，传递了this指针，和其他参数，数量未知，看到this指针就把它pass了</li><li>第二个call，只压入了一个参数，并且未用到寄存器传参数。</li></ul><p>果断用第二个call，为什么？，难道会有人喜欢分析 类的结构吗？</p><p>call的地址：wechatwin:base + 0x4805FC</p><p>在此call的地址下断</p><p>再次发送消息，程序在这个call中断下。</p><p>来看看我们选中的call吧：</p><p><img src="/img/1571748204692.png" alt="1571748204692"></p><p>这个call传递的重要参数在[[esp] + c]中：</p><p><img src="/img/1571748871478.png" alt="1571748871478"></p><p>这里的参数并不是所有的都有用，有些是上层函数需要用到的。</p><p>我们自己调用这个call的话，就需要对内容进行分析，可以先将一些参数置0，然后运行，把无用的参数过滤掉，再来分析有用的参数分别代表了什么。</p><p>这个call和我上次分析的低版本用到的非常相似，我上次针对这两个接口写了个辅助工具，上次分析忘记参数位置了，好像和这次的差不多，改改还能用。</p><p>链接：<a href="https://pan.baidu.com/s/1NKz_IZqqQLy5OkUzWlEG7A" target="_blank" rel="noopener">https://pan.baidu.com/s/1NKz_IZqqQLy5OkUzWlEG7A</a><br>提取码：j0t4 </p><p>具体功能如下：</p><ul><li>接收消息拦截，消息类型分析，发送和接收分离。</li><li>发送消息</li></ul><p><strong>辅助编写步骤如下，未接触过win32编程的可以看下：</strong></p><p>可以使用dll注入技术，我没有使用dll注入。</p><p>技术栈：远程代码写入（WriteProcessMemory），进程间共享内存，远程函数调用（CreateRemoteProcess）。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;微信接口分析&lt;/p&gt;
+&lt;p&gt;之前搞过一次微信结构分析，想做一次记录，微信最近更新了，那就重新分析下吧。&lt;/p&gt;
+&lt;p&gt;微信版本号：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/1571745519002.png&quot; alt=&quot;1571745519002&quot;&gt;&lt;/p&gt;
+&lt;p&gt;主要
+      
+    
+    </summary>
+    
+      <category term="Crack set" scheme="https://www.basicbit.cn/categories/Crack-set/"/>
+    
+    
+      <category term="Windows" scheme="https://www.basicbit.cn/tags/Windows/"/>
+    
+      <category term="CTF" scheme="https://www.basicbit.cn/tags/CTF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Themida &amp; WinLicense 2.0 - 2.4.6 脱壳</title>
+    <link href="https://www.basicbit.cn/2018/11/16/2018-11-16-Themida%20&amp;%20WinLicense%202.0%20-%202.4.6%20%E8%84%B1%E5%A3%B3/"/>
+    <id>https://www.basicbit.cn/2018/11/16/2018-11-16-Themida &amp; WinLicense 2.0 - 2.4.6 脱壳/</id>
+    <published>2018-11-15T16:00:00.000Z</published>
+    <updated>2019-10-23T16:40:05.459Z</updated>
+    
+    <content type="html"><![CDATA[<p>碰上了这个壳，具体文件就不说了</p><p>百度查了一圈找不到相关文章？难道要手脱？</p><p>濒临绝望之前，看到了国外某大佬的文章，链接：<a href="https://zenhax.com/viewtopic.php?f=4&amp;t=1051Hello" target="_blank" rel="noopener">https://zenhax.com/viewtopic.php?f=4&amp;t=1051Hello</a></p><p>来看过程吧</p><p>PEID查壳</p><p><img src="/img/1571830112209.png" alt="1571830112209"></p><p>脱壳需要的文件如下：</p><p>OD</p><p>插件：</p><p>ODBGScript v1.82.6<br>StrongOD 0.4.8.892<br>PhantOm 1.79<br>ARImpRec.dll</p><p>脱壳脚本（Themida - Winlicense Ultra Unpacker 1.4）</p><p>文件会在文末留下链接</p><p>在使用脱壳脚本之前，需要修改一下ARImpRec.dll的路径。</p><p>打开脚本文件搜索HERE_ENTER_YOUR_DLL_PATH_TO_ARIMPREC_DLL:</p><p><img src="/img/1571830437147.png" alt="1571830437147"></p><p>在324行中修改为你存储此dll的绝对路径。</p><p>还有一点需要注意的就是，要使用英文版本的OD，下图中的OllyDBG.exe，然后备份OllyDBG.ini文件。</p><p>并创建一个新的OllyDBG.ini，使其文件内容为空</p><p><img src="/img/1571830775825.png" alt="1571830775825"></p><p>打开OllDBG.exe，加载待脱壳文件，然后加载脚本</p><p><img src="/img/1571831000405.png" alt="1571831000405"></p><p>运行脚本</p><p><img src="/img/1571831031397.png" alt="1571831031397"></p><p>点击是</p><p><img src="/img/1571831063517.png" alt="1571831063517"></p><p>点击否</p><p><img src="/img/1571831111781.png" alt="1571831111781"></p><p>脚本已经开始工作了</p><p><img src="/img/1571831144245.png" alt="1571831144245"></p><p>在运行几秒后，脚本暂停在了上图的位置，继续运行脚本即可</p><p><img src="/img/1571831251717.png" alt="1571831251717"></p><p>随后我们获得了如下图的弹窗，需要在OllyDBG.ini文件中，根据提示修改文件，并重新运行脚本，我在文末的打包文件中已经修改好了</p><p><img src="/img/1571831293135.png" alt="1571831293135"></p><p>关掉弹窗，继续运行</p><p><img src="/img/1571831409264.png" alt="1571831409264"></p><p>点击是，进行更多的检查</p><p><img src="/img/1571831485640.png" alt="1571831485640"></p><p>在这一步，点击否</p><p><img src="/img/1571832082751.png" alt="1571832082751"></p><p>如果你在虚拟机中运行点击时，真机的话点击否就好了</p><p><img src="/img/1571832196873.png" alt="1571832196873"></p><p>搞定了，现在可以进行dump了，点击是</p><p><img src="/img/1571832266301.png" alt="1571832266301"></p><p>按照上图说的去做，第一次看到这个弹窗，点击否，不是第一次点击是</p><p><img src="/img/1571832353478.png" alt="1571832353478"></p><p>文件大小可以接受，不需要压缩，点击是</p><p><img src="/img/1571832437892.png" alt="1571832437892">、</p><p>一些文件信息，点击是</p><p>OK，脱壳结束，脱壳的文件被命名为&lt;原文件名&gt;_DP。</p><p>再来查一下壳</p><p><img src="/img/1571832578604.png" alt="1571832578604"></p><p>搞定。</p><p>Themida &amp; WinLicense 2.0 - 2.4.6 </p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;碰上了这个壳，具体文件就不说了&lt;/p&gt;
+&lt;p&gt;百度查了一圈找不到相关文章？难道要手脱？&lt;/p&gt;
+&lt;p&gt;濒临绝望之前，看到了国外某大佬的文章，链接：&lt;a href=&quot;https://zenhax.com/viewtopic.php?f=4&amp;amp;t=1051Hello&quot; t
       
     
     </summary>
@@ -413,66 +459,6 @@
   </entry>
   
   <entry>
-    <title>一个简单的CTF小DEMO</title>
-    <link href="https://www.basicbit.cn/2018/11/01/2018-11-16-%E5%BE%AE%E4%BF%A1%E6%8E%A5%E5%8F%A3%E5%88%86%E6%9E%90/"/>
-    <id>https://www.basicbit.cn/2018/11/01/2018-11-16-微信接口分析/</id>
-    <published>2018-10-31T16:00:00.000Z</published>
-    <updated>2019-10-22T13:24:56.043Z</updated>
-    
-    <content type="html"><![CDATA[<p>微信接口分析</p><p>之前搞过一次微信结构分析，想做一次记录，微信最近更新了，那就重新分析下吧。</p><p>微信版本号：</p><p><img src="/img/1571745519002.png" alt="1571745519002"></p><p>主要分析发送和接收消息。</p><p>用到的工具CE、x64dbg。</p><p>文中主要解决的点：</p><p>找到接收消息的关键点，实现可拦截，修改。</p><p>找到发送消息的关键点，实现可拦截，可外部调用。</p><p>先来分析接收消息吧，分析前先猜测下微信的消息处理流程。</p><p>我的过程查找如下：</p><ul><li>启动微信，并登录。</li><li>x64dbg附加进来(Alt + a)。</li><li>启动CE，并选择微信应用。</li></ul><p>做完上述内容后，用其他账号给当前账号发送消息，用CE搜索发送的消息内容（123）。</p><p>搜索结果如下：</p><p><img src="/img/1571745340960.png" alt="1571745340960"></p><p>336条太多了。</p><p>再次发送消息（2563），进行过滤：</p><p>最终出现两条结果：</p><p><img src="/img/1571745476665.png" alt="1571745476665"></p><p>经筛选最终选用05CA9185。</p><p>在x64dbg中下硬件写入断点。</p><p><img src="/img/1571745953091.png" alt="1571745953091"></p><p>为什么下写入而不是读取？因为出现新消息会写入这个地址呀。</p><p>在向电脑登陆的微信发送一条消息，由于x64dbg对中文支持不是很友好，建议发送字母或数字（567891234）。</p><p>发送消息后，程序断下，此时我们来看看调用堆栈。</p><p><img src="/img/1571746238446.png" alt="1571746238446"></p><p>函数调用还挺多的，当然这里的不一定全。</p><p>再来看看堆栈。</p><p><img src="/img/1571746278324.png" alt="1571746278324"></p><p>一直向下拉，看看有没有什么可用的信息。</p><p><img src="/img/1571746335556.png" alt="1571746335556"></p><p>看到上图中的我们发送的消息内容了吗？那么这附近的函数调用一定要着重观察。</p><p>各个call的分析我们就不说的，主要看call传递的参数信息是否有我们所需要的，最终找到的的call如下，地址：wechatwin:base + 0x2650F4，可能除了这个call还有其他call可以用，文中就用这个吧：</p><p><img src="/img/1571746692912.png" alt="1571746692912"></p><p>这个函数只压入了一个参数，消息内容就在  [[esp]] 的位置：</p><p><img src="/img/1571746763957.png" alt="1571746763957"></p><p>这里分别列出了微信ID和消息内容，这里的微信ID和我们在微信里看到的微信ID并不一样，具体我也不知道为什么。</p><p>这两个字符串后面跟随的4个字节就是字符串的长度，因此如修改内容需要将字符串长度一并修改。</p><p>这里实际上是一个结构体，包含的信息不止这两个内容，具体分析看文末。</p><p>接收消息搞定了，来看看发送消息吧，并且要进行。</p><p>在电脑端的微信中向文件传输助手中发送消息，发送结束后，在CE中搜索filehelper，这个就是文件传输助手的微信ID。</p><p><img src="/img/1571747328061.png" alt="1571747328061"></p><p>搜索出23条结果。</p><p>在向其他账号发送消息，观察CE变动的的数据。</p><p><img src="/img/1571747393910.png" alt="1571747393910"></p><p>变动的不多，经分析可以看出05CA814D保存的就是刚刚发送的消息的接收者的ID。</p><p>老规矩，对这个地址进行硬件写入断点：</p><p><img src="/img/1571747709507.png" alt="1571747709507"></p><p>再次向文件传输助手发送一条消息，断点断下。</p><p>向上文一样，找call，主要看传递的参数，再次不在赘述了。</p><p>最终找到了两个call，两个call描述如下：</p><ul><li>第一个call，传递了this指针，和其他参数，数量未知，看到this指针就把它pass了</li><li>第二个call，只压入了一个参数，并且未用到寄存器传参数。</li></ul><p>果断用第二个call，为什么？，难道会有人喜欢分析 类的结构吗？</p><p>call的地址：wechatwin:base + 0x4805FC</p><p>在此call的地址下断</p><p>再次发送消息，程序在这个call中断下。</p><p>来看看我们选中的call吧：</p><p><img src="/img/1571748204692.png" alt="1571748204692"></p><p>这个call传递的重要参数在[[esp] + c]中：</p><p><img src="/img/1571748871478.png" alt="1571748871478"></p><p>这里的参数并不是所有的都有用，有些是上层函数需要用到的。</p><p>我们自己调用这个call的话，就需要对内容进行分析，可以先将一些参数置0，然后运行，把无用的参数过滤掉，再来分析有用的参数分别代表了什么。</p><p>这个call和我上次分析的低版本用到的非常相似，我上次针对这两个接口写了个辅助工具，上次分析忘记参数位置了，好像和这次的差不多，改改还能用。</p><p>链接：<a href="https://pan.baidu.com/s/1NKz_IZqqQLy5OkUzWlEG7A" target="_blank" rel="noopener">https://pan.baidu.com/s/1NKz_IZqqQLy5OkUzWlEG7A</a><br>提取码：j0t4 </p><p>具体功能如下：</p><ul><li>接收消息拦截，消息类型分析，发送和接收分离。</li><li>发送消息</li></ul><p><strong>辅助编写步骤如下，未接触过win32编程的可以看下：</strong></p><p>可以使用dll注入技术，我没有使用dll注入。</p><p>技术栈：远程代码写入（WriteProcessMemory），进程间共享内存，远程函数调用（CreateRemoteProcess）。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;微信接口分析&lt;/p&gt;
-&lt;p&gt;之前搞过一次微信结构分析，想做一次记录，微信最近更新了，那就重新分析下吧。&lt;/p&gt;
-&lt;p&gt;微信版本号：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/img/1571745519002.png&quot; alt=&quot;1571745519002&quot;&gt;&lt;/p&gt;
-&lt;p&gt;主要
-      
-    
-    </summary>
-    
-      <category term="Crack set" scheme="https://www.basicbit.cn/categories/Crack-set/"/>
-    
-    
-      <category term="Windows" scheme="https://www.basicbit.cn/tags/Windows/"/>
-    
-      <category term="CTF" scheme="https://www.basicbit.cn/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Themida &amp; WinLicense 2.0 - 2.4.6 脱壳</title>
-    <link href="https://www.basicbit.cn/2018/11/01/2018-11-16-Themida%20&amp;%20WinLicense%202.0%20-%202.4.6%20%E8%84%B1%E5%A3%B3/"/>
-    <id>https://www.basicbit.cn/2018/11/01/2018-11-16-Themida &amp; WinLicense 2.0 - 2.4.6 脱壳/</id>
-    <published>2018-10-31T16:00:00.000Z</published>
-    <updated>2019-10-23T12:14:44.861Z</updated>
-    
-    <content type="html"><![CDATA[<p>碰上了这个壳，具体文件就不说了</p><p>百度查了一圈找不到相关文章？难道要手脱？</p><p>濒临绝望之前，看到了国外某大佬的文章，链接：<a href="https://zenhax.com/viewtopic.php?f=4&amp;t=1051Hello" target="_blank" rel="noopener">https://zenhax.com/viewtopic.php?f=4&amp;t=1051Hello</a></p><p>来看过程吧</p><p>PEID查壳</p><p><img src="/img/1571830112209.png" alt="1571830112209"></p><p>脱壳需要的文件如下：</p><p>OD</p><p>插件：</p><p>ODBGScript v1.82.6<br>StrongOD 0.4.8.892<br>PhantOm 1.79<br>ARImpRec.dll</p><p>脱壳脚本（Themida - Winlicense Ultra Unpacker 1.4）</p><p>文件会在文末留下链接</p><p>在使用脱壳脚本之前，需要修改一下ARImpRec.dll的路径。</p><p>打开脚本文件搜索HERE_ENTER_YOUR_DLL_PATH_TO_ARIMPREC_DLL:</p><p><img src="/img/1571830437147.png" alt="1571830437147"></p><p>在324行中修改为你存储此dll的绝对路径。</p><p>还有一点需要注意的就是，要使用英文版本的OD，下图中的OllyDBG.exe，然后备份OllyDBG.ini文件。</p><p>并创建一个新的OllyDBG.ini，使其文件内容为空</p><p><img src="/img/1571830775825.png" alt="1571830775825"></p><p>打开OllDBG.exe，加载待脱壳文件，然后加载脚本</p><p><img src="/img/1571831000405.png" alt="1571831000405"></p><p>运行脚本</p><p><img src="/img/1571831031397.png" alt="1571831031397"></p><p>点击是</p><p><img src="/img/1571831063517.png" alt="1571831063517"></p><p>点击否</p><p><img src="/img/1571831111781.png" alt="1571831111781"></p><p>脚本已经开始工作了</p><p><img src="/img/1571831144245.png" alt="1571831144245"></p><p>在运行几秒后，脚本暂停在了上图的位置，继续运行脚本即可</p><p><img src="/img/1571831251717.png" alt="1571831251717"></p><p>随后我们获得了如下图的弹窗，需要在OllyDBG.ini文件中，根据提示修改文件，并重新运行脚本，我在文末的打包文件中已经修改好了</p><p><img src="/img/1571831293135.png" alt="1571831293135"></p><p>关掉弹窗，继续运行</p><p><img src="/img/1571831409264.png" alt="1571831409264"></p><p>点击是，进行更多的检查</p><p><img src="/img/1571831485640.png" alt="1571831485640"></p><p>在这一步，点击否</p><p><img src="/img/1571832082751.png" alt="1571832082751"></p><p>如果你在虚拟机中运行点击时，真机的话点击否就好了</p><p><img src="/img/1571832196873.png" alt="1571832196873"></p><p>搞定了，现在可以进行dump了，点击是</p><p><img src="/img/1571832266301.png" alt="1571832266301"></p><p>按照上图说的去做，第一次看到这个弹窗，点击否，不是第一次点击是</p><p><img src="/img/1571832353478.png" alt="1571832353478"></p><p>文件大小可以接受，不需要压缩，点击是</p><p><img src="/img/1571832437892.png" alt="1571832437892">、</p><p>一些文件信息，点击是</p><p>OK，脱壳结束，脱壳的文件被命名为&lt;原文件名&gt;_DP。</p><p>再来查一下壳</p><p><img src="/img/1571832578604.png" alt="1571832578604"></p><p>搞定。</p><p>Themida &amp; WinLicense 2.0 - 2.4.6 </p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;碰上了这个壳，具体文件就不说了&lt;/p&gt;
-&lt;p&gt;百度查了一圈找不到相关文章？难道要手脱？&lt;/p&gt;
-&lt;p&gt;濒临绝望之前，看到了国外某大佬的文章，链接：&lt;a href=&quot;https://zenhax.com/viewtopic.php?f=4&amp;amp;t=1051Hello&quot; t
-      
-    
-    </summary>
-    
-      <category term="Crack set" scheme="https://www.basicbit.cn/categories/Crack-set/"/>
-    
-    
-      <category term="Windows" scheme="https://www.basicbit.cn/tags/Windows/"/>
-    
-      <category term="CTF" scheme="https://www.basicbit.cn/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Window SEH异常 -- 异常基础</title>
     <link href="https://www.basicbit.cn/2018/10/31/2018-10-31-Window%20SEH%20%E5%8E%9F%E7%90%86/"/>
     <id>https://www.basicbit.cn/2018/10/31/2018-10-31-Window SEH 原理/</id>
@@ -551,6 +537,33 @@
       <category term="Windows" scheme="https://www.basicbit.cn/tags/Windows/"/>
     
       <category term="PE" scheme="https://www.basicbit.cn/tags/PE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>静态变量底层实现</title>
+    <link href="https://www.basicbit.cn/2018/10/20/2018-10-20-%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/"/>
+    <id>https://www.basicbit.cn/2018/10/20/2018-10-20-静态变量底层实现/</id>
+    <published>2018-10-19T16:00:00.000Z</published>
+    <updated>2019-10-15T17:19:03.329Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="静态变量底层实现"><a href="#静态变量底层实现" class="headerlink" title="静态变量底层实现"></a>静态变量底层实现</h1><p>静态变量有局部静态变量（作用域内的静态变量），全局静态变量，然而他们的实现和全局变量是一样的，而局部静态变量只能在作用域访问是C语言的优化。</p><p>局部静态变量不会随作用域结束而销毁，并且在未进入作用域之前就已经存在，其生命周期也与全局变量相同。局部静态变量和全局变量都保存在执行文件中的数据区中。</p><p>局部静态变量会预先被作为全局变量处理，而它的初始化部分，只是在做赋值操作而已。</p><p>在C++语法中局部静态变量只能被初始化一次，编译器的内部实现如下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">void Static(int nNum)</span><br><span class="line">&#123;</span><br><span class="line">    static int g_nNum = nNum;</span><br><span class="line">    xor eax,eax</span><br><span class="line">    mov al,byte ptr[&apos;Static&apos;::&apos;2&apos;::$$1 (004257cc)]</span><br><span class="line">    and eax,1</span><br><span class="line">    test eax,eax</span><br><span class="line">    jne pp</span><br><span class="line">    mov cl,byte ptr[&apos;Static&apos;::&apos;2&apos;::$$1 (004257cc)]</span><br><span class="line">    or cl,1</span><br><span class="line">    mov byte ptr[&apos;Static&apos;::&apos;2&apos;::$$1 (004257cc)], cl</span><br><span class="line">    mov edx,[ebp + 8]</span><br><span class="line">    mov [_sbh_sizeHeaderList+4 (004257c8)],edx</span><br><span class="line">pp:</span><br><span class="line">    printf(&quot;%d&quot;, g_nNum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上述代码首先从004257cc处取出1字节内容进行判断，这个byte的内容实际上就是局部静态变量初始状态的一个标志，这个标志占1字节，通过位运算，将标志的一位置1，而1个字节占8位，so这个标志可以同时表示8个局部静态变量的初始状态。</p><p>标志坐在的内存地址在最先定义的局部静态变量地址的附近，如最先定义的整型局部静态变量在地址0x004257C0处，那么标记位地址通常在0x004257C4或0x004257BC处。当同一作用域内超过8个局部静态变量时，下一个标记位将会在第9个定义的局部静态变量地址附近。</p><p>当局部静态变量为数组时，那么只检查数组的第1个字节是否进行过初始化，其他位将不进行检查。</p><p><img src="/img/1571159941863.png" alt="1571159941863"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;静态变量底层实现&quot;&gt;&lt;a href=&quot;#静态变量底层实现&quot; class=&quot;headerlink&quot; title=&quot;静态变量底层实现&quot;&gt;&lt;/a&gt;静态变量底层实现&lt;/h1&gt;&lt;p&gt;静态变量有局部静态变量（作用域内的静态变量），全局静态变量，然而他们的实现和全局变量是一样的
+      
+    
+    </summary>
+    
+      <category term="Windows" scheme="https://www.basicbit.cn/categories/Windows/"/>
+    
+    
+      <category term="随书笔记" scheme="https://www.basicbit.cn/tags/%E9%9A%8F%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="C++ Primer" scheme="https://www.basicbit.cn/tags/C-Primer/"/>
     
   </entry>
   
