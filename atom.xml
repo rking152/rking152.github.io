@@ -192,34 +192,6 @@
   </entry>
   
   <entry>
-    <title>网易xx游戏辅助的心路历程</title>
-    <link href="https://www.basicbit.cn/2018/11/16/2018-11-19-%E7%BD%91%E6%98%93%E6%B8%B8%E6%88%8F%E8%BE%85%E5%8A%A9%E7%9A%84%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8B%E7%9A%84/"/>
-    <id>https://www.basicbit.cn/2018/11/16/2018-11-19-网易游戏辅助的心路历程的/</id>
-    <published>2018-11-15T16:00:00.000Z</published>
-    <updated>2019-11-03T12:28:10.446Z</updated>
-    
-    <content type="html"><![CDATA[<p>喜欢上了网易的一款游戏，但是太肝了，开新区要连续肝6、7个小时，这太难受了，萌生了写辅助的想法，开始分析找到了几个Hook点，辅助这个东西难度不大，用dll注入的方式很快就写完了，随便贴个图</p><p><img src="/img/1572183105475.png" alt="1572183105475"></p><p>刚刚写完，到了晚上游戏更新，dll注入后游戏就退出，网易的效率还真是高[微笑]</p><p>换成代码注入吧，换汤不换药，改完了之后，跑起来没问题了</p><p>emmm  一段时间过去了，，，，，，</p><p>猜的没错，游戏更新后有几个Hook点失效了，重新分析了下，就是偏移变了，可是后面在更新我还要改，顺道把收包和发包解决了下</p><p>有些发包数据没分析，因为太多了，Hook点也能用，发包分析就搁置了</p><p><img src="/img/1572184653951.png" alt="1572184653951"></p><p>几天过后，来了一波大更新，发包分析和一些其他的Hook点失效了，收包还能用，这就够了？调试器不能下断点，猜测是某个线程进行代码校验，可我只是想写一款辅助啊</p><p>唉，python图片转换文字，模拟点击，是很low，可是长久啊</p><p><img src="/img/1572184852450.png" alt="1572184852450"></p><p>用了几天的时间，搞定了之后，也没去玩，辅助给朋友用了，过了一阵子，朋友说辅助打开后游戏就关闭</p><p>我只是想写一款辅助啊，我影响你们盈利了？我因此受益了？</p><p>记得刚开始分析的时候，log信息会记录鼠标点击的位置和时间，想都不要想问题一定在Log信息这</p><p>些（这）许（是）生（仇）气（恨）</p><p>脱壳，干就完事了</p><p>脱壳后，断点虽然能下了，保险起见，把Log、SEH异常、dump模块统统干掉</p><p><img src="/img/1572185119275.png" alt="1572185119275"></p><p>网易用的自己的游戏引擎，查不到过多的资料，分析起来或许不是那么顺畅</p><p>不过还有两个比较好的点，就是二进制文件中的调试信息没有删除，核心调度用python写的，pyc或者pyo是可以像java一样反编译的哦，更令人开心的是，部分python代码还添加了中文注释，爱了爱了</p><p>根据调试信息和x64dbg进行分析，很快就找到了部分资源加密的部分，来两张图吧，剩下的就是时间的问题了</p><p><img src="/img/1572185458932.png" alt="1572185458932"></p><p><img src="/img/1572185470971.png" alt="1572185470971"></p><p>这些是文件路径的解密</p><p>emmm，准备把它搞个底掉</p><p>就说到这吧，其实也没什么就是有点些（这）许（是）生（仇）气（恨）</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;喜欢上了网易的一款游戏，但是太肝了，开新区要连续肝6、7个小时，这太难受了，萌生了写辅助的想法，开始分析找到了几个Hook点，辅助这个东西难度不大，用dll注入的方式很快就写完了，随便贴个图&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/img/1572183105475.png&quot; 
-      
-    
-    </summary>
-    
-      <category term="Crack set" scheme="https://www.basicbit.cn/categories/Crack-set/"/>
-    
-    
-      <category term="Windows" scheme="https://www.basicbit.cn/tags/Windows/"/>
-    
-      <category term="CTF" scheme="https://www.basicbit.cn/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
     <title>我们聊聊继承吧，从继承的角度出发再来聊聊多态</title>
     <link href="https://www.basicbit.cn/2018/11/12/2018-11-12-%E4%BB%8E%E7%BB%A7%E6%89%BF%E7%9A%84%E8%A7%92%E5%BA%A6%E5%86%8D%E6%9D%A5%E8%81%8A%E8%81%8A%E5%A4%9A%E6%80%81%E5%90%A7/"/>
     <id>https://www.basicbit.cn/2018/11/12/2018-11-12-从继承的角度再来聊聊多态吧/</id>
@@ -571,6 +543,33 @@
       <category term="Windows" scheme="https://www.basicbit.cn/tags/Windows/"/>
     
       <category term="PE" scheme="https://www.basicbit.cn/tags/PE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Window SEH异常 -- 异常基础</title>
+    <link href="https://www.basicbit.cn/2018/10/31/2018-10-31-Window%20SEH%20%E5%8E%9F%E7%90%86/"/>
+    <id>https://www.basicbit.cn/2018/10/31/2018-10-31-Window SEH 原理/</id>
+    <published>2018-10-30T16:00:00.000Z</published>
+    <updated>2019-10-15T17:18:57.847Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Window-SEH异常-–-异常基础"><a href="#Window-SEH异常-–-异常基础" class="headerlink" title="Window SEH异常 – 异常基础"></a>Window SEH异常 – 异常基础</h1><h2 id="SEH数据结构"><a href="#SEH数据结构" class="headerlink" title="SEH数据结构"></a>SEH数据结构</h2><h3 id="TIB-结构"><a href="#TIB-结构" class="headerlink" title="TIB 结构"></a>TIB 结构</h3><p>TIB(ThreadInformatio它位于TEB(ThreadEnvironmentBlock，线程环境块）的头部，而TEB是操作系统为了保存每个线程的私有数据创建的，每个线程都有自己的TEB。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">NT_TIB</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">     PEXCEPTION_REGISTRATION_RECORD ExceptionList;</span><br><span class="line">     PVOID StackBase;</span><br><span class="line">     PVOID StackLimit;</span><br><span class="line">     PVOID SubSystemTib;</span><br><span class="line">     <span class="keyword">union</span></span><br><span class="line">     &#123;</span><br><span class="line">          PVOID FiberData;</span><br><span class="line">          ULONG Version;</span><br><span class="line">     &#125;;</span><br><span class="line">     PVOID ArbitraryUserPointer;</span><br><span class="line">     PNT_TIB Self;</span><br><span class="line">&#125; NT_TIB, *PNT_TIB;</span><br></pre></td></tr></table></figure><p>然Windows系统经历了多次更新换代，但是从Windows 2000到Windows10,TIB结构都没有变化。其中，与异常处理相关的项是指向EXCEPTION_REGISTRATION_RECORD结构的指针ExceptionList，它位于TIB的偏移0处，同时在TEB的偏移0处。在x86平台的用户模式下，Windows将FS段选择器指向当前线程的TEB据，即TEB总是由fs:[O］指向的（在x64平台上，这个指向关系变成了gs:[O］。关于x64平台上的异常处理，会在8.5节详细讲述）。而当线程运行在内核模式下时，Windows将FS段选择器指向内核中的KPCRB结构（Processor Control Region Block ，处理器控制块），该结构的头部同样是上述的NT_TIB构。</p><h3 id="EXCEPTION-REGISTRATION-RECORD结构"><a href="#EXCEPTION-REGISTRATION-RECORD结构" class="headerlink" title="EXCEPTION_REGISTRATION_RECORD结构"></a>EXCEPTION_REGISTRATION_RECORD结构</h3><p>TEB移量为0的＿EXCEPTION_REGISTRATION_RECORD主要用T描述线程异常处理程的地址，多个该结构的链表描述了多个线程异常处理过程的嵌套层次关系，其定义如下。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">EXCEPTION_REGISTRATION_RECORD</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">     PEXCEPTION_REGISTRATION_RECORD Next;</span><br><span class="line">     PEXCEPTION_DISPOSITION Handler;</span><br><span class="line">&#125; EXCEPTION_REGISTRATION_RECORD, *PEXCEPTION_REGISTRATION_RECORD;</span><br></pre></td></tr></table></figure><p>其中，“Next”是指向下一个＿EXCEPTIONREGISTRATION_RECORD（简称“ERR”）的指针，形成一链状结构，而链表头就存放在也：［O］指向的TEE中；＂Handler”指向异常处理回调函数，如下图。</p><p><img src="/img/1554693090658.png" alt="1554693090658"></p><p>当程序运行过程中产生异常时，系统的异常分发器就会从fs:[0］处取得异常处理的链表头，然后查找异常处理链表并依次调用各个链表节点中的异常处理回调函数。由于TEE是线程的私有数据结构，相应地，钱程也都有自己的异常处理链表，即SEH机制的作用范围仅限于当前线程。从数据结构的角度来讲，SEH链就是一个只允许在链表头部进行增加和删除节点操作的单向链表，且链表头部永远保存在fs:[0］处的TEB结构中。</p><h3 id="EXCEPTION-POINTERS结构"><a href="#EXCEPTION-POINTERS结构" class="headerlink" title="EXCEPTION_POINTERS结构"></a>EXCEPTION_POINTERS结构</h3><p>一个异常发生时，在没有调试器干预的情况下，操作系统会将异常信息转交给用户态的异常处理过程。实际上，由于同一个线程在用户态和内核态使用的是两个不同的拢，为了让用户态的常处理程序能够访问与异常相关的数据，操作系统必须把与本次异常相关联的EXCEPTION_RECORD结构和CONTEXT结构放到用户态战中，同时在党中放置一个＿EXCEPTION_POINTERS结构，它包含两个指针，一指向EXCEPTION_RECORD锚构，另一个指向CONTEXT结构，示例如下。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><p>这样，用户态的异常处理程序就能够取得异常的具体信息和发生异常时线程的状态信息，并根据具体情况进行处理了。</p><h2 id="SEH处理程序的安装与卸载"><a href="#SEH处理程序的安装与卸载" class="headerlink" title="SEH处理程序的安装与卸载"></a>SEH处理程序的安装与卸载</h2><p>由于fs:[0］总是指向当前异常处理程序的链表头，当程序中需要安装一个新的SEH异常处理程序时，只要填写一个新的EXCEPTION_REGISTRATION_RECORD结构，并将其插入该链表的头部即可。根据SEH的设计要求，它的作用范围与安装它的函数相同，所以通常在函数头部安装SEH异常处理程序，在函数返回前卸载可以说，SEH是基于战帧的异常处理机制。</p><p>在安装SEH理程序之前，需要准备一个符合SEH标准的回调函数，然后使用如下代码进行SEH异常处理程序的安装。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">assume fs:nothing</span><br><span class="line">push offset SEHandler</span><br><span class="line">push fs:[<span class="number">0</span>]</span><br><span class="line">mov fs:[<span class="number">0</span>],esp</span><br></pre></td></tr></table></figure><p>“assume fs:nothing”是MASM编译器的特殊要求，若不满足该要求将出现编译错误，后面3行则是注册回调函数。“push offset SEHandler”和“push fs:[0］”相继向棋中压入了Handler和当前的SEH链表头，这两个元素构成了一个新的_EXCEPTION_REGISTRATION_RECORD结构，此时它的位置就在桔顶，即esp指向的位置。然后，esp（也就是最新的链表头）保存到fs:[0］中也就是修改TIB结中的ExceptionList，相当于向链表中插入了一个新节点。该操作前后SEH链表的变化如下图。</p><p><img src="/img/1554693437750.png" alt="1554693437750"></p><p>理解了SEH的安装过，再看SEH的卸载就比较简单了，只要把刚才保存的fs:[O］的原始值填回并恢复栓的平衡即可，相当于从链表头部删掉了一个节点，示例如下。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov esp,dword ptr fs:[<span class="number">0</span>]</span><br><span class="line">pop dword ptr fs:[<span class="number">0</span>]</span><br></pre></td></tr></table></figure><p><img src="/img/1571159936722.png" alt="1571159936722"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Window-SEH异常-–-异常基础&quot;&gt;&lt;a href=&quot;#Window-SEH异常-–-异常基础&quot; class=&quot;headerlink&quot; title=&quot;Window SEH异常 – 异常基础&quot;&gt;&lt;/a&gt;Window SEH异常 – 异常基础&lt;/h1&gt;&lt;h2 i
+      
+    
+    </summary>
+    
+      <category term="Windows" scheme="https://www.basicbit.cn/categories/Windows/"/>
+    
+    
+      <category term="Windows" scheme="https://www.basicbit.cn/tags/Windows/"/>
+    
+      <category term="SEH" scheme="https://www.basicbit.cn/tags/SEH/"/>
     
   </entry>
   
