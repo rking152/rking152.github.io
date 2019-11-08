@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>网易游戏的四种解密&amp;解包，附工具</title>
+      <link href="/2019/03/01/2019-03-01-%E7%BD%91%E6%98%93%E6%B8%B8%E6%88%8F%E7%9A%84%E5%9B%9B%E7%A7%8D%E8%A7%A3%E5%AF%86&amp;%E8%A7%A3%E5%8C%85%EF%BC%8C%E9%99%84%E5%B7%A5%E5%85%B7/"/>
+      <url>/2019/03/01/2019-03-01-%E7%BD%91%E6%98%93%E6%B8%B8%E6%88%8F%E7%9A%84%E5%9B%9B%E7%A7%8D%E8%A7%A3%E5%AF%86&amp;%E8%A7%A3%E5%8C%85%EF%BC%8C%E9%99%84%E5%B7%A5%E5%85%B7/</url>
+      
+        <content type="html"><![CDATA[<p>游戏中大概有3中文件，分别是pyc，nxs，npk，还有一些配置文件就不说了</p><p>这里的pyc是修改过opcode的，pyc文件加密后就是nxs文件，nxs文件会被打包到npk文件中</p><p>我们从里向外说吧，先放出GitHub链接</p><p><a href="https://github.com/yuanbi/NeteaseUnpackTools" target="_blank" rel="noopener">https://github.com/yuanbi/NeteaseUnpackTools</a></p><h2 id="Pyc文件"><a href="#Pyc文件" class="headerlink" title="Pyc文件"></a>Pyc文件</h2><p>NeteasePycObject，这个文件夹中的文件是用来还原pyc opcode的，使用方式如下：</p><p>netpyc 输入文件 输出文件 [是否加密]</p><p>第三个参数是可选的，默认为0，代表解密，如果为1代表加密，就是将正常的opcode修改为游戏中python的opcode</p><p>这个工具的部分pyobject的偏移有问题，大部分文件不会出现问题，懂这方面的大佬可以自行修改下，后面修改过后也会在GitHub更新的</p><p>用netpyc修改opcode过后，可以使用uncomply6，进行反编译</p><p>还有一个问题就是部分pyc文件回有一个或两个字节码不是python中的字节码，极少数的文件会出现这种问题，这个时候在反编译的时候就会报error，如果报了error可以观察解析失败的opcode附近的代码，可以自行修改</p><p>如果被修改过的字节码不在opcode中，就要手动分析了，当然这种情况出现的很少</p><h2 id="Nxs文件"><a href="#Nxs文件" class="headerlink" title="Nxs文件"></a>Nxs文件</h2><p>接下来就是nxs文件了，nxs文件直接使用NeteaseNxsUnpack中的NeteaseNxsUnpack.py进行解密，使用方法如下</p><p>python2 NeteaseNxsUnpack.py 输入文件 输出文件 </p><p>之后使用netpyc解密opcode，然后反编译就行了</p><h2 id="Npk文件"><a href="#Npk文件" class="headerlink" title="Npk文件"></a>Npk文件</h2><p>直接使用NeteaseNpkUnpack中的NeteaseNpkUnpack.py，使用方法如下</p><p>python2 NeteaseNpkUnpack.py 输入文件 输出文件夹，解密后的文件无后缀，文件类型需要自己分析</p><h2 id="Script-Npk解包"><a href="#Script-Npk解包" class="headerlink" title="Script.Npk解包"></a>Script.Npk解包</h2><p>网易游戏基本上回有script.npk，解包方法如下</p><p>先解包npk，解包后文件夹中的所有文件都是nxs文件，在进行nxs文件解密的步骤就行了</p><p><img src="/img/1573207384695.png" alt="1573207384695"></p><h2 id="DecodeBuffer"><a href="#DecodeBuffer" class="headerlink" title="DecodeBuffer"></a>DecodeBuffer</h2><p>这些是三种文件，还有一种是这样的，这里说的是Windows的版本，在nxfilesystem.dll中会有一个decodebuffer函数，这个就是第四个，这个函数的上层是openwithloader</p><p>openwithloader作用是打开文件，文件校对，和部分初始化，在openwithloader中并不是所有的数据都要经过decodebuffer函数，部分数据需要解密，多数会是一些配置文件</p><p>在openwithloader中，捕获数据如下，在openwithloader的ret字节下断点，文件名，文件大小，会存储在[eax+4]的位置，如果我没记错的话</p><p>还有就是在Windows中并不是所有文件都存储在npk文件里，还有一部分存储在  C:\Users\用户名\AppData\Local\游戏名缩写 中，如果你在这里中找到了script文件夹，这个文件夹中会包含很多文件夹和一个文件</p><p>这些文件夹和文件的名字都是被加密过的，可以在nxfilesystem.dll中搜索导出的包含path的函数，具体名字忘记了，函数功能是这样的，传入正常路径，传出加密路径</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Crack set </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C++ </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>vmp3.3.1 虚拟机分析</title>
       <link href="/2019/01/01/2018-11-03-vmp3.3.1%20%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%86%E6%9E%90/"/>
       <url>/2019/01/01/2018-11-03-vmp3.3.1%20%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%86%E6%9E%90/</url>
@@ -40,14 +65,14 @@
       
       <categories>
           
-          <category> C++ </category>
+          <category> Python </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> C++ </tag>
+            <tag> Python </tag>
             
         </tags>
       
@@ -65,7 +90,7 @@
       
       <categories>
           
-          <category> C++ </category>
+          <category> Crack set </category>
           
       </categories>
       
