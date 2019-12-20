@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="微信 - 撤回分析 &amp; patch"><meta name="keywords" content><meta name="author" content="YuanBi"><meta name="copyright" content="YuanBi"><title>微信 - 撤回分析 &amp; patch | BasicBit</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: 'ca-pub-1206611804757181',
+  enable_page_level_ads: 'true'
+});
+</script><link rel="dns-prefetch" href="https://hm.baidu.com"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?f3b4e3630876c26c7686b45bda5aecab";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script><link rel="dns-prefetch" href="https://www.google-analytics.com"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-137851799-1', 'auto');
+ga('send', 'pageview');</script><link rel="dns-prefetch" href="http://ta.qq.com"><script>(function() {
+   var hm = document.createElement("script");
+   hm.src = "https://tajs.qq.com/stats?sId=66384681";
+   var s = document.getElementsByTagName("script")[0];
+   s.parentNode.insertBefore(hm, s);
+ })();</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://basicbit.cn/img/self.jpg"></div><div class="author-info__name text-center">YuanBi</div><div class="author-info__description text-center">不定期更新操作系统，编程，逆向，破解，算法等技术</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">44</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">8</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">4</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/img/windows_keyboard.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">BasicBit</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/Develop">Develop</a><a class="site-page" href="/Note">Note</a><a class="site-page" href="/Reverse">Reverse</a><a class="site-page" href="/OS">OS</a></span></div><div id="post-info"><div id="post-title">微信 - 撤回分析 &amp; patch</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-11-16</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>1</p>
+<p>emmm   进入正题吧</p>
+<p>在微信撤回的时候，会提示xxxx撤回了一条消息，类似下图这样，就以它为入手点吧</p>
+<p><img src="/img/1571916194546.png" alt="1571916194546"></p>
+<p>打开CE搜索这个字符串，</p>
+<p><img src="/img/1571916287471.png" alt="1571916287471"></p>
+<p>9个结果，筛选后找到了一个可用的</p>
+<p>然后栈回溯分析了几个可疑断点</p>
+<p>后来，，，，，，无果</p>
+<p>但是在分析的过程中，发现了一个字符串revoke，在wechatwin.dll中</p>
+<p>对这个模块进行字符串扫描吧：</p>
+<p><img src="/img/1571916502370.png" alt="1571916502370"></p>
+<p><img src="/img/1571916764067.png" alt="1571916764067"></p>
+<p>和我们猜测的一样，只在撤回的时候断下</p>
+<p>此地址附近的代码：</p>
+<p><img src="/img/1571917012715.png" alt="1571917012715"></p>
+<p>猜测：撤回消息和接收消息应该在前几个函数调用是相同的，会在其中一个函数中堆栈开始变化，因为执行的函数不同，这样撤回断下的堆栈和消息接受的堆栈一对比，就可以找到关键点了（不知怎么解决接收消息请看《微信 - 消息结构分析与调用》）</p>
+<p>实践？不浪费时间了，失败了</p>
+<p>怎么办？去刚刚找到的字符串使用的位置下断点，进行栈回溯，老老实实的一步一步分析。</p>
+<p>经分析，上图中标注为撤回点所在的函数，在撤回消息和接收消息中都调用了，这就很明朗了，问题就在这，简单的浏览一下代码，发现在字符串使用的位置上方有一个跳转</p>
+<p><img src="/img/1571917246718.png" alt="1571917246718"></p>
+<p>跳转的位置刚刚好跳出了撤回消息调用的函数，这个跳转的判断源于一个函数的返回值，先不去看，直接patch掉，把jz修改为jmp</p>
+<p>打开微信测试下，已经没什么问题了，撤回消息的微信正常显示，而电脑端并未显示撤回消息也没有消失</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">YuanBi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.basicbit.cn/2018/11/16/2018-11-16-微信消息撤回分析/">https://www.basicbit.cn/2018/11/16/2018-11-16-微信消息撤回分析/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.basicbit.cn">BasicBit</a>！</span></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2018/11/16/2018-11-16-微信接口分析/"><i class="fa fa-chevron-left">  </i><span>微信 消息结构分析</span></a></div><div class="next-post pull-right"><a href="/2018/11/16/2018-11-16-Themida &amp; WinLicense 2.0 - 2.4.6 脱壳/"><span>Themida &amp; WinLicense 2.0 - 2.4.6 脱壳</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(/img/windows_keyboard.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2019 By YuanBi</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
