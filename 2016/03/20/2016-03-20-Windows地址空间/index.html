@@ -39,7 +39,7 @@ ga('send', 'pageview');</script><link rel="dns-prefetch" href="http://ta.qq.com"
 </li>
 </ul>
 <p>此图说明了虚拟地址空间的一些关键功能。</p>
-<p><img src="/img/virtualaddressspace01.png" alt="virtualaddressspace01"></p>
+<p><img src="http://imgset.gitee.io/img/virtualaddressspace01.png" alt="virtualaddressspace01"></p>
 <p>该图显示了两个64位进程的虚拟地址空间：Notepad.exe和MyApp.exe。</p>
 <p>每个进程都有自己的虚拟地址空间，从0x000’0000000到0x7FF’FFFFFFFF。每个阴影块表示一页（4千字节大小）的虚拟或物理内存。</p>
 <p>注意，记事本进程使用三个连续的虚拟地址页面，从0x7F7’93950000开始。但是这三个连续的虚拟地址页面被映射到物理内存中的不连续页面。另请注意，两个进程都使用从0x7F7’93950000开始的虚拟内存页面，但这些虚拟页面映射到物理内存的不同页面。 </p>
@@ -48,7 +48,7 @@ ga('send', 'pageview');</script><link rel="dns-prefetch" href="http://ta.qq.com"
 <p>![virtualaddressspace02]img\virtualaddressspace02.png)</p>
 <p>在32位Windows中，您可以选择（在启动时）指定超过2千兆字节可用于用户空间。结果是可用于系统空间的虚拟地址更少。您可以将用户空间的大小增加到3千兆字节，在这种情况下，系统空间只有1千兆字节可用。 </p>
 <p>在64位Windows中，理论上的虚拟地址空间量为2 ^ 64bytes（16exabytes ），但实际上只使用了16-exabyte范围的一小部分。从0x000’00000000到0x7FF’FFFFFFFF的8TB范围用于用户空间，并且从0xFFFF0800’00000000到0xFFFFFFFF’FFFFFFFF的248TB范围的部分用于系统空间。</p>
-<p><img src="/img/virtualaddressspace02.png" alt="virtualaddressspace02"></p>
+<p><img src="http://imgset.gitee.io/img/virtualaddressspace02.png" alt="virtualaddressspace02"></p>
 <p>在用户模式下运行的代码可以访问用户空间，但无权访问系统空间。此限制可防止用户模式代码读取或更改受保护的操作系统数据结构。在内核模式下运行的代码可以访问用户空间和系统空间。也就是说，以内核模式运行的代码可以访问系统空间和当前用户模式进程的虚拟地址空间。</p>
 <p>在内核模式下运行的驱动程序必须非常小心，直接读取或写入用户空间中的地址。这个场景说明了原因。</p>
 <ol>
@@ -59,8 +59,8 @@ ga('send', 'pageview');</script><link rel="dns-prefetch" href="http://ta.qq.com"
 </ol>
 <h2 id="分页池和非分页池"><a href="#分页池和非分页池" class="headerlink" title="分页池和非分页池"></a>分页池和非分页池</h2><p>在用户空间中，可以根据需要将所有物理内存页面分页到磁盘文件。在系统空间中，某些物理页面可以被分页，而其他物理页面则不能。系统空间有两个用于动态分配内存的区域：分页池和非分页池。</p>
 <p>可以根据需要将页面缓冲池中分配的内存分页到磁盘文件中。在非分页池中分配的内存永远不能分页到磁盘文件。</p>
-<p><img src="/img/virtualaddressspace04.png" alt="virtualaddressspace04"> </p>
-<p><img src="/img/1571159991778.png" alt="1571159991778"></p>
+<p><img src="http://imgset.gitee.io/img/virtualaddressspace04.png" alt="virtualaddressspace04"> </p>
+<p><img src="http://imgset.gitee.io/img/1571159991778.png" alt="1571159991778"></p>
 </div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">YuanBi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.basicbit.cn/2016/03/20/2016-03-20-Windows地址空间/">https://www.basicbit.cn/2016/03/20/2016-03-20-Windows地址空间/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.basicbit.cn">BasicBit</a>！</span></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2017/01/13/2017-10-14-Windbg双机调试/"><i class="fa fa-chevron-left">  </i><span>WinDbg &amp; VMware 双机调试 查看内核数据结构</span></a></div><div class="next-post pull-right"><a href="/2016/03/13/2016-03-13-Windows开机过程/"><span>Window开机过程</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(img/2234.Figure1.png)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2019 By YuanBi</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')

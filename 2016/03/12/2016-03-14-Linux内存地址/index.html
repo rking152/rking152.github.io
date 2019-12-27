@@ -33,10 +33,10 @@ ga('send', 'pageview');</script><link rel="dns-prefetch" href="http://ta.qq.com"
 <h3 id="线性地址"><a href="#线性地址" class="headerlink" title="线性地址"></a>线性地址</h3><p>也可以叫做虚拟地址，是一个32位整数，最高可以表示到4294967296个内存单元。通常用16进制表示，值的范围0x00000000到0xFFFFFFFF</p>
 <h3 id="物理地址"><a href="#物理地址" class="headerlink" title="物理地址"></a>物理地址</h3><p>用于内存芯片级内存单元寻址。他们从微处理器的地址引脚发送到内存总线上的电信号对应。物理地址由32位或36位unsigned int 表示</p>
 <p>内存管理单元（MMU）通过一种称为分段单元的硬件电路，把一个逻辑地址转换为线性地址，接着，第二个称之为分页单元的硬件电路把线性地址转换为物理地址。</p>
-<p><img src="/../../img/1536740000646.png" alt="1536740000646"></p>
+<p><img src="http://imgset.gitee.io/img/1536740000646.png" alt="1536740000646"></p>
 <p>在多处理器系统中，所有 CPU都共享同一内存，这意味着 RAM芯片可以由独立的 CPU并发地访问。因为在RAM芯片上的读或写操作必须串行地执行，因此一种所谓内存仲裁器的硬件电路插在总线和每个 RAM芯片之间，其作用是如果某个 RAM芯片空闲，就准予一个 CPU访问，如果该芯片忙于为另一个处理器提出的请求服务，就延迟这个 CPU的访问 。即使在单处理器上h也使用内存仲裁器，因为单处理器系统中包含一个叫做 DMA控制器的特殊处理器，在多处理器系统的情况下，因为仲裁器有多个输入端口，所以其结构更加复杂，例如，双Pentium在每个芯片的入口维持一个两端口仲裁器，并在试图使用公用总线前请求两个CPU交换同步信息.从编程观点看，因为仲栽器由硬件电路管理，因此它是隐藏的。</p>
 <h1 id="系统分段"><a href="#系统分段" class="headerlink" title="系统分段"></a>系统分段</h1><p>一个逻辑地址由两部分组成：一个段标识符和一个指定段内先对地址的偏移量。段标识符是一个16位长的字段，称为段描述符。而偏移量是一个32位长的字段。</p>
-<p><img src="/../../img/1536740109090.png" alt="1536740109090"></p>
+<p><img src="http://imgset.gitee.io/img/1536740109090.png" alt="1536740109090"></p>
 <p>处理器提供6个段寄存器，保存了段选择符，分别是：cs ss ds es fs gs，6个段寄存器。</p>
 <p>cs 代码段寄存器</p>
 <p>ss 栈段寄存器</p>
@@ -44,7 +44,7 @@ ga('send', 'pageview');</script><link rel="dns-prefetch" href="http://ta.qq.com"
 <p>cs 寄存器中，含有一个两位字段，用以指明CPU的当前CPL（Current Privilege Level），0代表R0级别，1代表R3级别。分别称为，内核态和用户态。</p>
 <h3 id="段描述符"><a href="#段描述符" class="headerlink" title="段描述符"></a>段描述符</h3><p>每个段由一个8字节的段描述符表示，他描述了段的属性，段描述符放在GDT（Global Descriptor Table）或LDT（Local Description Table）中。</p>
 <p>一般来说只定义一个GDT，而每个进程除了存放在GDT中的段之外如果还有附加的段，就可以有自己的LDT。GDT在主存中的地址和大小存放在gdtr控制寄存器中，当前正在被使用的LDT地址和大小放在ldtr寄存器中。</p>
-<h5 id="段描述符格式"><a href="#段描述符格式" class="headerlink" title="段描述符格式"></a>段描述符格式</h5><p><img src="/../../img/1536740043063.png" alt="1536740043063"></p>
+<h5 id="段描述符格式"><a href="#段描述符格式" class="headerlink" title="段描述符格式"></a>段描述符格式</h5><p><img src="http://imgset.gitee.io/img/1536740043063.png" alt="1536740043063"></p>
 <p><strong>段描述符字段</strong>：</p>
 <table>
 <thead>
@@ -101,7 +101,7 @@ ga('send', 'pageview');</script><link rel="dns-prefetch" href="http://ta.qq.com"
 <p>​         表示这个段描述符代表一个任务状态段（Task State Segment）TSS，也就是说这个段用于保存处理器寄存器的内容它只能出现在GDT中。根据相应的进程是否正在CPU上运行，Type字段的值分别为11或9.这个描述符的S标志置0。</p>
 <p><strong>局部描述符表描述符（LDTD）</strong></p>
 <p>​         表示这个段描述符代表一个包含LDT的段，它只出现在GDT中。相应的Type字段的值 为2，S标志置为0。</p>
-<p><img src="/../../img/1571159997314.png" alt="1571159997314"></p>
+<p><img src="http://imgset.gitee.io/img/1571159997314.png" alt="1571159997314"></p>
 </div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">YuanBi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.basicbit.cn/2016/03/12/2016-03-14-Linux内存地址/">https://www.basicbit.cn/2016/03/12/2016-03-14-Linux内存地址/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.basicbit.cn">BasicBit</a>！</span></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2016/03/13/2016-03-13-Windows开机过程/"><i class="fa fa-chevron-left">  </i><span>Window开机过程</span></a></div><div class="next-post pull-right"><a href="/2016/03/12/2016-03-12-Linux符号文件/"><span>Linux内核（文件）</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(img/current_linux_desktop_.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2019 By YuanBi</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
